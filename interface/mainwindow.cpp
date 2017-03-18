@@ -39,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadQML()
 {
-    ui->qmlRace->setSource(QUrl("../dashRewrite_v1/Race_view.qml"));
+    ui->qmlRace->setSource(QUrl("./Race_view.qml"));
 }
 
 void MainWindow::connectDebugSlots()
