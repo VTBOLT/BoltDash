@@ -28,7 +28,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    InterfaceCan * can;
+    RosProcess * ros_process;
 
     void loadQML();
 
