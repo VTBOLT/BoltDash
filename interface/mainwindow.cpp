@@ -3,7 +3,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-QTextStream qCout(stdout);
+//QTextStream qCout(stdout);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QStringList args;
     args << "";
     ros_process = new RosProcess(path,args);
-    ros_process->start();
+    //ros_process->start();
     // connect can signals to debug view
     connectDebugSlots();
     // connect 'clicked' signals to button actions
@@ -39,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadQML()
 {
-    ui->qmlRace->setSource(QUrl("./Race_view.qml"));
+    ui->qmlRace->setSource(QUrl("../interface/Race_view.qml"));
 }
 
 void MainWindow::connectDebugSlots()

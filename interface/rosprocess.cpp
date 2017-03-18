@@ -1,5 +1,8 @@
 #include "rosprocess.h"
 
+//#include <QTextStream>
+//QTextStream qCout (stdout);
+
 /*
  * GOAL:::
  *  Instantiate the QProcess pointing at the ROS executable
@@ -54,6 +57,8 @@ RosProcess::RosProcess(QString path, QStringList args)
 
     // look for info passed on stderr
     connect(m_processObj,SIGNAL(readyReadStandardError()),this,SLOT(readError()));
+
+    m_processObj->start();
 }
 
 void RosProcess::readData()
@@ -79,6 +84,7 @@ void RosProcess::parseData(QByteArray data)
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
 
+    //Cout << "DATA: " << s_data << endl;
 
     switch (ID)
     {
@@ -125,10 +131,10 @@ void RosProcess::parseError()
     // TODO
 }
 
-void RosProcess::run()
+/*void RosProcess::run()
 {
     // thread's main loop
     // put the code in an  infinite while loop
     // then just let it spin
     m_processObj->start();
-}
+}*/
