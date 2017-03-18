@@ -18,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // load QML for race view from source
     loadQML();
     // instantiate the can thread
-    QString path = "";
+    QString path = "rosrun";
     QStringList args;
-    args << "";
+    args << "backend" << "listener2";
     ros_process = new RosProcess(path,args);
     //ros_process->start();
     // connect can signals to debug view
