@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect signals from can to race view
     connectRaceSlots();
     // spin off the can thread
+
+    // connect strtup slots
+    connectStartupSlots();
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +71,16 @@ void MainWindow::connectRaceSlots()
     connect(ros_process, SIGNAL(updateDCVolt_QVar(QVariant)), this, SLOT(setBatteryPercent(QVariant)));
 }
 
+void MainWindow::connectStartupSlots()
+{
+    connect(ui->step1, SIGNAL(clicked(bool)), this, SLOT(showStartupOne()));
+    connect(ui->step2, SIGNAL(clicked(bool)), this, SLOT(showStartupTwo()));
+    connect(ui->step3, SIGNAL(clicked(bool)), this, SLOT(showStartupThree()));
+    connect(ui->step0, SIGNAL(clicked(bool)), this, SLOT(showStartupZero()));
+    connect(ui->startupToRace, SIGNAL(clicked(bool)), this, SLOT(toRaceView()));
+    connect(ui->startupToDebug, SIGNAL(clicked(bool)), this, SLOT(toDebugView()));
+}
+
 void MainWindow::setRPM(QVariant rpm)
 {
     QObject * rootObject = ui->qmlRace->rootObject();
@@ -93,9 +106,38 @@ void MainWindow::connectNavSlots()
 void MainWindow::toDebugView()
 {
     ui->views->setCurrentIndex(DEBUG);
+    setStyleSheet("background-color:black");
 }
 
 void MainWindow::toRaceView()
 {
     ui->views->setCurrentIndex(RACE);
+    setStyleSheet("background-color:black");
+}
+
+void MainWindow::toStartupScreen()
+{
+    ui->views->setCurrentIndex(STARTUP);
+}
+
+void MainWindow::showStartupZero()
+{
+
+    ui->startupFrame->setStyleSheet("QWidget {border-image:url(:/images/startup_0.png)0 0 0 stretch stretch; background-repeat: none;}" );
+}
+
+void MainWindow::showStartupOne()
+{
+    ui->startupFrame->setStyleSheet("QWidget{ border-image:url(:/images/startup_1.png) 0 0 0 0 stretch stretch; background-repeat: none;}");
+}
+
+void MainWindow::showStartupTwo()
+{
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_2.png)0 0 0 0 stretch stretch; background-repeat: none");
+}
+
+void MainWindow::showStartupThree()
+{
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
+
 }
