@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/battery_sized_to_fit_screen.png</file>
+        <file>images/dash_background_with_meter.png</file>
+        <file>images/needle_w_green_dot.png</file>
+        <file>images/needle_w_red_dot.png</file>
+        <file>images/needle_w_yellow_dot.png</file>
+        <file>Race_view.qml</file>
+    </qresource>
+</RCC>

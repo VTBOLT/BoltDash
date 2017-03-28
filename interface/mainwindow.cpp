@@ -39,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadQML()
 {
-    ui->qmlRace->setSource(QUrl("../interface/Race_view.qml"));
+    ui->qmlRace->setSource(QUrl("qrc:///Race_view.qml"));
 }
 
 void MainWindow::connectDebugSlots()
