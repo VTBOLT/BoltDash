@@ -4,10 +4,12 @@
 #define MAINWINDOW_H
 
 // 'page' numbers
-#define RACE    0
-#define DEBUG   1
+#define STARTUP 0
+#define RACE    1
+#define DEBUG   2
 
 #include <QMainWindow>
+#include <QWidget>
 #include <QUrl>
 #include <QQuickItem>
 #include <QTextStream>
@@ -35,12 +37,18 @@ private:
     void connectDebugSlots();
     void connectRaceSlots();
     void connectNavSlots();
+    void connectStartupSlots();
 
 private slots:
     void setRPM(QVariant rpm);
     void toDebugView();
     void toRaceView();
+    void toStartupScreen();
     void setBatteryPercent(QVariant value);
+    void showStartupZero();
+    void showStartupOne();
+    void showStartupTwo();
+    void showStartupThree();
 };
 
 #endif // MAINWINDOW_H
