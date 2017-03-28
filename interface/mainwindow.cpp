@@ -17,20 +17,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     // load QML for race view from source
     loadQML();
+
     // instantiate the can thread
     QString path = "rosrun";
     QStringList args;
     args << "backend" << "listener2";
     ros_process = new RosProcess(path,args);
-    //ros_process->start();
+    ros_process->start();
+
     // connect can signals to debug view
     connectDebugSlots();
     // connect 'clicked' signals to button actions
     connectNavSlots();
     // connect signals from can to race view
     connectRaceSlots();
-    // spin off the can thread
-
     // connect strtup slots
     connectStartupSlots();
 }

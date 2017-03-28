@@ -58,7 +58,37 @@ RosProcess::RosProcess(QString path, QStringList args)
     // look for info passed on stderr
     connect(m_processObj,SIGNAL(readyReadStandardError()),this,SLOT(readError()));
 
-    m_processObj->start();
+    //m_processObj->start();
+}
+
+void RosProcess::run()
+{
+    // THIS IS FOR TESTING ONLY !!!!!!!!!!!!
+    float i = 0;
+        float incr = -0.5;
+
+        int dumb_counter = 0;
+        double dcVolt = 515;
+
+        while (1)
+        {
+            emit updateRPM(i);
+            emit updateRPM_QVar(QVariant(i));
+            if ( i > 7999 || i <= 0)
+                incr = -1 * incr;
+            i = i + incr;
+
+            dumb_counter++;
+            if (dumb_counter % 100 ==0 )
+            {
+                dumb_counter = 0;
+                emit(updateDCvolt(dcVolt));
+                emit(updateDCVolt_QVar(QVariant(dcVolt)));
+                dcVolt = dcVolt -2;
+            }
+
+            sleep(.2);
+        }
 }
 
 void RosProcess::readData()
