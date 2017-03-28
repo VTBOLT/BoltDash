@@ -5,4 +5,11 @@
         <file>startup_2.png</file>
         <file>startup_3.png</file>
     </qresource>
+    <qresource prefix="/gauge_images">
+        <file>battery_sized_to_fit_screen.png</file>
+        <file>dash_background_with_meter.png</file>
+        <file>needle_w_green_dot.png</file>
+        <file>needle_w_red_dot.png</file>
+        <file>needle_w_yellow_dot.png</file>
+    </qresource>
 </RCC>
