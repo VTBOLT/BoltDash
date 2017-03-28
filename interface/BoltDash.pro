@@ -34,3 +34,6 @@ FORMS    += mainwindow.ui
 
 DISTFILES += \
     Race_view.qml
+
+RESOURCES += \
+    ../images/images.qrc

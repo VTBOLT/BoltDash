@@ -9,6 +9,7 @@
 #define DEBUG   2
 
 #include <QMainWindow>
+#include <QWidget>
 #include <QUrl>
 #include <QQuickItem>
 #include <QTextStream>
@@ -42,6 +43,7 @@ private slots:
     void setRPM(QVariant rpm);
     void toDebugView();
     void toRaceView();
+    void toStartupScreen();
     void setBatteryPercent(QVariant value);
     void showStartupZero();
     void showStartupOne();
