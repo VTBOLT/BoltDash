@@ -43,7 +43,8 @@ Item {
         fillMode: Image.PreserveAspectFit
         antialiasing: true
         z: 1
-        source: "qrc:///gauge_images/needle_w_green_dot.png"
+        //source: "qrc:///gauge_images/needle_w_green_dot.png"
+        source: "qrc:///gauge_images/Dash_Needle.svg"
 
         transform: Rotation{
             id: myRot
