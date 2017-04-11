@@ -49,6 +49,7 @@ private slots:
     void showStartupOne();
     void showStartupTwo();
     void showStartupThree();
+    void on_exitButton_clicked();
 };
 
 #endif // MAINWINDOW_H
