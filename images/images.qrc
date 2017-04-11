@@ -11,5 +11,6 @@
         <file>needle_w_green_dot.png</file>
         <file>needle_w_red_dot.png</file>
         <file>needle_w_yellow_dot.png</file>
+        <file>Dash_Needle.svg</file>
     </qresource>
 </RCC>

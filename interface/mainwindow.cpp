@@ -17,20 +17,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     // load QML for race view from source
     loadQML();
+
     // instantiate the can thread
     QString path = "rosrun";
     QStringList args;
     args << "backend" << "listener2";
     ros_process = new RosProcess(path,args);
     //ros_process->start();
+
     // connect can signals to debug view
     connectDebugSlots();
     // connect 'clicked' signals to button actions
     connectNavSlots();
     // connect signals from can to race view
     connectRaceSlots();
-    // spin off the can thread
-
     // connect strtup slots
     connectStartupSlots();
 }
@@ -140,4 +140,9 @@ void MainWindow::showStartupThree()
 {
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
 
+}
+
+void MainWindow::on_exitButton_clicked()
+{
+    exit(0);
 }

@@ -10,7 +10,7 @@ class RosProcess : public QThread
     Q_OBJECT
 public:
     RosProcess(QString path, QStringList args);
-    //void run();
+    void run();
 
 private:
     void parseData(QByteArray data); // TODO
