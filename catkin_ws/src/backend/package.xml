@@ -2,7 +2,7 @@
 <package>
   <name>backend</name>
   <version>0.0.0</version>
-  <description>The backend package</description>
+  <description>ROS backend for gathering CAN data and passing to qt</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

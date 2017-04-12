@@ -1,9 +1,10 @@
 #include "ros/ros.h"
+
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
+
 #include "canrecieve.cpp"
-//#include "caninterface.cpp"
-//#include "can_msg.h"
+//ROS topic message declerations 
 #include "motor_msg.h"
 #include "batterytemp_msg.h"
 #include "temp_msg.h"
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
   
   struct canfd_frame message;
   char* argv2[2];
+  
   argv2[0] = " ";
   argv2[1] = "can0";
   int count = 0;

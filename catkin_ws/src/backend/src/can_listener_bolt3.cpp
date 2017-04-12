@@ -1,8 +1,10 @@
 #include "ros/ros.h"
+
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
+
 #include "motor_msg.h"
 #include "batterytemp_msg.h"
 #include "temp_msg.h"
@@ -43,7 +45,7 @@ void chatterCallback_batterytemp(const backend::batterytemp_msg::ConstPtr& msg)
 void chatterCallback_temp(const backend::temp_msg::ConstPtr& msg)
 {
   //ROS_INFO("temp [can_id]: [%i], HS_temp: %i motor_temp: %i voltage_angle: %i", msg->can_id, msg->HS_temp, msg->motor_temp, msg->voltage_angle);
-  std::cout <<  HS_TEMP << ";" << msg->HS_temp << std::endl;
+  std::cout << HS_TEMP << ";" << msg->HS_temp << std::endl;
   std::cout << MOTOR_TEMP << ";" << msg->motor_temp  << std::endl;
   std::cout << VOLT_ANGLE << ";" << msg->voltage_angle << std::endl;
 }
