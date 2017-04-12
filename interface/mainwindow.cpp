@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QStringList args;
     args << "backend" << "listener2";
     ros_process = new RosProcess(path,args);
-    ros_process->start();
+    //ros_process->start();
 
     // connect can signals to debug view
     connectDebugSlots();
@@ -140,4 +140,9 @@ void MainWindow::showStartupThree()
 {
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
 
+}
+
+void MainWindow::on_exitButton_clicked()
+{
+    exit(0);
 }
