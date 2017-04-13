@@ -17,7 +17,7 @@
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "can_talker_bolt2");
 
   ros::NodeHandle n;
 
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
 	  }
 	}  
       
-      if(count > 80)
+      if(count > 500)
 	exit(0);
       else
 	count++;

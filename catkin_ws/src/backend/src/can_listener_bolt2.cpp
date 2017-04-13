@@ -75,8 +75,7 @@ void chatterCallback_drive7(const backend::drive7_msg::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-  //std::cout << "listener2 called" << std::endl;
-  ros::init(argc, argv, "listener2");
+    ros::init(argc, argv, "can_listner_bolt2");
 
   ros::NodeHandle n;
 
