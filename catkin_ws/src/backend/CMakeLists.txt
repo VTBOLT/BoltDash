@@ -28,6 +28,7 @@ add_message_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
+  backend
   )
 
 ## Declare a catkin package
@@ -50,21 +51,28 @@ add_dependencies(can_talker_bolt2
   can/canrecieve.cpp
   can/interfacecan.cpp
   )
+add_dependencies(can_talker_bolt2 backend_generate_messages_cpp)
 
 add_executable(can_listener_bolt2 src/can_listener_bolt2.cpp)
 target_link_libraries(can_listener_bolt2 ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt2 backend_generate_messages_cpp)
+
 
 add_executable(can_listener_bolt2_debug src/can_listener_bolt2_debug.cpp)
 target_link_libraries(can_listener_bolt2_debug ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt2_debug backend_generate_messages_cpp)
 
 add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp)
 target_link_libraries(can_listener_bolt3 ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt3 backend_generate_messages_cpp)
 
 add_executable(can_listener_bolt3_debug src/can_listener_bolt3_debug.cpp)
 target_link_libraries(can_listener_bolt3_debug ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt3_debug backend_generate_messages_cpp)
 
 
 ##need to delete once dependencies in qt are removed
 add_executable(listener2 src/listener2.cpp)
 target_link_libraries(listener2 ${catkin_LIBRARIES})
+add_dependencies(listener2 backend_generate_messages_cpp)
 
