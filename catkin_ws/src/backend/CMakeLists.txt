@@ -41,14 +41,6 @@ catkin_package()
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ ~/dash/catkin_ws/devel/include/backend/)
 
-
-#add_executable(talker src/talker.cpp)
-#target_link_libraries(talker ${catkin_LIBRARIES})
-#add_dependencies(talker
-#  can/canrecieve.cpp
-#  can/interfacecan.cpp
-#  )
-
 add_executable(can_talker_bolt2 src/can_talker_bolt2.cpp)
 target_link_libraries(can_talker_bolt2 ${catkin_LIBRARIES})
 add_dependencies(can_talker_bolt2
@@ -66,17 +58,6 @@ add_executable(can_listener_bolt2_debug src/can_listener_bolt2_debug.cpp)
 target_link_libraries(can_listener_bolt2_debug ${catkin_LIBRARIES})
 add_dependencies(can_listener_bolt2_debug backend_generate_messages_cpp)
 
-#add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp)
-#target_link_libraries(can_listener_bolt3 ${catkin_LIBRARIES})
-#add_dependencies(can_listener_bolt3 backend_generate_messages_cpp)
-
-#add_executable(can_listener_bolt3_debug src/can_listener_bolt3_debug.cpp)
-#target_link_libraries(can_listener_bolt3_debug ${catkin_LIBRARIES})
-#add_dependencies(can_listener_bolt3_debug backend_generate_messages_cpp)
 
 
-##need to delete once dependencies in qt are removed
-add_executable(listener2 src/listener2.cpp)
-target_link_libraries(listener2 ${catkin_LIBRARIES})
-add_dependencies(listener2 backend_generate_messages_cpp)
 
