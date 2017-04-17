@@ -1,7 +1,7 @@
 #include "rosprocess.h"
 
-#include <QTextStream>
-QTextStream qCout (stdout);
+//#include <QTextStream>
+//QTextStream qCout (stdout);
 
 /*
  * GOAL:::
@@ -88,14 +88,9 @@ void RosProcess::parseData(QByteArray data)
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
 
-    if (!ok)    qCout << "FAILURE!!!\t\t" << allData << endl;
-
-    qCout << "ID: " << ID << "\tDATA: " << can_data << "\t" << s_data << endl;
-
     switch (ID)
     {
     case (RPM):
-        qCout << "WE GOT RPM" << endl;
         emit updateRPM(can_data);
         emit updateRPM_QVar( QVariant(can_data) );
         break;
