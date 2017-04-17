@@ -145,3 +145,9 @@ void MainWindow::on_exitButton_clicked()
 {
     exit(0);
 }
+
+void MainWindow::activateRedAlertScreen()
+{
+    //QObject * rootObject = ui->qmlRace->rootObject();
+    //rootObject->setProperty()
+}

@@ -87,4 +87,15 @@ Item {
             height: 75
             antialiasing: true
         }
+
+        Rectangle {
+            id: red_warning
+            color: "#FF0000"
+            x: 0
+            y: 0
+            z: 4
+            width: 1064
+            height: 600
+            visible: false
+        }
 }

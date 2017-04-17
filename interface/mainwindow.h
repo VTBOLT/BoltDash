@@ -50,6 +50,7 @@ private slots:
     void showStartupTwo();
     void showStartupThree();
     void on_exitButton_clicked();
+    void activateRedAlertScreen();
 };
 
 #endif // MAINWINDOW_H
