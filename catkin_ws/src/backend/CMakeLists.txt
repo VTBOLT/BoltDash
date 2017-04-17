@@ -15,10 +15,14 @@ add_message_files(
   DIRECTORY
   msg
   FILES
-  can_msg.msg
-  motor_msg.msg
+  rpm_msg.msg
+  RMS_current_msg.msg
+  DC_voltage_msg.msg
+  drive6stat_msg.msg
   batterytemp_msg.msg
-  temp_msg.msg
+  HS_temp_msg.msg
+  motor_temp_msg.msg
+  voltage_angle_msg.msg
   current_msg.msg
   emcy6_msg.msg
   emcy7_msg.msg
@@ -62,13 +66,13 @@ add_executable(can_listener_bolt2_debug src/can_listener_bolt2_debug.cpp)
 target_link_libraries(can_listener_bolt2_debug ${catkin_LIBRARIES})
 add_dependencies(can_listener_bolt2_debug backend_generate_messages_cpp)
 
-add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp)
-target_link_libraries(can_listener_bolt3 ${catkin_LIBRARIES})
-add_dependencies(can_listener_bolt3 backend_generate_messages_cpp)
+#add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp)
+#target_link_libraries(can_listener_bolt3 ${catkin_LIBRARIES})
+#add_dependencies(can_listener_bolt3 backend_generate_messages_cpp)
 
-add_executable(can_listener_bolt3_debug src/can_listener_bolt3_debug.cpp)
-target_link_libraries(can_listener_bolt3_debug ${catkin_LIBRARIES})
-add_dependencies(can_listener_bolt3_debug backend_generate_messages_cpp)
+#add_executable(can_listener_bolt3_debug src/can_listener_bolt3_debug.cpp)
+#target_link_libraries(can_listener_bolt3_debug ${catkin_LIBRARIES})
+#add_dependencies(can_listener_bolt3_debug backend_generate_messages_cpp)
 
 
 ##need to delete once dependencies in qt are removed

@@ -3,9 +3,15 @@
 #include "std_msgs/Int16.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
-#include "motor_msg.h"
+
+#include "rpm_msg.h"
+#include "RMS_current_msg.h"
+#include "DC_voltage_msg.h"
+
 #include "batterytemp_msg.h"
-#include "temp_msg.h"
+#include "HS_temp_msg.h"
+#include "motor_temp_msg.h"
+#include "voltage_angle_msg.h"
 #include "current_msg.h"
 #include "emcy6_msg.h"
 #include "emcy7_msg.h"
@@ -26,26 +32,34 @@
 #define D6_STAT     10
 #define D7_STAT     11
 
-void chatterCallback_motor(const backend::motor_msg::ConstPtr& msg)
-{
-  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
-  std::cout << RPM << ";" << msg->rpm << std::endl;
-  std::cout << RMS_CURRENT << ";" << msg->RMS_current << std::endl;
-  std::cout << DC_VOLTS << ";" << msg->DC_voltage << std::endl;
+void chatterCallback_rpm(const backend::rpm_msg::ConstPtr& msg){
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i ", msg->can_id, msg->rpm);
+  std::cout << RPM << ";" << msg->data << std::endl;
 }
-
+void chatterCallback_RMS_current(const backend::RMS_current_msg::ConstPtr& msg){
+  //ROS_INFO("motor [can_id]: [%i] RMS_current: %i", msg->can_id, msg->RMS_current);
+  std::cout << RMS_CURRENT << ";" << msg->data << std::endl;
+}
+void chatterCallback_DC_voltage(const backend::DC_voltage_msg::ConstPtr& msg){
+  //ROS_INFO("motor [can_id]: [%i] DC_voltage: %i", msg->can_id, msg->DC_voltage);
+  std::cout << DC_VOLTS << ";" << msg->data << std::endl;
+}
 void chatterCallback_batterytemp(const backend::batterytemp_msg::ConstPtr& msg)
 {
   //ROS_INFO("batterytemp [can_id]: [%i] batterytemp: %i", msg->can_id, msg->data);
   std::cout << BATT_TEMP << ";" << msg->data << std::endl;
 }
-
-void chatterCallback_temp(const backend::temp_msg::ConstPtr& msg)
-{
-  //ROS_INFO("temp [can_id]: [%i], HS_temp: %i motor_temp: %i voltage_angle: %i", msg->can_id, msg->HS_temp, msg->motor_temp, msg->voltage_angle);
-  std::cout <<  HS_TEMP << ";" << msg->HS_temp << std::endl;
-  std::cout << MOTOR_TEMP << ";" << msg->motor_temp  << std::endl;
-  std::cout << VOLT_ANGLE << ";" << msg->voltage_angle << std::endl;
+void chatterCallback_HS_temp(const backend::HS_temp_msg::ConstPtr& msg){
+   //ROS_INFO("temp [can_id]: [%i], HS_temp: %i ", msg->can_id, msg->HS_temp);
+  std::cout <<  HS_TEMP << ";" << msg->data << std::endl;
+}
+void chatterCallback_motor_temp(const backend::motor_temp_msg::ConstPtr& msg){
+    //ROS_INFO("temp [can_id]: [%i],motor_temp: %i ", msg->can_id, msg->motor_temp);
+  std::cout << MOTOR_TEMP << ";" << msg->data  << std::endl;
+}
+void chatterCallback_voltage_angle(const backend::voltage_angle_msg::ConstPtr& msg){
+    //ROS_INFO("temp [can_id]: [%i],voltage_angle: %i", msg->can_id, msg->voltage_angle);
+  std::cout << VOLT_ANGLE << ";" << msg->data << std::endl;
 }
 
 void chatterCallback_current(const backend::current_msg::ConstPtr& msg)
@@ -79,13 +93,17 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Subscriber sub1 = n.subscribe("chatter_motor", 1000, chatterCallback_motor);
-  ros::Subscriber sub2 = n.subscribe("chatter_batterytemp", 1000, chatterCallback_batterytemp);
-  ros::Subscriber sub3 = n.subscribe("chatter_temp", 1000, chatterCallback_temp);
-  ros::Subscriber sub4 = n.subscribe("chatter_current", 1000, chatterCallback_current);
-  ros::Subscriber sub5 = n.subscribe("chatter_emcy6", 1000, chatterCallback_emcy6);
-  ros::Subscriber sub6 = n.subscribe("chatter_emcy7", 1000, chatterCallback_emcy7);
-  ros::Subscriber sub7 = n.subscribe("chatter_drive7", 1000, chatterCallback_drive7);
+  ros::Subscriber sub1 = n.subscribe("chatter_rpm", 1000, chatterCallback_rpm);
+  ros::Subscriber sub2 = n.subscribe("chatter_RMS_current", 1000, chatterCallback_RMS_current);
+  ros::Subscriber sub3 = n.subscribe("chatter_DC_voltage", 1000, chatterCallback_DC_voltage);
+  ros::Subscriber sub4 = n.subscribe("chatter_batterytemp", 1000, chatterCallback_batterytemp);
+  ros::Subscriber sub5 = n.subscribe("chatter_HS_temp", 1000, chatterCallback_HS_temp);
+  ros::Subscriber sub6 = n.subscribe("chatter_motor_temp", 1000, chatterCallback_motor_temp);
+  ros::Subscriber sub7 = n.subscribe("chatter_voltage_angle", 1000, chatterCallback_voltage_angle);
+  ros::Subscriber sub8 = n.subscribe("chatter_current", 1000, chatterCallback_current);
+  ros::Subscriber sub9 = n.subscribe("chatter_emcy6", 1000, chatterCallback_emcy6);
+  ros::Subscriber sub10 = n.subscribe("chatter_emcy7", 1000, chatterCallback_emcy7);
+  ros::Subscriber sub11 = n.subscribe("chatter_drive7", 1000, chatterCallback_drive7);
 	
   ros::spin();
 
