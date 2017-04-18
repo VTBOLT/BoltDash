@@ -1,7 +1,7 @@
 #include "rosprocess.h"
 
-#include <QTextStream>
-QTextStream qCout (stdout);
+//#include <QTextStream>
+//QTextStream qCout (stdout);
 
 /*
  * GOAL:::
@@ -77,15 +77,16 @@ void RosProcess::readError()
 
 void RosProcess::parseData(QByteArray data)
 {
-    QStringList splitData = QString(data).split(';');
+    QString allData = data;
+    allData = allData.remove('\n');
+
+    QStringList splitData = QString(allData).split(';');
     QString s_id = splitData.at(0);
     QString s_data = splitData.at(1);
 
-    bool * ok = 0;
+    bool * ok = new bool;
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
-
-    qCout << "DATA: " << s_data << endl;
 
     switch (ID)
     {
