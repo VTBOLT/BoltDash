@@ -21,9 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // instantiate the can thread
     QString path = "rosrun";
     QStringList args;
-    args << "backend" << "listener2";
+    args << "backend" << "can_listener_bolt2";
     ros_process = new RosProcess(path,args);
-    //ros_process->start();
 
     // connect can signals to debug view
     connectDebugSlots();

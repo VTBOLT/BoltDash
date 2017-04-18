@@ -5,12 +5,11 @@
 #include <QProcess>
 #include <QVariant>
 
-class RosProcess : public QThread
+class RosProcess : public QObject
 {
     Q_OBJECT
 public:
     RosProcess(QString path, QStringList args);
-    void run();
 
 private:
     void parseData(QByteArray data); // TODO
