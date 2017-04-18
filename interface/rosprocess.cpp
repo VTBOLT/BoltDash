@@ -1,7 +1,6 @@
 #include "rosprocess.h"
 
-#include <QTextStream>
-QTextStream qCout (stdout);
+#include "../shared_messages.h"
 
 /*
  * GOAL:::
@@ -30,21 +29,6 @@ QTextStream qCout (stdout);
  *  a separate function.
  *  format CAN stderr messages as <ERROR ID>;<ERROR DATA>;<ERROR MESSAGE>
 */
-
-// MESSAGE ID's --- consider putting these into a shared header file
-#define RPM         0
-#define BATT_TEMP   1
-#define RMS_CURRENT 2
-#define DC_VOLTS    3
-#define HS_TEMP     4
-#define MOTOR_TEMP  5
-#define VOLT_ANGLE  6
-#define IQ_CURRENT  7
-#define EMCY6       8
-#define EMCY7       9
-#define D6_STAT     10
-#define D7_STAT     11
-// END ID's
 
 RosProcess::RosProcess(QString path, QStringList args)
 {
@@ -77,6 +61,7 @@ void RosProcess::readError()
 
 void RosProcess::parseData(QByteArray data)
 {
+    // For data coming over stdin
     QStringList splitData = QString(data).split(';');
     QString s_id = splitData.at(0);
     QString s_data = splitData.at(1);
@@ -85,9 +70,55 @@ void RosProcess::parseData(QByteArray data)
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
 
-    qCout << "DATA: " << s_data << endl;
-
     switch (ID)
+    {
+    case(TEMP_MOD_A):
+        break;
+    case (TEMP_MOD_B):
+        break;
+    case (TEMP_MOD_C):
+        break;
+    case (TEMP_GATE_DRIVER_BOARD):
+        break;
+    case(TEMP_CONTROL_BOARD):
+        break;
+    case (MOTOR_TEMP):
+        break;
+    case (REGEN_SIGNAL):
+        break;
+    case (MOTOR_ANGLE):
+        break;
+    case (MOTOR_SPEED):
+        break;
+    case (RESOLVER_ANGLE):
+        break;
+    case (DC_CURRENT):
+        break;
+    case (DC_VOLTAGE):
+        break;
+    case (OUTPUT_VOLTAGE):
+        break;
+    case (PHASE_AB_VOLTAGE):
+        break;
+    case (PHASE_BC_VOLTAGE):
+        break;
+    case (IQ_FEEDBACK):
+        break;
+    case (ID_FEEDBACK):
+        break;
+    case (VSM_STATE):
+        break;
+    case (INVERTER_STATE):
+        break;
+    case (FAULT):
+        break;
+    case (COMMAND_TORQUE):
+        break;
+    case (TORQUE_FEEDBACK):
+        break;
+    }
+
+    /*switch (ID)
     {
     case (RPM):
         emit updateRPM(can_data);
@@ -123,12 +154,12 @@ void RosProcess::parseData(QByteArray data)
         break;
     case (D7_STAT):
         break;
-    }
+    }*/
 
 }
 
 void RosProcess::parseError()
 {
-    // TODO
+    // For data coming in over stderr
 }
 
