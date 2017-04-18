@@ -1,0 +1,10 @@
+#define TEMP_MOD_A                1
+#define TEMP_MOD_B                2
+#define TEMP_MOD_C                3
+#define TEMP_GATE_DRIVER_BOARD    4
+#define TEMP_CONTROL_BOARD        5
+#define MOTOR_TEMP                6
+#define REGEN_SIGNAL              7
+#define MOTOR_ANGLE               8
+#define MOTOR_SPEED               9
+#define RESOLVER_ANGLE            10
