@@ -8,3 +8,15 @@
 #define MOTOR_ANGLE               8
 #define MOTOR_SPEED               9
 #define RESOLVER_ANGLE            10
+#define DC_CURRENT                11
+#define DC_VOLTAGE                12
+#define OUTPUT_VOLTAGE            13
+#define PHASE_AB_VOLTAGE          14
+#define PHASE_BC_VOLTAGE          15
+#define ID_FEEDBACK               16
+#define IQ_FEEDBACK               17
+#define VSM_STATE                 18
+#define INVERTER_STATE            19
+#define FAULT                     20
+#define COMMAND_TORQUE            21
+#define TORQUE_FEEDBACK           22

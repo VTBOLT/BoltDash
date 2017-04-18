@@ -3,79 +3,164 @@
 #include "std_msgs/Int16.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
-#include "motor_msg.h"
-#include "batterytemp_msg.h"
-#include "temp_msg.h"
-#include "current_msg.h"
-#include "emcy6_msg.h"
-#include "emcy7_msg.h"
-#include "drive7_msg.h"
-
+#include "temp_mod_a_msg.msg"
+#include "temp_mod_b_msg.msg"
+#include "temp_mod_c_msg.msg"
+#include "temp_gate_driver_board_msg.msg"
+#include "temp_control_board_msg.msg"
+#include "motor_temp_msg.msg"
+#include "regen_signal_msg.msg"
+#include "motor_angle_msg.msg"
+#include "motor_speed_msg.msg"
+#include "resolver_angle_msg.msg"
+#include "dc_current_msg.msg"
+#include "dc_voltage_msg.msg"
+#include "output_voltage_msg.msg"
+#include "phase_ab_voltage_msg.msg"
+#include "phase_bc_voltage_msg.msg"
+#include "id_feedback_msg.msg"
+#include "iq_feedback_msg.msg"
+#include "vsm_state_msg.msg"
+#include "inverter_state_msg.msg"
+#include "fault_msg.msg"
+#include "command_torque_msg.msg"
+#include "torque_feedback_msg.msg"
 #include <iostream>
-
-#define RPM         0
-#define BATT_TEMP   1
-#define RMS_CURRENT 2
-#define DC_VOLTS    3
-#define HS_TEMP     4
-#define MOTOR_TEMP  5
-#define VOLT_ANGLE  6
-#define IQ_CURRENT  7
-#define EMCY6       8
-#define EMCY7       9
-#define D6_STAT     10
-#define D7_STAT     11
-
-void chatterCallback_motor(const can_to_qt_bolt3::motor_msg::ConstPtr& msg)
+#include "shared_messages.h"
+void chatterCallback_temp_mod_a(const can_to_qt_bolt3:temp_mod_a::ConstPtr& msg)
 {
-  ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
-  //std::cout << RPM << ";" << msg->rpm << std::endl;
-  //std::cout << RMS_CURRENT << ";" << msg->RMS_current << std::endl;
-  //std::cout << DC_VOLTS << ";" << msg->DC_voltage << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_A << ";" << msg->data << std::endl;
+}
+void chatterCallback_temp_mod_b(const can_to_qt_bolt3:temp_mod_b::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_B << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_batterytemp(const can_to_qt_bolt3::batterytemp_msg::ConstPtr& msg)
+void chatterCallback_tmep_mod_c(const can_to_qt_bolt3:temp_mod_c::ConstPtr& msg)
 {
-  ROS_INFO("batterytemp [can_id]: [%i] batterytemp: %i", msg->can_id, msg->data);
-  //std::cout << BATT_TEMP << ";" << msg->data << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+void chatterCallback_temp_gate_driver_board(const can_to_qt_bolt3:temp_gate_driver_board::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_GATE_DRIVER_BOARD << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_temp(const can_to_qt_bolt3::temp_msg::ConstPtr& msg)
+void chatterCallback_temp_control_board(const can_to_qt_bolt3:temp_control_board::ConstPtr& msg)
 {
-  ROS_INFO("temp [can_id]: [%i], HS_temp: %i motor_temp: %i voltage_angle: %i", msg->can_id, msg->HS_temp, msg->motor_temp, msg->voltage_angle);
-  //std::cout <<  HS_TEMP << ";" << msg->HS_temp << std::endl;
-  //std::cout << MOTOR_TEMP << ";" << msg->motor_temp  << std::endl;
-  //std::cout << VOLT_ANGLE << ";" << msg->voltage_angle << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_CONTROL_BOARD << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_current(const can_to_qt_bolt3::current_msg::ConstPtr& msg)
+void chatterCallback_motor_temp(const can_to_qt_bolt3:motor_temp::ConstPtr& msg)
 {
-  ROS_INFO("current [can_id]: [%i], IQ_current: %i", msg->can_id, msg->data);
-  //std::cout << IQ_CURRENT << ";" << msg->data << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << MOTOR_TEMP << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_emcy6(const can_to_qt_bolt3::emcy6_msg::ConstPtr& msg)
+void chatterCallback_regen_signal(const can_to_qt_bolt3:regen_signal::ConstPtr& msg)
 {
-  ROS_INFO("EMCY6 [can_id]: [%i], emcy6: %i", msg->can_id, msg->data);
-  //std::cout << EMCY6 << ";" << msg->data << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << REGEN_SIGNAL << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_emcy7(const can_to_qt_bolt3::emcy7_msg::ConstPtr& msg)
+void chatterCallback_motor_angle(const can_to_qt_bolt3:motor_angle::ConstPtr& msg)
 {
-  ROS_INFO("EMCY7 [can_id]: [%i], emcy7: %i", msg->can_id, msg->data);
-  //std::cout << EMCY7 << ";" << msg->data << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << MOTOR_ANGLE << ";" << msg->data << std::endl;
 }
 
-void chatterCallback_drive7(const can_to_qt_bolt3::drive7_msg::ConstPtr& msg)
+void chatterCallback_motor_speed(const can_to_qt_bolt3:motor_speed::ConstPtr& msg)
 {
-  ROS_INFO("drive7 [can_id]: [%i], drive7: %i", msg->can_id, msg->data);
-  //std::cout << D7_STAT  << ";" << msg->data << std::endl;
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << MOTOR_SPEED << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_resolver_angle(const can_to_qt_bolt3:resolver_angle::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << RESOLVER_ANGLE << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_dc_current(const can_to_qt_bolt3:dc_current::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << DC_CURRENT << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_dc_voltage(const can_to_qt_bolt3:dc_voltage::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout <<  << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_output_voltage(const can_to_qt_bolt3:output_voltage::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_phase_ab_voltage(const can_to_qt_bolt3:phase_ab_voltage::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_phase_bc_voltage(const can_to_qt_bolt3:phase_bc_voltage::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_id_feedback(const can_to_qt_bolt3:id_feedback::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_iq_feedback(const can_to_qt_bolt3:iq_feedback::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_vsm_state(const can_to_qt_bolt3:vsm_state::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_inverter_state(const can_to_qt_bolt3:inverter_state::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_fault(const can_to_qt_bolt3:fault::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_command_torque(const can_to_qt_bolt3:command_torque::ConstPtr& msg)
+{
+  //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
+  std::cout << TEMP_MOD_C << ";" << msg->data << std::endl;
+}
+
+void chatterCallback_torque_feedback(const can_to_qt_bolt3::torque_feedback::ConstPtr& msg)
+{
+  //ROS_INFO("batterytemp [can_id]: [%i] batterytemp: %i", msg->can_id, msg->data);
+  std::cout << TORQUE_FEEDBACK << ";" << msg->data << std::endl;
 }
 
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "can_listner_bolt3");
+    ros::init(argc, argv, "can_listner_bolt3");
 
   ros::NodeHandle n;
 
