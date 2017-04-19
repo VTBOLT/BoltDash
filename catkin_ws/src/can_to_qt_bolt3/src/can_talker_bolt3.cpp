@@ -52,22 +52,26 @@ int main(int argc, char **argv)
 	    can_msg.can_id = message.can_id;
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "TEMP_MOD_A";
+	    //can_msg.define = TEMP_MOD_A;
 	    can_msg.data = data;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[3] << 8 | message.data[2]);
 	    can_msg.name = "TEMP_MOD_B";
 	    can_msg.data = data;
+	    //can_msg.define = TEMP_MOD_B;
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    topic_can_msg.publish(can_msg);
 	    data = (message.data[5] << 8 | message.data[4]);
 	    can_msg.name = "TEMP_MOD_C";
 	    can_msg.data = data;
+	    //can_msg.define = TEMP_MOD_C
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    topic_can_msg.publish(can_msg);
 	    data = (message.data[7] << 8 | message.data[6]);
 	    can_msg.name = "TEMP_GATE_DRIVER_BOARD";
 	    can_msg.data = data;
+	    //can_msg.define = TEMP_GATE_DRIVER_BOARD;
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    topic_can_msg.publish(can_msg);
 	    break;
@@ -78,6 +82,7 @@ int main(int argc, char **argv)
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "TEMP_CONTROL_BOARD";
 	    can_msg.data = data;
+	    //can_msg.define = TEMP_CONTORL_BOARD;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -88,6 +93,7 @@ int main(int argc, char **argv)
 	    data = (message.data[5] << 8 | message.data[4]);
 	    can_msg.name = "MOTOR_TEMP";
 	    can_msg.data = data;
+	    //can_msg.define = MOTOR_TEMP;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 
@@ -99,6 +105,7 @@ int main(int argc, char **argv)
 	    data = message.data[3];
 	    can_msg.name = "REGEN_DISABLE";
 	    can_msg.data = data;
+	    //can_msg.define = REGEN_DISABLE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	  break;
@@ -109,16 +116,19 @@ int main(int argc, char **argv)
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "MOTOR_ANGLE";
 	    can_msg.data = data;
+	    //can_msg.define = MOTOR_ANGLE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[3] << 8 | message.data[2]);
 	    can_msg.name = "MOTOR_SPEED";
 	    can_msg.data = data;
+	    //can_msg.define = MOTOR_ANGLE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[7] << 8 | message.data[6]);
 	    can_msg.name = "RESOLVER_ANGLE";
 	    can_msg.data = data;
+	    //can_msg.define = RESOLVER_ANGLE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -129,6 +139,7 @@ int main(int argc, char **argv)
 	    data = (message.data[7] << 8 | message.data[6]);
 	    can_msg.name = "DC_BUS_CURRENT";
 	    can_msg.data = data;
+	    //can_msg.define = DC_BUS_CURRENT;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -139,21 +150,25 @@ int main(int argc, char **argv)
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "DC_BUS_VOLTAGE";
 	    can_msg.data = data;
+	    //can_msg.define = DC_BUS_VOLTAGE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[3] << 8 | message.data[2]);
-	    can_msg.name = "OUTPUT_VOLTAE";
+	    can_msg.name = "OUTPUT_VOLTAGE";
 	    can_msg.data = data;
+	    //can_msg.define = OUTPUT_VOLTAGE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[5] << 8 | message.data[4]);
 	    can_msg.name = "PHASE_AB_VOLTAGE";
 	    can_msg.data = data;
+	    //can_msg.define = PHASE_AB_VOLTAGE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[7] << 8 | message.data[6]);
 	    can_msg.name = "PHASE_BC_VOLTAGE";
 	    can_msg.data = data;
+	    //can_msg.define = PHASE_BC_VOLTAGE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	   	   	   
@@ -165,11 +180,13 @@ int main(int argc, char **argv)
 	    data = (message.data[5] << 8 | message.data[4]);
 	    can_msg.name = "ID_FEEDBACK";
 	    can_msg.data = data;
+	    //can_msg.define = ID_FEEDBACK;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[7] << 8 | message.data[6]);
 	    can_msg.name = "IQ_FEEDBACK";
 	    can_msg.data = data;
+	    //can_msg.define = IQ_FEEDBACK;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -180,11 +197,13 @@ int main(int argc, char **argv)
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "VSM_STATE";
 	    can_msg.data = data;
+	    //can_msg.define = VSM_STATE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[2]);
 	    can_msg.name = "INVERTER_STATE";
 	    can_msg.data = data;
+	    //can_msg.define = INVERTER_STATE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -194,6 +213,7 @@ int main(int argc, char **argv)
 	    //fault_msg.can_id = message.can_id;
 	    //data = (message.data[7] << 8 | message.data[6]);
 	    //fault_msg.name = "FAULT";
+	    //can_msg.define = FAULT;
 	    //fault_msg.data = data;
 	    //topic_can_msg.publish(can_msg);
 	    //ROS_INFO("FAULT name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
@@ -205,6 +225,7 @@ int main(int argc, char **argv)
 	    data = (message.data[1] << 8 | message.data[0]);
 	    can_msg.name = "COMMAND_TORQUE";
 	    can_msg.data = data;
+	    can_msg.define = COMMAND_TORQUE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[3] << 8 | message.data[2]);
@@ -219,8 +240,9 @@ int main(int argc, char **argv)
 	  {
 	    can_msg.can_id = message.can_id;
 	    data = (message.data[3] << 8 | message.data[2]);
-	    can_msg.name = "SPEED_COMMAND";
+	    can_msg.name = "SPEED_CMD";
 	    can_msg.data = data;
+	    can_msg.define = SPEED_CMD;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
@@ -231,11 +253,13 @@ int main(int argc, char **argv)
 	    data = (message.data[0]);
 	    can_msg.name = "PACK_CURRENT";
 	    can_msg.data = data;
+	    can_msg.define = PACK_CURRENT;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[2]);
 	    can_msg.name = "PACK_INST_VOLTAGE";
 	    can_msg.data = data;
+	    can_msg.define = PACK_INST_VOLTAGE;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	  break;
@@ -246,11 +270,13 @@ int main(int argc, char **argv)
 	    data = (message.data[4]);
 	    can_msg.name = "PACK_TEMP_HIGH";
 	    can_msg.data = data;
+	    can_msg.define = PACK_TEMP_HIGH;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    data = (message.data[5]);
 	    can_msg.name = "PACK_TEMP_LOW";
 	    can_msg.data = data;
+	    //can_msg.define = PACK_TEMP_LOW;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	  break;
@@ -261,12 +287,13 @@ int main(int argc, char **argv)
 	    data = (message.data[1]);
 	    can_msg.name = "PACK_SOC";
 	    can_msg.data = data;
+	    //can_msg.define = PACK_SOC;
 	    topic_can_msg.publish(can_msg);
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	  break;
 	}
        }  
-      
+        
       if(count > 700)
 	exit(0);
       else
@@ -279,4 +306,4 @@ int main(int argc, char **argv)
 
 
   return 0;
-    }
+}
