@@ -9,10 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    // show start up steps here ???
-
-    // ??
-
     // instantiate the UI defined in Qt Creator
     ui->setupUi(this);
     // load QML for race view from source
@@ -100,6 +96,8 @@ void MainWindow::connectNavSlots()
     //connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
     connect(qmlObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
     connect(ui->toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
+    connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
+    connect(ui->toVoltageButton,SIGNAL(clicked(bool)),this,SLOT(toVoltageView()));
 }
 
 void MainWindow::toDebugView()
@@ -111,6 +109,12 @@ void MainWindow::toDebugView()
 void MainWindow::toRaceView()
 {
     ui->views->setCurrentIndex(RACE);
+    setStyleSheet("background-color:black");
+}
+
+void MainWindow::toVoltageView()
+{
+    ui->views->setCurrentIndex(VOLTAGE);
     setStyleSheet("background-color:black");
 }
 

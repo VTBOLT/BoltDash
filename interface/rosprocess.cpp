@@ -70,6 +70,7 @@ void RosProcess::parseData(QByteArray data)
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
 
+    // emit a signal based on the can id
     switch (ID)
     {
     case(TEMP_MOD_A):
@@ -117,45 +118,6 @@ void RosProcess::parseData(QByteArray data)
     case (TORQUE_FEEDBACK):
         break;
     }
-
-    /*switch (ID)
-    {
-    case (RPM):
-        emit updateRPM(can_data);
-        emit updateRPM_QVar( QVariant(can_data) );
-        break;
-    case (BATT_TEMP):
-        emit updateBatteryTemp(can_data);
-        break;
-    case (RMS_CURRENT):
-        emit updateRMScurr(can_data);
-        break;
-    case (DC_VOLTS):
-        emit updateDCvolt(can_data);
-        emit updateDCVolt_QVar( QVariant(can_data) );
-        break;
-    case (HS_TEMP):
-        emit updateHStemp(can_data);
-        break;
-    case (MOTOR_TEMP):
-        emit updateMotorTemp(can_data);
-        break;
-    case (VOLT_ANGLE):
-        emit updateVoltAngle(can_data);
-        break;
-    case (IQ_CURRENT):
-        emit updateIQcurr(can_data);
-        break;
-    case (EMCY6):
-        break;
-    case (EMCY7):
-        break;
-    case (D6_STAT):
-        break;
-    case (D7_STAT):
-        break;
-    }*/
-
 }
 
 void RosProcess::parseError()
