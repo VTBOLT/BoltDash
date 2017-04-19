@@ -1080,6 +1080,130 @@ QPushButton:pressed
 }</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="5" column="0">
+           <widget class="QLCDNumber" name="lcdMotorTemp"/>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLCDNumber" name="lcdOutputVoltage"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="labControllerTemp">
+            <property name="text">
+             <string>Motor Controller Temp</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLCDNumber" name="lcdRPM"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLCDNumber" name="lcdDCCurrent"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labRPM">
+            <property name="text">
+             <string>RPM</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLCDNumber" name="lcdPackCurrent"/>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLCDNumber" name="lcdControllerTemp"/>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLCDNumber" name="lcdDelta_2"/>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLabel" name="labDelta_2">
+            <property name="text">
+             <string>Cell Voltage Delta</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="labDCCurrent">
+            <property name="text">
+             <string>DC Bus Current</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="labMotorTemp">
+            <property name="text">
+             <string>Motor Temp</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLCDNumber" name="lcdPackVoltage"/>
+          </item>
+          <item row="7" column="2">
+           <widget class="QLCDNumber" name="lcdPackTempHigh"/>
+          </item>
+          <item row="8" column="2">
+           <widget class="QLabel" name="labRmsCurrent">
+            <property name="text">
+             <string>RMS Current</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="labPackVoltage">
+            <property name="text">
+             <string>BMS Pack Voltage</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="labPackTempHigh">
+            <property name="text">
+             <string>Pack Temp High</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="labOutputVoltage">
+            <property name="text">
+             <string>Motor Output Voltage</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QLabel" name="labSOC">
+            <property name="text">
+             <string>State of Charge</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="labPackCurrent">
+            <property name="text">
+             <string>BMS Pack Current</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QLCDNumber" name="lcdSOC"/>
+          </item>
+          <item row="9" column="2">
+           <widget class="QLCDNumber" name="lcdRmsCurrent"/>
+          </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="labFieldWeakening">
+            <property name="text">
+             <string>Field Weakening Angle</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QLCDNumber" name="lcdFieldWeakening"/>
+          </item>
+         </layout>
+        </item>
         <item row="1" column="0">
          <layout class="QHBoxLayout" name="buttonLayout2">
           <item>
@@ -1115,80 +1239,6 @@ QPushButton:pressed
              <string>to Dashboard</string>
             </property>
            </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="4" column="2">
-           <widget class="QLabel" name="labPackVoltage">
-            <property name="text">
-             <string>Pack Voltage</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="labOutputVoltage">
-            <property name="text">
-             <string>Output Voltage</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="labRPM">
-            <property name="text">
-             <string>RPM</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="labMotorTemp">
-            <property name="text">
-             <string>Motor Temp</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLCDNumber" name="lcdOutputVoltage"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLCDNumber" name="lcdDCCurrent"/>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLCDNumber" name="lcdPackVoltage"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLCDNumber" name="lcdRPM"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="labDCCurrent">
-            <property name="text">
-             <string>DC Current</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="labPackCurrent">
-            <property name="text">
-             <string>Pack Current</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLCDNumber" name="lcdPackCurrent"/>
-          </item>
-          <item row="6" column="2">
-           <widget class="QLabel" name="labPackTempHigh">
-            <property name="text">
-             <string>Pack Temp High</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLCDNumber" name="lcdMotorTemp"/>
-          </item>
-          <item row="7" column="2">
-           <widget class="QLCDNumber" name="lcdPackTempHigh"/>
           </item>
          </layout>
         </item>

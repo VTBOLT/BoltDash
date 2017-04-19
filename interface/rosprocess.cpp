@@ -78,7 +78,7 @@ void RosProcess::parseData(QByteArray data)
     // emit a signal based on the can id
     switch (ID)
     {
-    case(TEMP_MOD_A):
+    case (TEMP_MOD_A):
         break;
     case (TEMP_MOD_B):
         break;
@@ -87,6 +87,7 @@ void RosProcess::parseData(QByteArray data)
     case (TEMP_GATE_DRIVER_BOARD):
         break;
     case(TEMP_CONTROL_BOARD):
+        emit updateControllerTemp(can_data);
         break;
     case (MOTOR_TEMP):
         emit updateMotorTemp(can_data);

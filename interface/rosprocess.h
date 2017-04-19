@@ -32,6 +32,10 @@ signals:
     void updatePackVolts(double volts);
     void updatePackCurrent(double current);
     void updatePackTempHigh(double temp);
+    void updateDelta(double delta);
+    void updateControllerTemp(double temp);
+    void updateRmsCurrent(double rms);
+    void updateFieldWeakening(double angle);
 };
 
 #endif // ROSPROCESS_H
