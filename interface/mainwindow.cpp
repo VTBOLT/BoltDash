@@ -49,6 +49,11 @@ void MainWindow::connectDebugSlots()
     connect(ros_process, SIGNAL( updateDcCurrent(double)), ui->lcdDCCurrent, SLOT(display(double)));
     connect(ros_process, SIGNAL( updatePackCurrent(double)), ui->lcdPackCurrent, SLOT(display(double)));
     connect(ros_process, SIGNAL( updatePackTempHigh(double)), ui->lcdPackTempHigh, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateSOC(double)), ui->lcdSOC, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateDelta(double)), ui->lcdDelta_2, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateControllerTemp(double)), ui->lcdControllerTemp, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateRmsCurrent(double)), ui->lcdRmsCurrent, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateFieldWeakening(double)), ui->lcdFieldWeakening, SLOT(display(double)));
 }
 
 void MainWindow::connectRaceSlots()
