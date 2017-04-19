@@ -485,7 +485,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_4">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="views">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -494,7 +494,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="StartupView">
        <property name="sizePolicy">
@@ -1080,130 +1080,6 @@ QPushButton:pressed
 }</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="3" column="2">
-           <widget class="QLCDNumber" name="angle_lcd"/>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="rms_lab">
-            <property name="text">
-             <string>RMS Current</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="3">
-           <widget class="QLCDNumber" name="drive7_lcd"/>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLCDNumber" name="dc_lcd"/>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="dc_lab">
-            <property name="text">
-             <string>DC Voltage</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="rpm_lab">
-            <property name="text">
-             <string>RPM</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLCDNumber" name="hs_lcd"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="motorTemp_lab">
-            <property name="text">
-             <string>Motor Temp</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLCDNumber" name="emcy7_lcd"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLCDNumber" name="motorTemp_lcd"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLCDNumber" name="rpm_lcd"/>
-          </item>
-          <item row="4" column="2">
-           <widget class="QLabel" name="drive6_lab">
-            <property name="text">
-             <string>drive6stat</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="iq_lab">
-            <property name="text">
-             <string>IQ Current</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLCDNumber" name="battTemp_lcd"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="emcy6_lab">
-            <property name="text">
-             <string>EMCY6</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="angle_lab">
-            <property name="text">
-             <string>Voltage Angle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="3">
-           <widget class="QLabel" name="drive7_lab">
-            <property name="text">
-             <string>drive7stat</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="emcy7_lab">
-            <property name="text">
-             <string>EMCY7</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="batt_lab">
-            <property name="text">
-             <string>Battery Temp</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLCDNumber" name="emcy6_lcd"/>
-          </item>
-          <item row="3" column="3">
-           <widget class="QLCDNumber" name="iq_lcd"/>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLCDNumber" name="rms_lcd"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="hs_lab">
-            <property name="text">
-             <string>HS Temp</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLCDNumber" name="drive6_lcd"/>
-          </item>
-         </layout>
-        </item>
         <item row="1" column="0">
          <layout class="QHBoxLayout" name="buttonLayout2">
           <item>
@@ -1227,9 +1103,211 @@ QPushButton:pressed
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="toVoltageButton">
+            <property name="text">
+             <string>To Voltages Screen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="toRaceButton">
             <property name="text">
              <string>to Dashboard</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="4" column="2">
+           <widget class="QLabel" name="labPackVoltage">
+            <property name="text">
+             <string>Pack Voltage</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="labOutputVoltage">
+            <property name="text">
+             <string>Output Voltage</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labRPM">
+            <property name="text">
+             <string>RPM</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="labMotorTemp">
+            <property name="text">
+             <string>Motor Temp</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLCDNumber" name="lcdOutputVoltage"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLCDNumber" name="lcdDCCurrent"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLCDNumber" name="lcdPackVoltage"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLCDNumber" name="lcdRPM"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="labDCCurrent">
+            <property name="text">
+             <string>DC Current</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="labPackCurrent">
+            <property name="text">
+             <string>Pack Current</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLCDNumber" name="lcdPackCurrent"/>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="labPackTempHigh">
+            <property name="text">
+             <string>Pack Temp High</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLCDNumber" name="lcdMotorTemp"/>
+          </item>
+          <item row="7" column="2">
+           <widget class="QLCDNumber" name="lcdPackTempHigh"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="VoltageView">
+       <property name="styleSheet">
+        <string notr="true">QLabel {font : bold 24px; color: white}
+QLCDNumber {color: white}
+
+QPushButton
+{
+    color: rgb(255, 255, 255);
+    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #565656, stop: 0.1 #525252, stop: 0.5 #4e4e4e, stop: 0.9 #4a4a4a, stop: 1 #464646);
+    border-width: 1px;
+    border-color: #1e1e1e;
+    border-style: solid;
+    border-radius: 6;
+	font-size: 18px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+QPushButton:pressed
+{
+    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #2d2d2d, stop: 0.1 #2b2b2b, stop: 0.5 #292929, stop: 0.9 #282828, stop: 1 #252525);
+}</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="6" column="0">
+         <widget class="QLabel" name="labPackC">
+          <property name="text">
+           <string>Pack C Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="labDelta">
+          <property name="text">
+           <string>Delta</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLCDNumber" name="lcdDelta"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="labPackB">
+          <property name="text">
+           <string>Pack B Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="labPackA">
+          <property name="text">
+           <string>Pack A Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLCDNumber" name="lcdPackC"/>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="labPackD">
+          <property name="text">
+           <string>Pack D Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLCDNumber" name="lcdPackB"/>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLCDNumber" name="lcdPackA"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="labLowVoltage">
+          <property name="text">
+           <string>Lowest Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLCDNumber" name="lcdLowVoltage"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labHighVoltage">
+          <property name="text">
+           <string>Highest Voltage</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLCDNumber" name="lcdHighVoltage"/>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLCDNumber" name="lcdPackD"/>
+        </item>
+        <item row="9" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="toDebugButton">
+            <property name="text">
+             <string>To Debug Screen</string>
             </property>
            </widget>
           </item>

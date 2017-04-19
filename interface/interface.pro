@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     	rosprocess.cpp
 
 HEADERS  += mainwindow.h \
-    rosprocess.h
+    rosprocess.h \
+    ../shared_messages.h
 
 FORMS    += mainwindow.ui
 

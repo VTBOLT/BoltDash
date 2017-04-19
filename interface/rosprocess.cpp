@@ -1,7 +1,7 @@
 #include "rosprocess.h"
 
-//#include <QTextStream>
-//QTextStream qCout (stdout);
+
+#include "../shared_messages.h"
 
 /*
  * GOAL:::
@@ -30,21 +30,6 @@
  *  a separate function.
  *  format CAN stderr messages as <ERROR ID>;<ERROR DATA>;<ERROR MESSAGE>
 */
-
-// MESSAGE ID's --- consider putting these into a shared header file
-#define RPM         0
-#define BATT_TEMP   1
-#define RMS_CURRENT 2
-#define DC_VOLTS    3
-#define HS_TEMP     4
-#define MOTOR_TEMP  5
-#define VOLT_ANGLE  6
-#define IQ_CURRENT  7
-#define EMCY6       8
-#define EMCY7       9
-#define D6_STAT     10
-#define D7_STAT     11
-// END ID's
 
 RosProcess::RosProcess(QString path, QStringList args)
 {
@@ -77,10 +62,12 @@ void RosProcess::readError()
 
 void RosProcess::parseData(QByteArray data)
 {
+
     QString allData = data;
     allData = allData.remove('\n');
 
     QStringList splitData = QString(allData).split(';');
+
     QString s_id = splitData.at(0);
     QString s_data = splitData.at(1);
 
@@ -88,48 +75,84 @@ void RosProcess::parseData(QByteArray data)
     int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
     int can_data = s_data.toInt(ok, 10);
 
+    // emit a signal based on the can id
     switch (ID)
     {
-    case (RPM):
-        emit updateRPM(can_data);
-        emit updateRPM_QVar( QVariant(can_data) );
+    case(TEMP_MOD_A):
         break;
-    case (BATT_TEMP):
-        emit updateBatteryTemp(can_data);
+    case (TEMP_MOD_B):
         break;
-    case (RMS_CURRENT):
-        emit updateRMScurr(can_data);
+    case (TEMP_MOD_C):
         break;
-    case (DC_VOLTS):
-        emit updateDCvolt(can_data);
-        emit updateDCVolt_QVar( QVariant(can_data) );
+    case (TEMP_GATE_DRIVER_BOARD):
         break;
-    case (HS_TEMP):
-        emit updateHStemp(can_data);
+    case(TEMP_CONTROL_BOARD):
         break;
     case (MOTOR_TEMP):
         emit updateMotorTemp(can_data);
         break;
-    case (VOLT_ANGLE):
-        emit updateVoltAngle(can_data);
+    case (REGEN_SIGNAL):
         break;
-    case (IQ_CURRENT):
-        emit updateIQcurr(can_data);
+    case (MOTOR_ANGLE):
         break;
-    case (EMCY6):
+    case (MOTOR_SPEED):
+        // convert to RPM, multiply by 60 seconds and divide by 2pi radians
+        rpm = float(can_data) * (60.0 / 6.28);
+        emit updateRPM(rpm);
+        emit updateRPM(QVariant(rpm));
         break;
-    case (EMCY7):
+    case (RESOLVER_ANGLE):
         break;
-    case (D6_STAT):
+    case (DC_CURRENT):
+        emit updateDcCurrent(can_data);
         break;
-    case (D7_STAT):
+    case (DC_VOLTAGE):
+        break;
+    case (OUTPUT_VOLTAGE):
+        emit updateOutputVolts(can_data);
+        break;
+    case (PHASE_AB_VOLTAGE):
+        break;
+    case (PHASE_BC_VOLTAGE):
+        break;
+    case (IQ_FEEDBACK):
+        break;
+    case (ID_FEEDBACK):
+        break;
+    case (VSM_STATE):
+        break;
+    case (INVERTER_STATE):
+        break;
+    case (FAULT):
+        break;
+    case (COMMAND_TORQUE):
+        break;
+    case (TORQUE_FEEDBACK):
+        break;
+    case (SPEED_CMD):
+        break;
+    case (PACK_CURRENT):
+        emit updatePackCurrent(can_data);
+        break;
+    case (PACK_INST_VOLTAGE):
+        emit updatePackVolts(can_data);
+        break;
+    case (PACK_TEMP_HIGH):
+        emit updatePackTempHigh(can_data);
+        break;
+    case (PACK_TEMP_LOW):
+        break;
+    case (PACK_SOC):
+        emit updateSOC(can_data);
+        emit updateSOC(QVariant(can_data));
+        break;
+    default:
         break;
     }
-
 }
 
 void RosProcess::parseError()
 {
-    // TODO
+    // For data coming in over stderr
 }
 

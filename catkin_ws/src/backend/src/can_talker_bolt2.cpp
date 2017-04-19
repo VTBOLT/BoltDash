@@ -1,12 +1,19 @@
 #include "ros/ros.h"
+
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
+
 #include "canrecieve.cpp"
-//#include "caninterface.cpp"
-#include "can_msg.h"
-#include "motor_msg.h"
+//ROS topic message declerations 
+#include "rpm_msg.h"
+#include "RMS_current_msg.h"
+#include "DC_voltage_msg.h"
+#include "drive6stat_msg.h"
+
 #include "batterytemp_msg.h"
-#include "temp_msg.h"
+#include "HS_temp_msg.h"
+#include "motor_temp_msg.h"
+#include "voltage_angle_msg.h"
 #include "current_msg.h"
 #include "emcy6_msg.h"
 #include "emcy7_msg.h"
@@ -16,14 +23,18 @@
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "can_talker_bolt2");
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_can = n.advertise<backend::can_msg>("chatter_can", 1000);
-  ros::Publisher chatter_motor = n.advertise<backend::motor_msg>("chatter_motor", 1000);
+  ros::Publisher chatter_rpm = n.advertise<backend::rpm_msg>("chatter_rpm", 1000);
+  ros::Publisher chatter_RMS_current = n.advertise<backend::RMS_current_msg>("chatter_RMS_current", 1000);
+  ros::Publisher chatter_DC_voltage = n.advertise<backend::DC_voltage_msg>("chatter_DC_voltage", 1000);
+  ros::Publisher chatter_drive6stat = n.advertise<backend::drive6stat_msg>("chatter_drive6stat", 1000);
   ros::Publisher chatter_batterytemp = n.advertise<backend::batterytemp_msg>("chatter_batterytemp", 1000);
-  ros::Publisher chatter_temp = n.advertise<backend::temp_msg>("chatter_temp", 1000);
+  ros::Publisher chatter_HS_temp = n.advertise<backend::HS_temp_msg>("chatter_HS_temp", 1000);
+  ros::Publisher chatter_motor_temp = n.advertise<backend::motor_temp_msg>("chatter_motor_temp", 1000);
+  ros::Publisher chatter_voltage_angle = n.advertise<backend::voltage_angle_msg>("chatter_voltage_angle", 1000);
   ros::Publisher chatter_current = n.advertise<backend::current_msg>("chatter_current", 1000);
   ros::Publisher chatter_emcy6 = n.advertise<backend::emcy6_msg>("chatter_emcy6", 1000);
   ros::Publisher chatter_emcy7 = n.advertise<backend::emcy7_msg>("chatter_emcy7", 1000);
@@ -35,6 +46,7 @@ int main(int argc, char **argv)
   
   struct canfd_frame message;
   char* argv2[2];
+  
   argv2[0] = " ";
   argv2[1] = "can0";
   int count = 0;
@@ -57,10 +69,15 @@ int main(int argc, char **argv)
       signed short drive6stat = 0;
       signed short drive7stat = 0;
       
-      backend::can_msg c_msg;
-      backend::motor_msg motor_msg;
+      //backend::can_msg c_msg;
+      backend::rpm_msg rpm_msg;
+      backend::RMS_current_msg RMS_current_msg;
+      backend::DC_voltage_msg DC_voltage_msg;
+      backend::drive6stat_msg drive6stat_msg;
       backend::batterytemp_msg batterytemp_msg;
-      backend::temp_msg temp_msg;
+      backend::HS_temp_msg HS_temp_msg;
+      backend::motor_temp_msg motor_temp_msg;
+      backend::voltage_angle_msg voltage_angle_msg;
       backend::current_msg current_msg;
       backend::emcy6_msg emcy6_msg;
       backend::emcy7_msg emcy7_msg;
@@ -78,13 +95,19 @@ int main(int argc, char **argv)
 	    RMS_current = (message.data[7] << 8 | message.data[6]);
 	    DC_voltage = (message.data[5] << 8 | message.data[4]);
 	    drive6stat = (message.data[3] << 8 | message.data[2]);
-	    motor_msg.can_id = message.can_id;
-	    motor_msg.rpm = rpm;
-	    motor_msg.RMS_current;
-	    motor_msg.DC_voltage;
-	    motor_msg.drive6stat;
-	    chatter_motor.publish(motor_msg);
-	    ROS_INFO("[can_id], data: [%i], %i", motor_msg.can_id, motor_msg.rpm);
+	    rpm_msg.can_id = message.can_id;
+	    rpm_msg.data = rpm;
+	    chatter_rpm.publish(rpm_msg);
+	    RMS_current_msg.can_id = message.can_id;
+	    RMS_current_msg.data = RMS_current;
+	    chatter_RMS_current.publish(RMS_current_msg);
+	    DC_voltage_msg.can_id = message.can_id;
+	    DC_voltage_msg.data = DC_voltage;
+	    chatter_DC_voltage.publish(DC_voltage_msg);
+	    drive6stat_msg.can_id = message.can_id;
+	    drive6stat_msg.data = drive6stat;
+	    chatter_drive6stat.publish(drive6stat_msg);
+	    //ROS_INFO("[can_id], data: [%i], %i", motor_msg.can_id, motor_msg.rpm);
 	    break;
 	  }
 	case 0x183:
@@ -103,12 +126,16 @@ int main(int argc, char **argv)
 	    HS_temp = (message.data[1] << 8 | message.data[0]);
 	    motor_temp = (message.data[3] << 8 | message.data[2]);
 	    voltage_angle = (message.data[7] << 8 | message.data[6]);
-	    temp_msg.can_id = message.can_id;
-	    temp_msg.HS_temp = HS_temp;
-	    temp_msg.motor_temp = motor_temp;
-	    temp_msg.motor_temp = voltage_angle;
-	    ROS_INFO("[can_id], data: [%i], %i", temp_msg.can_id, temp_msg.HS_temp);
-	    chatter_temp.publish(temp_msg);
+	    HS_temp_msg.can_id = message.can_id;
+	    HS_temp_msg.data = HS_temp;
+	    chatter_HS_temp.publish(HS_temp_msg);
+	    motor_temp_msg.can_id = message.can_id;
+	    motor_temp_msg.data = motor_temp;
+	    chatter_motor_temp.publish(motor_temp_msg);
+	    voltage_angle_msg.can_id = message.can_id;
+	    voltage_angle_msg.data = voltage_angle;
+	    //ROS_INFO("[can_id], data: [%i], %i", temp_msg.can_id, temp_msg.HS_temp);
+	    chatter_voltage_angle.publish(voltage_angle_msg);
 	    break;
 	  }
 	case 0x386:
@@ -145,7 +172,7 @@ int main(int argc, char **argv)
 	  }
 	}  
       
-      if(count > 80)
+      if(count > 500)
 	exit(0);
       else
 	count++;

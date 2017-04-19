@@ -15,10 +15,14 @@ add_message_files(
   DIRECTORY
   msg
   FILES
-  can_msg.msg
-  motor_msg.msg
+  rpm_msg.msg
+  RMS_current_msg.msg
+  DC_voltage_msg.msg
+  drive6stat_msg.msg
   batterytemp_msg.msg
-  temp_msg.msg
+  HS_temp_msg.msg
+  motor_temp_msg.msg
+  voltage_angle_msg.msg
   current_msg.msg
   emcy6_msg.msg
   emcy7_msg.msg
@@ -28,27 +32,32 @@ add_message_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
+  backend
   )
 
 ## Declare a catkin package
 catkin_package()
 
 ## Build talker and listener
-include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ /home/pi/BoltDash/catkin_ws/devel/include/backend/)
+include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ ~/dash/catkin_ws/devel/include/backend/)
 
-
-add_executable(talker src/talker.cpp)
-target_link_libraries(talker ${catkin_LIBRARIES})
-#add_dependencies(talker beginner_tutorials_generate_messages_cpp)
-add_dependencies(talker
+add_executable(can_talker_bolt2 src/can_talker_bolt2.cpp)
+target_link_libraries(can_talker_bolt2 ${catkin_LIBRARIES})
+add_dependencies(can_talker_bolt2
   can/canrecieve.cpp
   can/interfacecan.cpp
   )
+add_dependencies(can_talker_bolt2 backend_generate_messages_cpp)
 
-add_executable(listener1 src/listener1.cpp)
-target_link_libraries(listener1 ${catkin_LIBRARIES})
-#add_dependencies(listener1)
+add_executable(can_listener_bolt2 src/can_listener_bolt2.cpp)
+target_link_libraries(can_listener_bolt2 ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt2 backend_generate_messages_cpp)
 
-add_executable(listener2 src/listener2.cpp)
-target_link_libraries(listener2 ${catkin_LIBRARIES})
-#add_dependencies(listener2) 
+
+add_executable(can_listener_bolt2_debug src/can_listener_bolt2_debug.cpp)
+target_link_libraries(can_listener_bolt2_debug ${catkin_LIBRARIES})
+add_dependencies(can_listener_bolt2_debug backend_generate_messages_cpp)
+
+
+
+

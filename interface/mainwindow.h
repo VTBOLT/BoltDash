@@ -1,4 +1,3 @@
-/* AUTO GENERATED FILE - has been modified */
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -7,6 +6,7 @@
 #define STARTUP 0
 #define RACE    1
 #define DEBUG   2
+#define VOLTAGE 3
 
 #include <QMainWindow>
 #include <QWidget>
@@ -43,6 +43,7 @@ private slots:
     void setRPM(QVariant rpm);
     void toDebugView();
     void toRaceView();
+    void toVoltageView();
     void toStartupScreen();
     void setBatteryPercent(QVariant value);
     void showStartupZero();

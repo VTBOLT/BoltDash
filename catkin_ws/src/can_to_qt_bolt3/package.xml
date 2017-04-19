@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>backend</name>
+  <name>can_to_qt_bolt3</name>
   <version>0.0.0</version>
   <description>ROS backend for gathering CAN data and passing to qt</description>
 

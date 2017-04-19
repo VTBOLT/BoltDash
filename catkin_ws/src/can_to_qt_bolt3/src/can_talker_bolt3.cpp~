@@ -1,9 +1,10 @@
 #include "ros/ros.h"
+
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
+
 #include "canrecieve.cpp"
-//#include "caninterface.cpp"
-//#include "can_msg.h"
+//ROS topic message declerations 
 #include "motor_msg.h"
 #include "batterytemp_msg.h"
 #include "temp_msg.h"
@@ -16,18 +17,18 @@
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "can_talker_bolt3");
 
   ros::NodeHandle n;
 
   //ros::Publisher chatter_can = n.advertise<backend::can_msg>("chatter_can", 1000);
-  ros::Publisher chatter_motor = n.advertise<backend::motor_msg>("chatter_motor", 1000);
-  ros::Publisher chatter_batterytemp = n.advertise<backend::batterytemp_msg>("chatter_batterytemp", 1000);
-  ros::Publisher chatter_temp = n.advertise<backend::temp_msg>("chatter_temp", 1000);
-  ros::Publisher chatter_current = n.advertise<backend::current_msg>("chatter_current", 1000);
-  ros::Publisher chatter_emcy6 = n.advertise<backend::emcy6_msg>("chatter_emcy6", 1000);
-  ros::Publisher chatter_emcy7 = n.advertise<backend::emcy7_msg>("chatter_emcy7", 1000);
-  ros::Publisher chatter_drive7 = n.advertise<backend::drive7_msg>("chatter_drive7", 1000);
+  ros::Publisher chatter_motor = n.advertise<can_to_qt_bolt3::motor_msg>("chatter_motor", 1000);
+  ros::Publisher chatter_batterytemp = n.advertise<can_to_qt_bolt3::batterytemp_msg>("chatter_batterytemp", 1000);
+  ros::Publisher chatter_temp = n.advertise<can_to_qt_bolt3::temp_msg>("chatter_temp", 1000);
+  ros::Publisher chatter_current = n.advertise<can_to_qt_bolt3::current_msg>("chatter_current", 1000);
+  ros::Publisher chatter_emcy6 = n.advertise<can_to_qt_bolt3::emcy6_msg>("chatter_emcy6", 1000);
+  ros::Publisher chatter_emcy7 = n.advertise<can_to_qt_bolt3::emcy7_msg>("chatter_emcy7", 1000);
+  ros::Publisher chatter_drive7 = n.advertise<can_to_qt_bolt3::drive7_msg>("chatter_drive7", 1000);
 
 	  
   
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
   
   struct canfd_frame message;
   char* argv2[2];
+  
   argv2[0] = " ";
   argv2[1] = "can0";
   int count = 0;
@@ -145,7 +147,7 @@ int main(int argc, char **argv)
 	  }
 	}  
       
-      if(count > 80)
+      if(count > 500)
 	exit(0);
       else
 	count++;
