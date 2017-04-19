@@ -5,6 +5,7 @@
 
 #include "canrecieve.cpp"
 #include "shared_messages.h"
+
 //ROS topic message declerations 
 #include "can_msg.h"
 #include "fault_msg.h"
@@ -224,7 +225,47 @@ int main(int argc, char **argv)
 	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
 	    break;
 	  }
-	}  
+	case 0x03B:
+	  {
+	  can_msg.can_id = message.can_id;
+	    data = (message.data[0]);
+	    can_msg.name = "PACK_CURRENT";
+	    can_msg.data = data;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	    data = (message.data[2]);
+	    can_msg.name = "PACK_INST_VOLTAGE";
+	    can_msg.data = data;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	  break;
+	}
+	case 0x3CB:
+	  {
+	  can_msg.can_id = message.can_id;
+	    data = (message.data[4]);
+	    can_msg.name = "PACK_TEMP_HIGH";
+	    can_msg.data = data;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	    data = (message.data[5]);
+	    can_msg.name = "PACK_TEMP_LOW";
+	    can_msg.data = data;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	  break;
+	}
+	case 0x6B2:
+	  {
+	  can_msg.can_id = message.can_id;
+	    data = (message.data[1]);
+	    can_msg.name = "PACK_SOC";
+	    can_msg.data = data;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	  break;
+	}
+       }  
       
       if(count > 700)
 	exit(0);

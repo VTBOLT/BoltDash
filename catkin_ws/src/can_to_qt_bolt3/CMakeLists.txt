@@ -24,7 +24,9 @@ generate_messages(
   std_msgs
   can_to_qt_bolt3
   )
-
+include(
+  ~/dash/shared_messages.h
+  )
 ## Declare a catkin package
 catkin_package()
 
@@ -36,6 +38,7 @@ target_link_libraries(can_talker_bolt3 ${catkin_LIBRARIES})
 add_dependencies(can_talker_bolt3
   can/canrecieve.cpp
   can/interfacecan.cpp
+  ~/dash/shared_messages.h
   )
 add_dependencies(can_talker_bolt3 can_to_qt_bolt3_generate_messages_cpp)
 
