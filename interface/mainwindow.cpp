@@ -94,19 +94,16 @@ void MainWindow::connectNavSlots()
 void MainWindow::toDebugView()
 {
     ui->views->setCurrentIndex(DEBUG);
-    setStyleSheet("background-color:black");
 }
 
 void MainWindow::toRaceView()
 {
     ui->views->setCurrentIndex(RACE);
-    setStyleSheet("background-color:black");
 }
 
 void MainWindow::toVoltageView()
 {
     ui->views->setCurrentIndex(VOLTAGE);
-    setStyleSheet("background-color:black");
 }
 
 void MainWindow::toStartupScreen()
