@@ -1,4 +1,3 @@
-/* AUTO GENERATED FILE  - has been updated*/
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -42,28 +41,20 @@ void MainWindow::loadQML()
 
 void MainWindow::connectDebugSlots()
 {
-    // signals comes in from 'can' object, calls slot implemented in UI
-    connect(ros_process, SIGNAL( updateRPM(double)), ui->rpm_lcd,SLOT(display(double)));
-    connect(ros_process, SIGNAL( updateBatteryTemp(int)), ui->battTemp_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( updateRMScurr(int)), ui->rms_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( updateDCvolt(double)), ui->dc_lcd,SLOT(display(double)));
-    connect(ros_process, SIGNAL( updateHStemp(int)), ui->hs_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( updateMotorTemp(int)), ui->motorTemp_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( updateVoltAngle(int)), ui->angle_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( updateIQcurr(int)), ui->iq_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( sendEMCY6(int)), ui->emcy6_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( sendEMCY7(int)), ui->emcy7_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( sendD6stat(int)), ui->drive6_lcd,SLOT(display(int)));
-    connect(ros_process, SIGNAL( sendD7stat(int)), ui->drive7_lcd,SLOT(display(int)));
+    // signals comes in from 'ros_process' object, calls slot implemented in UI
+    connect(ros_process, SIGNAL( updateRPM(double)), ui->lcdRPM, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateMotorTemp(double)), ui->lcdMotorTemp, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updatePackVolts(double)), ui->lcdPackVoltage, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateOutputVolts(double)), ui->lcdOutputVoltage, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updateDcCurrent(double)), ui->lcdDCCurrent, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updatePackCurrent(double)), ui->lcdPackCurrent, SLOT(display(double)));
+    connect(ros_process, SIGNAL( updatePackTempHigh(double)), ui->lcdPackTempHigh, SLOT(display(double)));
 }
 
 void MainWindow::connectRaceSlots()
 {
-    //QObject * qmlObject = ui->qmlRace->rootObject();
-    //connect(can, SIGNAL(updateRPM_QVar(QVariant)), qmlObject, SLOT(qmlSlot(QVariant)));
-    // set text for testing purposes only
-    connect(ros_process, SIGNAL(updateRPM_QVar(QVariant)), this, SLOT(setRPM(QVariant)));
-    connect(ros_process, SIGNAL(updateDCVolt_QVar(QVariant)), this, SLOT(setBatteryPercent(QVariant)));
+    connect(ros_process, SIGNAL(updateRPM(QVariant)), this, SLOT(setRPM(QVariant)));
+    connect(ros_process, SIGNAL(updateSOC(QVariant)), this, SLOT(setBatteryPercent(QVariant)));
 }
 
 void MainWindow::connectStartupSlots()

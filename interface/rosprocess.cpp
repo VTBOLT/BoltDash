@@ -84,20 +84,27 @@ void RosProcess::parseData(QByteArray data)
     case(TEMP_CONTROL_BOARD):
         break;
     case (MOTOR_TEMP):
+        emit updateMotorTemp(can_data);
         break;
     case (REGEN_SIGNAL):
         break;
     case (MOTOR_ANGLE):
         break;
     case (MOTOR_SPEED):
+        // convert to RPM, multiply by 60 seconds and divide by 2pi radians
+        rpm = float(can_data) * (60.0 / 6.28);
+        emit updateRPM(rpm);
+        emit updateRPM(QVariant(rpm));
         break;
     case (RESOLVER_ANGLE):
         break;
     case (DC_CURRENT):
+        emit updateDcCurrent(can_data);
         break;
     case (DC_VOLTAGE):
         break;
     case (OUTPUT_VOLTAGE):
+        emit updateOutputVolts(can_data);
         break;
     case (PHASE_AB_VOLTAGE):
         break;
@@ -116,6 +123,25 @@ void RosProcess::parseData(QByteArray data)
     case (COMMAND_TORQUE):
         break;
     case (TORQUE_FEEDBACK):
+        break;
+    case (SPEED_CMD):
+        break;
+    case (PACK_CURRENT):
+        emit updatePackCurrent(can_data);
+        break;
+    case (PACK_INST_VOLTAGE):
+        emit updatePackVolts(can_data);
+        break;
+    case (PACK_TEMP_HIGH):
+        emit updatePackTempHigh(can_data);
+        break;
+    case (PACK_TEMP_LOW):
+        break;
+    case (PACK_SOC):
+        emit updateSOC(can_data);
+        emit updateSOC(QVariant(can_data));
+        break;
+    default:
         break;
     }
 }

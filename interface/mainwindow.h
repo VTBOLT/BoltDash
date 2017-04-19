@@ -1,4 +1,3 @@
-/* AUTO GENERATED FILE - has been modified */
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

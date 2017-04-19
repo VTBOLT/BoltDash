@@ -1,7 +1,6 @@
 #ifndef ROSPROCESS_H
 #define ROSPROCESS_H
 
-#include <QThread>
 #include <QProcess>
 #include <QVariant>
 
@@ -16,25 +15,23 @@ private:
     void parseError();
     QProcess * m_processObj;
 
+    double rpm;
+
 public slots:
     void readData();
     void readError();
 
 signals:
-    void updateBatteryTemp(int temp);
     void updateRPM(double rpm);
-    void updateRPM_QVar(const QVariant & rpm);
-    void updateRMScurr(int curr);
-    void updateDCvolt(double volt);
-    void updateDCVolt_QVar(const QVariant & volt);
-    void updateHStemp(int temp);
-    void updateMotorTemp(int temp);
-    void updateVoltAngle(int angle);
-    void updateIQcurr(int angle);
-    void sendEMCY6(int emc);
-    void sendEMCY7(int emc);
-    void sendD6stat(int stat);
-    void sendD7stat(int stat);
+    void updateRPM(const QVariant & rpm);
+    void updateSOC(double volt);
+    void updateSOC(const QVariant & volt);
+    void updateMotorTemp(double temp);
+    void updateDcCurrent(double current);
+    void updateOutputVolts(double volts);
+    void updatePackVolts(double volts);
+    void updatePackCurrent(double current);
+    void updatePackTempHigh(double temp);
 };
 
 #endif // ROSPROCESS_H
