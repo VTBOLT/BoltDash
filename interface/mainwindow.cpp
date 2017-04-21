@@ -183,23 +183,29 @@ void MainWindow::startup(){
             //Determine what to do next
             break;
         case (case.off):
+            // Show BOLT Logo
             // Check CAN BMS State, no fault
-            // Show Turn On ACC
+                // set state bms
             break;
         case (case.bms):
+            // Show Turn On ACC
             // Check PRESSURE && IMD
-            // Show Turn on IGN
+                // Show Turn on ACC
             break;
         case (case.acc):
-            // Check IGN && CAN RMS Ready/On
+            // Check IGN && CAN RMS On
+                // Set State RMS
+            break;
+        case (case.rms):
+            // check rms vsm message. bytes 0 and 1. for precharge started
             // Show Precharging
         case (case.precharging):
-            // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for active and then complete
-            // Show Press Start when complete
+            // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for complete
+                // Show Press Start when complete
             break;
         case (case.motor):
             // Check CAN RMS VSM State Byte 0 and 1, for when motor ready
-            // Show Select Debug or Race when motor is on
+                // Show Select Debug or Race when motor is on
             break;
     }
 }
