@@ -38,9 +38,28 @@ private:
     void connectRaceSlots();
     void connectNavSlots();
     void connectStartupSlots();
+    void startup();
     int getState();
+    void setState(int);
+    bool getIGNOK();
+    bool getIMD();
+    bool getPRESSURE();
+    bool getBMSDE();
+    
 
-    enum state(fault = -1, off, bms, acc, rms, precharge, motor);
+
+    enum state(fault = -1, off, bms, acc, rms, precharging, motor);
+    struct gpio{
+        bool BMSDE;
+        bool ACC; 
+        bool RMS;
+        bool PRECHARGE;
+        bool MOTOR;
+        bool IGNOK;
+        bool IMD;
+        bool PRESSURE;
+        
+    };
 
 private slots:
     void setRPM(QVariant rpm);
@@ -54,6 +73,12 @@ private slots:
     void showStartupTwo();
     void showStartupThree();
     void showStartupFour();
+    void setIGNOK(bool);
+    void setIMD(bool);
+    void setPRESSURE(bool);
+    void setBMSDE(bool);
+
+
     void on_exitButton_clicked();
 };
 

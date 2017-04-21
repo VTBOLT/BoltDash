@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connectRaceSlots();
     // connect strtup slots
     connectStartupSlots();
+
+    startup();
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +66,10 @@ void MainWindow::connectRaceSlots()
 
 void MainWindow::connectStartupSlots()
 {
+    connect(ros_process, SIGNAL(updateIGNOK(bool)), this, SLOT(setIGNOK(bool)));
+    connect(ros_process, SIGNAL(updateIMD(bool)), this, SLOT(setIMD(bool)));
+    connect(ros_process, SIGNAL(updatePRESSURE(bool)), this, SLOT(setPRESSURE(bool)));
+    connect(ros_process, SIGNAL(updateBMSDE(bool)), this, SLOT(setBMSDE(bool)));
     connect(ui->step1, SIGNAL(clicked(bool)), this, SLOT(showStartupOne()));
     connect(ui->step2, SIGNAL(clicked(bool)), this, SLOT(showStartupTwo()));
     connect(ui->step3, SIGNAL(clicked(bool)), this, SLOT(showStartupThree()));
@@ -141,6 +147,61 @@ void MainWindow::showStartupThree()
 void MainWindow::showStartupFour()
 {
     
+}
+
+void MainWindow::setIGNOK(bool state){
+    gpio.IGNOK = state;
+}
+void MainWindow::setIMD(bool state){
+    gpio.IMD = state;
+}
+void MainWindow::setPRESSURE(bool state){
+    gpio.PRESSURE = state;
+}
+void MainWindow::setBMSDE(bool state){
+    gpio.BMSDE = state;
+}
+
+bool MainWindow::getIGNOK(){
+    return gpio.IGNOK;
+}
+bool MainWindow::getIMD(){
+    return gpio.IMD;
+}
+bool MainWindow::getPRESSURE(){
+    return gpio.PRESSURE;
+}
+bool MainWindow::getBMSDE(){
+    return gpio.BMSDE;
+}
+
+void MainWindow::startup(){
+    switch(getState())
+    {
+        case (case.fault):
+            //Show fault screen
+            //Determine what to do next
+            break;
+        case (case.off):
+            // Check CAN BMS State, no fault
+            // Show Turn On ACC
+            break;
+        case (case.bms):
+            // Check PRESSURE && IMD
+            // Show Turn on IGN
+            break;
+        case (case.acc):
+            // Check IGN && CAN RMS Ready/On
+            // Show Precharging
+        case (case.precharging):
+            // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for active and then complete
+            // Show Press Start when complete
+            break;
+        case (case.motor):
+            // Check CAN RMS VSM State Byte 0 and 1, for when motor ready
+            // Show Select Debug or Race when motor is on
+            break;
+    }
 }
 
 void MainWindow::on_exitButton_clicked()
