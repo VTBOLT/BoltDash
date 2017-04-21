@@ -26,3 +26,10 @@
 #define PACK_TEMP_HIGH            26
 #define PACK_TEMP_LOW             27
 #define PACK_SOC                  28
+
+
+//Non CAN Messages
+#define gpio_IGNOK                50
+#define gpio_IMD                  51
+#define gpio_PRESSURE             52
+#define gpio_BMSDE                53

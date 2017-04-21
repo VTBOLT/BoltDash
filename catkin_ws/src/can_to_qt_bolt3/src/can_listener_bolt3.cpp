@@ -4,6 +4,7 @@
 
 #include "can_msg.h"
 #include "fault_msg.h"
+#include "gpio_msg.h"
 
 #include <iostream>
 
@@ -22,6 +23,14 @@ void chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg)
   std::cout << msg->define << ";" << msg->data << std::endl;
 }
 
+void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg)
+{
+  std::cout << gpio_IGNOK << ";" << msg->IGNOK <<std::endl;
+  std::cout << gpio_IMD << ";" << msg->IMD <<std::endl;
+  std::cout << gpio_PRESSURE << ";" << msg->PRESSURE <<std::endl;
+  std::cout << gpio_BMSDE << ";" << msg->BMSDE<<std::endl;
+}
+
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "can_listner_bolt3");
@@ -30,6 +39,7 @@ int main(int argc, char **argv)
 
   ros::Subscriber sub1 = n.subscribe("can_msg", 1000, chatterCallback_can_msg);
   ros::Subscriber sub2 = n.subscribe("faul_msg", 1000, chatterCallback_fault_msg);
+  ros::Subscriber gpio = n.subscribe("gpio_msg", 100, gpio_callback);
 	
   ros::spin();
 

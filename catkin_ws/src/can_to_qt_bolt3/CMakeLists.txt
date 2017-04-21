@@ -17,6 +17,7 @@ add_message_files(
   FILES
   can_msg.msg
   fault_msg.msg
+  gpio_msg.msg
   )
 ## Generate added messages and services
 generate_messages(

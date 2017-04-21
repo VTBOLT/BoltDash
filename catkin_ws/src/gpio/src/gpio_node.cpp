@@ -2,6 +2,9 @@
 #include <wiringPi.h>
 #include <std_msgs/Int8.h>
 #include <std_msgs/String.h>
+#include <can_to_qt_bolt3/gpio_msg.h>
+
+
 #include <ros/ros.h>
 
 #define MESSAGE_BUFFER_SIZE 10
@@ -23,7 +26,10 @@ int main (int argc, char** argv) {
 	std_msgs::Int8 msg_PRESSURE;
 	std_msgs::Int8 msg_BMSDE;
 
+	can_to_qt_bolt3::gpio_msg msg_gpio;
+
 	ros::Publisher system_state = nh.advertise<std_msgs::String>("system/state/all", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_gpio = nh.advertise<can_to_qt_bolt3::gpio_msg>("system/state/gpio", MESSAGE_BUFFER_SIZE);
 
 	ros::Publisher state_IGNOK = nh.advertise<std_msgs::Int8>("system/state/IGNOK", MESSAGE_BUFFER_SIZE);
 	ros::Publisher state_IMD = nh.advertise<std_msgs::Int8>("system/state/IMD", MESSAGE_BUFFER_SIZE);
@@ -51,7 +57,7 @@ int main (int argc, char** argv) {
 		BMSDE = digitalRead(BMSDE_PIN);
 		
 		// Record Dash States
-		std::cout << IGNOK << IMD  << PRESSURE << BMSDE << std::endl;
+		// std::cout << IGNOK << IMD  << PRESSURE << BMSDE << std::endl;
 		// ROS_INFO_STREAM("IGNOK: " << IGNOK << " IMD: " << IMD << " PRESSURE: " << PRESSURE << " BMSDE: " << BMSDE);
 		std::stringstream ss;
     	ss << "IGNOK: " << IGNOK << " IMD: " << IMD << " PRESSURE: " << PRESSURE << " BMSDE: " << BMSDE;
@@ -61,9 +67,16 @@ int main (int argc, char** argv) {
 		msg_PRESSURE.data = PRESSURE;
 		msg_BMSDE.data = BMSDE;
 
+		msg_gpio.IGNOK = IGNOK;
+		msg_gpio.IMD = IMD;
+		msg_gpio.PRESSURE = PRESSURE;
+		msg_gpio.BMSDE = BMSDE;
+
 		// Publish Dash States
     	// ROS_INFO("%s", msg_all.data.c_str());
+
 		system_state.publish(msg_all);
+		state_gpio.publish(msg_gpio);
 		state_IGNOK.publish(msg_IGNOK);
 		state_IMD.publish(msg_IMD);
 		state_PRESSURE.publish(msg_PRESSURE);

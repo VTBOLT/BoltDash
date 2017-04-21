@@ -38,6 +38,9 @@ private:
     void connectRaceSlots();
     void connectNavSlots();
     void connectStartupSlots();
+    int getState();
+
+    enum state(fault = -1, off, bms, acc, rms, precharge, motor);
 
 private slots:
     void setRPM(QVariant rpm);
@@ -50,6 +53,7 @@ private slots:
     void showStartupOne();
     void showStartupTwo();
     void showStartupThree();
+    void showStartupFour();
     void on_exitButton_clicked();
 };
 

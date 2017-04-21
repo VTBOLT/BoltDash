@@ -36,6 +36,10 @@ signals:
     void updateControllerTemp(double temp);
     void updateRmsCurrent(double rms);
     void updateFieldWeakening(double angle);
+    void updateIGNOK(bool state);
+    void updateIMD(bool state);
+    void updatePRESSURE(bool state);
+    void updateBMSDE(bool state);
 };
 
 #endif // ROSPROCESS_H
