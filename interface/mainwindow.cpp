@@ -175,35 +175,52 @@ bool MainWindow::getBMSDE(){
     return gpio.BMSDE;
 }
 
+int MainWindow::getState(){
+    return state;
+}
+
+void MainWindow::setState(int set_state){
+    state = set_state;
+}
+
 void MainWindow::startup(){
+    // Possibly need to change this from a switch into a bunch of signals and slots
+    // Easier to establish entire state machine at first test this way
     switch(getState())
     {
-        case (case.fault):
+        case (state_option.fault):
             //Show fault screen
             //Determine what to do next
             break;
-        case (case.off):
+        case (state_option.off):
             // Show BOLT Logo
+            MainWindow::showStartupZero();
             // Check CAN BMS State, no fault
                 // set state bms
+                MainWindow::setState(state_option.bms);
             break;
-        case (case.bms):
+        case (state_option.bms):
             // Show Turn On ACC
             // Check PRESSURE && IMD
                 // Show Turn on ACC
+                MainWindow::setState(state_option.acc);
             break;
-        case (case.acc):
+        case (state_option.acc):
             // Check IGN && CAN RMS On
                 // Set State RMS
+                MainWindow::setState(state_option.rms);
             break;
-        case (case.rms):
+        case (state_option.rms):
             // check rms vsm message. bytes 0 and 1. for precharge started
             // Show Precharging
-        case (case.precharging):
+            MainWindow::showStartupThree();
+            break;
+        case (state_option.precharging):
             // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for complete
                 // Show Press Start when complete
+                MainWindow::showStartupFour();
             break;
-        case (case.motor):
+        case (state_option.motor):
             // Check CAN RMS VSM State Byte 0 and 1, for when motor ready
                 // Show Select Debug or Race when motor is on
             break;
