@@ -21,6 +21,8 @@ add_message_files(
   drive6stat_msg.msg
   batterytemp_msg.msg
   HS_temp_msg.msg
+  motor_msg.msg
+  temp_msg.msg
   motor_temp_msg.msg
   voltage_angle_msg.msg
   current_msg.msg
