@@ -26,21 +26,24 @@ generate_messages(
   can_to_qt_bolt3
   )
 
+file(GLOB shared_hdr "../../../*.h")
+file(GLOB hdr "msg/*.h" can/*.h)
+
 ## Declare a catkin package
 catkin_package()
 
 ## Build talker and listener
-include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ ~/dash/catkin_ws/devel/include/can_to_qt_bolt3/)
-add_executable(can_talker_bolt3 src/can_talker_bolt3.cpp)
+include_directories(include ${catkin_INCLUDE_DIRS} ~/dash/catkin_ws/devel/include/can_to_qt_bolt3/ ~/dash/)
+add_executable(can_talker_bolt3 src/can_talker_bolt3.cpp ${shared_hdr} ${hdr})
 target_link_libraries(can_talker_bolt3 ${catkin_LIBRARIES})
 add_dependencies(can_talker_bolt3
-  can/canrecieve.cpp
+  can/canreceive.cpp
   can/interfacecan.cpp
   )
 add_dependencies(can_talker_bolt3 can_to_qt_bolt3_generate_messages_cpp)
 
 
-add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp)
+add_executable(can_listener_bolt3 src/can_listener_bolt3.cpp ${shared_hdr} ${hdr})
 target_link_libraries(can_listener_bolt3 ${catkin_LIBRARIES})
 add_dependencies(can_listener_bolt3 can_to_qt_bolt3_generate_messages_cpp include)
   

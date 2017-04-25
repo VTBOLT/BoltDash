@@ -33,3 +33,27 @@
 #define gpio_IMD                  51
 #define gpio_PRESSURE             52
 #define gpio_BMSDE                53
+
+
+// BMS Fault Codes
+#define fault_internal_comm       100
+#define fault_internal_conv       101
+#define fault_weak_cell           102
+#define fault_low_cell            103
+#define fault_open_wiring         104
+#define fault_current_sensor      105
+#define fault_pack_voltage        106
+#define fault_weak_pack           107
+#define fault_voltage_redudant    108
+#define fault_fan_monitor         109
+#define fault_thermistor          110
+#define fault_canbus              111
+#define fault_always_on           112
+#define fault_high_voltage        113
+#define fault_power_supply        114
+#define fault_charge_limit        115
+#define fault_discharge_limit     116
+#define fault_charger_safety      117
+#define fault_internal_memory     118
+#define fault_internal_thermistor 119
+#define fault_internal_logic      120

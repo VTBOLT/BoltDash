@@ -123,6 +123,7 @@ void RosProcess::parseData(QByteArray data)
     case (VSM_STATE):
         break;
     case (INVERTER_STATE):
+        emit updateRMSState(can_data);
         break;
     case (FAULT):
         break;
@@ -160,6 +161,8 @@ void RosProcess::parseData(QByteArray data)
     case (gpio_BMSDE):
         emit updateBMSDE(can_data)
         break;
+    case (fault_internal_comm ... fault_internal_logic):
+        emit updateFAULT(can_data);
     default:
         break;
     }

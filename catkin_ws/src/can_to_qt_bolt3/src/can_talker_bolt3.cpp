@@ -3,7 +3,7 @@
 #include "std_msgs/String.h"
 #include "std_msgs/Int16.h"
 
-#include "canrecieve.cpp"
+#include "canreceive.cpp"
 #include "shared_messages.h"
 
 //ROS topic message declerations 
@@ -42,8 +42,8 @@ int main(int argc, char **argv)
       can_to_qt_bolt3::can_msg can_msg;
       can_to_qt_bolt3::fault_msg fault_msg;
       
-      //std::cout << "calling canrecieve" << std::endl;
-      message = canrecieve(2, argv2, std::cin);
+      //std::cout << "calling canreceive" << std::endl;
+      message = canreceive(2, argv2, std::cin);
 
       switch(message.can_id)
 	{
