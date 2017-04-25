@@ -20,12 +20,13 @@
 #define FAULT                     20
 #define COMMAND_TORQUE            21
 #define TORQUE_FEEDBACK           22
-#define SPEED_CMD                 23
-#define PACK_CURRENT              24
-#define PACK_INST_VOLTAGE         25
-#define PACK_TEMP_HIGH            26
-#define PACK_TEMP_LOW             27
-#define PACK_SOC                  28
+#define FLUX_WEAK_OUT             23
+#define SPEED_CMD                 24
+#define PACK_CURRENT              25
+#define PACK_INST_VOLTAGE         26
+#define PACK_TEMP_HIGH            27
+#define PACK_TEMP_LOW             28
+#define PACK_SOC                  29
 
 
 //Non CAN Messages
