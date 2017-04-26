@@ -194,7 +194,7 @@ int main(int argc, char **argv)
 		{
 			can_msg.can_id = message.can_id;
 			// Should double check that this is correct, I do not think it is
-			data = (message.data[1] << 8 | message.data[0]);
+			data = (message.data[0] | message.data[1] << 8);
 			can_msg.name = "VSM_STATE";
 			can_msg.can_data = data;
 			can_msg.define = VSM_STATE;

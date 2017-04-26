@@ -69,6 +69,7 @@ void RosProcess::parseData(QByteArray data)
 
     QStringList splitData = QString(allData).split(';');
 
+    //@TODO look into these, do not understand what this is for
     QString s_id = splitData.at(0);
     QString s_data = splitData.at(1);
 
@@ -123,7 +124,7 @@ void RosProcess::parseData(QByteArray data)
         break;
     case (VSM_STATE):
         emit updateRMSVSM(can_data);
-        qRCout << "VSM " << can_data << endl;
+//        qRCout << "VSM " << can_data << endl;
         break;
     case (INVERTER_STATE):
         emit updateInverter(can_data);
@@ -151,6 +152,7 @@ void RosProcess::parseData(QByteArray data)
         emit updateSOC(can_data);
         emit updateSOC(QVariant(can_data));
         break;
+        
     // GPIO BELOW HERE
     case (gpio_IGNOK):
         emit updateIGNOK(can_data);

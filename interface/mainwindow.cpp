@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // instantiate the can thread
     QString path = "rosrun";
     QStringList args;
-    args << "backend" << "can_listener_bolt2";
+    args << "can_to_qt_bolt3" << "can_listener_bolt3";
     ros_process = new RosProcess(path,args);
 
     // connect can signals to debug view
@@ -158,18 +158,22 @@ void MainWindow::showStartupFour()
 
 void MainWindow::setIGNOK(bool state){
     gpio.IGNOK = state;
+    qCout << "ignok: " << state << endl;
     MainWindow::startup();
 }
 void MainWindow::setIMD(bool state){
     gpio.IMD = state;
+    qCout << "imd: " << state << endl;
     MainWindow::startup();
 }
 void MainWindow::setPRESSURE(bool state){
     gpio.PRESSURE = state;
+    qCout << "pressure: " << state << endl;
     MainWindow::startup();
 }
 void MainWindow::setBMSDE(bool state){
     gpio.BMSDE = state;
+    qCout << "bmsde: " << state << endl;
     MainWindow::startup();
 }
 
@@ -213,6 +217,8 @@ bool MainWindow::getBMSDE(){
 }
 
 int MainWindow::getState(){
+    qCout << "State is " << state << endl;
+    qCout << "RMSVSM is " << MainWindow::getRMSVSM() << endl;
     return state;
 }
 
