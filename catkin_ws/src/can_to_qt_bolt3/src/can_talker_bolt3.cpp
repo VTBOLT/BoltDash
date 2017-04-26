@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 			data = (message.data[1] << 8 | message.data[0]);
 			can_msg.name = "TEMP_CONTROL_BOARD";
 			can_msg.can_data = data;
-			can_msg.define = TEMP_CONTORL_BOARD;
+			can_msg.define = TEMP_CONTROL_BOARD;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name.c_str(), can_msg.can_id, can_msg.can_data);
 			break;
