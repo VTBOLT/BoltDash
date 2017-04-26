@@ -18,14 +18,14 @@
 #include "../shared_messages.h"
 
 struct gpio_values{
-    bool BMSDE;
-    bool ACC;
-    bool RMS;
-    bool PRECHARGE;
-    bool MOTOR;
-    bool IGNOK;
-    bool IMD;
-    bool PRESSURE;
+    int BMSDE = false;
+    int ACC = false;
+    int RMS = false;
+    int PRECHARGE = false;
+    int MOTOR = false;
+    int IGNOK = false;
+    int IMD = false;
+    int PRESSURE = false;
 };
 
 
@@ -68,10 +68,10 @@ private:
     void connectStartupSlots();
     int getState();
     void setState(int value, int fault_state=0);
-    bool getIGNOK();
-    bool getIMD();
-    bool getPRESSURE();
-    bool getBMSDE();
+    int getIGNOK();
+    int getIMD();
+    int getPRESSURE();
+    int getBMSDE();
     int getRMSVSM();
     int getFAULT();
 
@@ -120,10 +120,10 @@ private slots:
     void showStartupTwo();
     void showStartupThree();
     void showStartupFour();
-    void setIGNOK(bool value);
-    void setIMD(bool value);
-    void setPRESSURE(bool value);
-    void setBMSDE(bool value);
+    void setIGNOK(int value);
+    void setIMD(int value);
+    void setPRESSURE(int value);
+    void setBMSDE(int value);
     void setFAULT(int value);
     void setRMSVSM(int value);
     void setInverter(int value);

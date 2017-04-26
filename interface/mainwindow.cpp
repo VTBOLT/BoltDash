@@ -66,17 +66,17 @@ void MainWindow::connectRaceSlots()
 
 void MainWindow::connectStartupSlots()
 {
-    connect(ros_process, SIGNAL(updateIGNOK(bool)), this, SLOT(setIGNOK(bool)));
-    connect(ros_process, SIGNAL(updateIMD(bool)), this, SLOT(setIMD(bool)));
-    connect(ros_process, SIGNAL(updatePRESSURE(bool)), this, SLOT(setPRESSURE(bool)));
-    connect(ros_process, SIGNAL(updateBMSDE(bool)), this, SLOT(setBMSDE(bool)));
-    connect(ui->step1, SIGNAL(clicked(bool)), this, SLOT(showStartupOne()));
-    connect(ui->step2, SIGNAL(clicked(bool)), this, SLOT(showStartupTwo()));
-    connect(ui->step3, SIGNAL(clicked(bool)), this, SLOT(showStartupThree()));
-    connect(ui->step4, SIGNAL(clicked(bool)), this, SLOT(showStartupFour()));
-    connect(ui->step0, SIGNAL(clicked(bool)), this, SLOT(showStartupZero()));
-    connect(ui->startupToRace, SIGNAL(clicked(bool)), this, SLOT(toRaceView()));
-    connect(ui->startupToDebug, SIGNAL(clicked(bool)), this, SLOT(toDebugView()));
+    connect(ros_process, SIGNAL(updateIGNOK(int)), this, SLOT(setIGNOK(int)));
+    connect(ros_process, SIGNAL(updateIMD(int)), this, SLOT(setIMD(int)));
+    connect(ros_process, SIGNAL(updatePRESSURE(int)), this, SLOT(setPRESSURE(int)));
+    connect(ros_process, SIGNAL(updateBMSDE(int)), this, SLOT(setBMSDE(int)));
+    connect(ui->step1, SIGNAL(clicked(int)), this, SLOT(showStartupOne()));
+    connect(ui->step2, SIGNAL(clicked(int)), this, SLOT(showStartupTwo()));
+    connect(ui->step3, SIGNAL(clicked(int)), this, SLOT(showStartupThree()));
+    connect(ui->step4, SIGNAL(clicked(int)), this, SLOT(showStartupFour()));
+    connect(ui->step0, SIGNAL(clicked(int)), this, SLOT(showStartupZero()));
+    connect(ui->startupToRace, SIGNAL(clicked(int)), this, SLOT(toRaceView()));
+    connect(ui->startupToDebug, SIGNAL(clicked(int)), this, SLOT(toDebugView()));
 
     connect(this, SIGNAL( stateSet()), this, SLOT(startup()));
     connect(ros_process, SIGNAL( updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
@@ -100,11 +100,11 @@ void MainWindow::setBatteryPercent(QVariant value)
 void MainWindow::connectNavSlots()
 {
     QObject * qmlObject = ui->qmlRace->rootObject();
-    //connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
+    //connect(ui->toDebugButton,SIGNAL(clicked(int)),this,SLOT(toDebugView()));
     connect(qmlObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
-    connect(ui->toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
-    connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
-    connect(ui->toVoltageButton,SIGNAL(clicked(bool)),this,SLOT(toVoltageView()));
+    connect(ui->toRaceButton,SIGNAL(clicked(int)),this,SLOT(toRaceView()));
+    connect(ui->toDebugButton,SIGNAL(clicked(int)),this,SLOT(toDebugView()));
+    connect(ui->toVoltageButton,SIGNAL(clicked(int)),this,SLOT(toVoltageView()));
 }
 
 void MainWindow::toDebugView()
@@ -156,31 +156,40 @@ void MainWindow::showStartupFour()
 
 // Set Methods
 
-void MainWindow::setIGNOK(bool state){
+void MainWindow::setIGNOK(int state){
     gpio.IGNOK = state;
-    qCout << "ignok: " << gpio.IGNOK << endl;
+    qCout << "set ignok: " << gpio.IGNOK << endl;
     MainWindow::startup();
 }
-void MainWindow::setIMD(bool state){
-    gpio.IMD = state;
-    qCout << "imd: " << gpio.IMD << endl;
-    MainWindow::startup();
+void MainWindow::setIMD(int state){
+    if(state == 0 || state == 1){
+        gpio.IMD = state;
+        qCout << "set imd: " << gpio.IMD << endl;
+        MainWindow::startup();    
+    }
+    
 }
-void MainWindow::setPRESSURE(bool state){
-    gpio.PRESSURE = state;
-    qCout << "pressure: " << gpio.PRESSURE << endl;
-    MainWindow::startup();
+void MainWindow::setPRESSURE(int state){
+    if(state == 0 || state == 1){
+        gpio.PRESSURE = state;
+        qCout << "set pressure: " << gpio.PRESSURE << endl;
+        MainWindow::startup();
+    }
 }
-void MainWindow::setBMSDE(bool state){
-    gpio.BMSDE = state;
-    qCout << "bmsde: " << gpio.BMSDE << endl;
-    MainWindow::startup();
+void MainWindow::setBMSDE(int state){
+    if(state == 0 || state == 1){
+        gpio.BMSDE = state;
+        qCout << "set bmsde: " << gpio.BMSDE << endl;
+        MainWindow::startup();
+    }
 }
 
 void MainWindow::setRMSVSM(int value){
-    rms_vsm_state = value;
-     qCout << "RMS VSM State: " << rms_vsm_state << endl;
-    MainWindow::startup();
+    if(state == 0 || state == 1){
+        rms_vsm_state = value;
+        qCout << "set RMS VSM State: " << rms_vsm_state << endl;
+        MainWindow::startup();
+    }
 }
 
 void MainWindow::setInverter(int value){
@@ -203,19 +212,19 @@ void MainWindow::setFAULT(int value){
 
 // Get Methods
 
-bool MainWindow::getIGNOK(){
+int MainWindow::getIGNOK(){
     qCout << "ignok: " << gpio.IGNOK << endl;
     return gpio.IGNOK;
 }
-bool MainWindow::getIMD(){
+int MainWindow::getIMD(){
     qCout << "imd: " << gpio.IMD << endl;
     return gpio.IMD;
 }
-bool MainWindow::getPRESSURE(){
+int MainWindow::getPRESSURE(){
     qCout << "pressure: " << gpio.PRESSURE << endl;
     return gpio.PRESSURE;
 }
-bool MainWindow::getBMSDE(){
+int MainWindow::getBMSDE(){
     qCout << "bmsde: " << gpio.BMSDE << endl;
     return gpio.BMSDE;
 }
