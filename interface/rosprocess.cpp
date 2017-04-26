@@ -106,8 +106,7 @@ void RosProcess::parseData(QByteArray data)
             case (MOTOR_ANGLE):
                 break;
             case (MOTOR_SPEED):
-                // convert to RPM, multiply by 60 seconds and divide by 2pi radians
-                rpm = float(can_data) * (60.0 / 6.28);
+                rpm = can_data / 100.0;
                 emit updateRPM(rpm);
                 emit updateRPM(QVariant(rpm));
                 break;

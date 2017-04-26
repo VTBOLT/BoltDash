@@ -94,9 +94,9 @@ void MainWindow::connectNavSlots()
     QObject * qmlObject = ui->qmlRace->rootObject();
     //connect(ui->toDebugButton,SIGNAL(clicked(int)),this,SLOT(toDebugView()));
     connect(qmlObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
-    connect(ui->toRaceButton,SIGNAL(clicked(int)),this,SLOT(toRaceView()));
-    connect(ui->toDebugButton,SIGNAL(clicked(int)),this,SLOT(toDebugView()));
-    connect(ui->toVoltageButton,SIGNAL(clicked(int)),this,SLOT(toVoltageView()));
+    connect(ui->toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
+    connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
+    connect(ui->toVoltageButton,SIGNAL(clicked(bool)),this,SLOT(toVoltageView()));
 }
 
 void MainWindow::toDebugView()
