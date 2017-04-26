@@ -302,6 +302,17 @@ int main(int argc, char **argv)
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			break;
 		}
+		case 0x123:
+		{
+			can_msg.can_id = message.can_id;
+			data = (message.data[1]);
+			can_msg.name = "GORDON_TEST";
+			can_msg.can_data = data;
+			////can_msg.define = PACK_SOC;
+			topic_can_msg.publish(can_msg);
+			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
+			break;
+		}
 		}
 
 		if (count > 10000){

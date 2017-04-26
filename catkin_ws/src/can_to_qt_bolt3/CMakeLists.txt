@@ -39,6 +39,7 @@ target_link_libraries(can_talker_bolt3 ${catkin_LIBRARIES})
 add_dependencies(can_talker_bolt3
   can/canreceive.cpp
   can/interfacecan.cpp
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}
   )
 add_dependencies(can_talker_bolt3 can_to_qt_bolt3_generate_messages_cpp)
 

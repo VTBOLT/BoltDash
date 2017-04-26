@@ -157,15 +157,21 @@ void MainWindow::showStartupFour()
 // Set Methods
 
 void MainWindow::setIGNOK(int state){
-    gpio.IGNOK = state;
-    qCout << "set ignok: " << gpio.IGNOK << endl;
-    MainWindow::startup();
+    if(state == 0 || state == 1){
+        gpio.IGNOK = state;
+        qCout << "set ignok: " << gpio.IGNOK << endl;
+        // MainWindow::startup();
+    } else{
+        qCout << "fault ignok: " << state << endl;
+    }
 }
 void MainWindow::setIMD(int state){
     if(state == 0 || state == 1){
         gpio.IMD = state;
         qCout << "set imd: " << gpio.IMD << endl;
-        MainWindow::startup();    
+        // MainWindow::startup();    
+    } else{
+        qCout << "fault imd: " << state << endl;
     }
     
 }
@@ -173,14 +179,18 @@ void MainWindow::setPRESSURE(int state){
     if(state == 0 || state == 1){
         gpio.PRESSURE = state;
         qCout << "set pressure: " << gpio.PRESSURE << endl;
-        MainWindow::startup();
+        // MainWindow::startup();
+    } else{
+        qCout << "fault pressure: " << state << endl;
     }
 }
 void MainWindow::setBMSDE(int state){
     if(state == 0 || state == 1){
         gpio.BMSDE = state;
         qCout << "set bmsde: " << gpio.BMSDE << endl;
-        MainWindow::startup();
+        // MainWindow::startup();
+    } else{
+        qCout << "fault bmsde: " << state << endl;
     }
 }
 
@@ -188,13 +198,13 @@ void MainWindow::setRMSVSM(int value){
     if(state == 0 || state == 1){
         rms_vsm_state = value;
         qCout << "set RMS VSM State: " << rms_vsm_state << endl;
-        MainWindow::startup();
+        // MainWindow::startup();
     }
 }
 
 void MainWindow::setInverter(int value){
     rms_inverter_state = value;
-    MainWindow::startup();
+    // MainWindow::startup();
 }
 
 void MainWindow::setState(int set_state, int fault_value){
@@ -206,6 +216,7 @@ void MainWindow::setState(int set_state, int fault_value){
 }
 
 void MainWindow::setFAULT(int value){
+    qCout << "FAULT SET " << value << endl;
     fault_code = value;
     MainWindow::startup();
 }
