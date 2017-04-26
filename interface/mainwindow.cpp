@@ -158,22 +158,22 @@ void MainWindow::showStartupFour()
 
 void MainWindow::setIGNOK(bool state){
     gpio.IGNOK = state;
-    qCout << "ignok: " << state << endl;
+    qCout << "ignok: " << gpio.IGNOK << endl;
     MainWindow::startup();
 }
 void MainWindow::setIMD(bool state){
     gpio.IMD = state;
-    qCout << "imd: " << state << endl;
+    qCout << "imd: " << gpio.IMD << endl;
     MainWindow::startup();
 }
 void MainWindow::setPRESSURE(bool state){
     gpio.PRESSURE = state;
-    qCout << "pressure: " << state << endl;
+    qCout << "pressure: " << gpio.PRESSURE << endl;
     MainWindow::startup();
 }
 void MainWindow::setBMSDE(bool state){
     gpio.BMSDE = state;
-    qCout << "bmsde: " << state << endl;
+    qCout << "bmsde: " << gpio.BMSDE << endl;
     MainWindow::startup();
 }
 
@@ -204,15 +204,19 @@ void MainWindow::setFAULT(int value){
 // Get Methods
 
 bool MainWindow::getIGNOK(){
+    qCout << "ignok: " << gpio.IGNOK << endl;
     return gpio.IGNOK;
 }
 bool MainWindow::getIMD(){
+    qCout << "imd: " << gpio.IMD << endl;
     return gpio.IMD;
 }
 bool MainWindow::getPRESSURE(){
+    qCout << "pressure: " << gpio.PRESSURE << endl;
     return gpio.PRESSURE;
 }
 bool MainWindow::getBMSDE(){
+    qCout << "bmsde: " << gpio.BMSDE << endl;
     return gpio.BMSDE;
 }
 
@@ -254,7 +258,7 @@ void MainWindow::startup(){
             // Show Turn On ACC
             MainWindow::showStartupOne();
             // Check PRESSURE && IMD
-            if(MainWindow::getPRESSURE() && MainWindow::getIMD()){
+            if(MainWindow::getPRESSURE() == 1 && MainWindow::getIMD() == 1){
                 // Show Turn on ACC
                 MainWindow::showStartupTwo();
                 MainWindow::setState(state_option::acc);
@@ -262,7 +266,7 @@ void MainWindow::startup(){
             break;
         case (state_option::acc):
             // Check IGN && CAN RMS On
-            if(MainWindow::getIGNOK() && (MainWindow::getRMSVSM() == 0 || MainWindow::getRMSVSM() == 1)){
+            if(MainWindow::getIGNOK() == 1 && MainWindow::getRMSVSM() > 1){
                 // Set State RMS
                 MainWindow::setState(state_option::rms);
             } else if(MainWindow::getRMSVSM() != 0 || MainWindow::getRMSVSM() !=1){
@@ -271,7 +275,7 @@ void MainWindow::startup(){
             break;
         case (state_option::rms):
             // check rms vsm message. bytes 0 and 1. for precharge started
-            if(MainWindow::getRMSVSM() >= 1 || MainWindow::getRMSVSM() <= 2){
+            if(MainWindow::getRMSVSM() >= 2){
                 // Show Precharging
                 MainWindow::showStartupThree();
             }            
@@ -290,6 +294,8 @@ void MainWindow::startup(){
                 // Show Select Debug or Race when motor is on
                 // MainWindow::showSelection();
 //            }
+            break;
+        default:
             break;
     }
 }
