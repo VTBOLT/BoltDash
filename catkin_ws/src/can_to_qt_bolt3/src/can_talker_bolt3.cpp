@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	ros::Publisher topic_fault_msg = n.advertise<can_to_qt_bolt3::can_msg>("fault_msg", 1000);
 
 
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(1000);
 	struct canfd_frame message;
 	char* argv2[2];
 
