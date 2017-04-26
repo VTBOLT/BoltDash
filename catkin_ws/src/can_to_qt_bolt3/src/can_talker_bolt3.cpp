@@ -11,6 +11,7 @@
 #include "fault_msg.h"
 
 #include <iostream>
+#include <string>
 
 int main(int argc, char **argv)
 {
@@ -193,7 +194,6 @@ int main(int argc, char **argv)
 		case 0xAA:
 		{
 			can_msg.can_id = message.can_id;
-			// Should double check that this is correct, I do not think it is
 			data = (message.data[0] | message.data[1] << 8);
 			can_msg.name = "VSM_STATE";
 			can_msg.can_data = data;
@@ -210,13 +210,15 @@ int main(int argc, char **argv)
 		}
 		case 0xAB:
 		{
-			//fault_msg.can_id = message.can_id;
-			//data = (message.data[7] << 8 | message.data[6]);
-			//fault_msg.name = "FAULT";
-			////can_msg.define = FAULT;
-			//fault_msg.data = data;
-			//topic_can_msg.publish(can_msg);
-			//ROS_INFO("FAULT name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
+			fault_msg.can_id = message.can_id;
+			data = (message.data[7] << 8 | message.data[6]);
+			fault_msg.name = "FAULT";
+			can_msg.define = FAULT;
+			std::stringstream ss;
+			ss << data;
+			fault_msg.msg_data = ss.str();
+			topic_can_msg.publish(can_msg);
+			ROS_INFO("FAULT name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			break;
 		}
 		case 0xAC:
