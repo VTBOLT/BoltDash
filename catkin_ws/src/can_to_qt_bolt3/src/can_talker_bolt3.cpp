@@ -211,7 +211,7 @@ int main(int argc, char **argv)
 		case 0xAB:
 		{
 			fault_msg.can_id = message.can_id;
-			string fault;
+			std::string fault;
 			if(message.data[0] & 0b00000001)
 			  fault = "Hardware Gate/Desaturation Fault";
 			else if(message.data[0] & 0b00000010)
