@@ -236,6 +236,16 @@ int main(int argc, char **argv)
 
 	    break;
 	  }
+	case 0xAD:
+	  {
+	    can_msg.can_id = message.can_id;
+	    data = (message.data[3] << 8 | message.data[2]);
+	    can_msg.name = "FLUX_WEAK_OUT";
+	    can_msg.data = data;
+	    can_msg.define = FLUX_WEAK_OUT;
+	    topic_can_msg.publish(can_msg);
+	    ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.data);
+	  }
 	case 0xC0:
 	  {
 	    can_msg.can_id = message.can_id;
