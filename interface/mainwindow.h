@@ -66,7 +66,6 @@ private:
     void connectRaceSlots();
     void connectNavSlots();
     void connectStartupSlots();
-    void startup();
     int getState();
     void setState(int value, int fault_state=0);
     bool getIGNOK();
@@ -127,6 +126,8 @@ private slots:
     void setBMSDE(bool value);
     void setFAULT(int value);
     void setRMSVSM(int value);
+    void setInverter(int value);
+    void startup();
 
     void on_exitButton_clicked();
 

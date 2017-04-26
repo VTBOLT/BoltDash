@@ -79,7 +79,8 @@ void MainWindow::connectStartupSlots()
     connect(ui->startupToDebug, SIGNAL(clicked(bool)), this, SLOT(toDebugView()));
 
     connect(this, SIGNAL( stateSet()), this, SLOT(startup()));
-    connect(this, SIGNAL( updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
+    connect(ros_process, SIGNAL( updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
+    connect(ros_process, SIGNAL( updateInverter(int)), this, SLOT(setInverter(int)));
 }
 
 void MainWindow::setRPM(QVariant rpm)
@@ -177,11 +178,16 @@ void MainWindow::setRMSVSM(int value){
     MainWindow::startup();
 }
 
+void MainWindow::setInverter(int value){
+    rms_inverter_state = value;
+    MainWindow::startup();
+}
+
 void MainWindow::setState(int set_state, int fault_value){
     state = set_state;
-    if(state == -1){
-        MainWindow::setFAULT(fault_value);
-    }
+    // if(state == -1){
+    //     MainWindow::setFAULT(fault_value);
+    // }
     emit stateSet();
 }
 
@@ -232,7 +238,7 @@ void MainWindow::startup(){
             // Show BOLT Logo
             MainWindow::showStartupZero();
             // Check CAN BMS State, no fault
-            if(fault == 0){
+            if(fault_code == 0){
                 // set state bms
                 MainWindow::setState(state_option::bms);
             }

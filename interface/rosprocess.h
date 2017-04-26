@@ -42,6 +42,7 @@ signals:
     void updateBMSDE(bool state);
     void updateFAULT(int value);
     void updateRMSVSM(int value);
+    void updateInverter(int value);
 };
 
 #endif // ROSPROCESS_H
