@@ -211,12 +211,38 @@ int main(int argc, char **argv)
 		case 0xAB:
 		{
 			fault_msg.can_id = message.can_id;
-			data = (message.data[7] << 8 | message.data[6]);
-			fault_msg.name = "FAULT";
-			can_msg.define = FAULT;
-			std::stringstream ss;
-			ss << data;
-			fault_msg.msg_data = ss.str();
+			string fault;
+			if(message.data[0] & 0b00000001)
+			  fault = "Hardware Gate/Desaturation Fault";
+			else if(message.data[0] & 0b00000010)
+			  fault = "HW Over-current Fault";
+			else if(message.data[0] & 0b00000100)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b00000100)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b00001000)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b00010000)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b00100000)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b01000000)
+			  fault = "place holder, see manual";
+			else if(message.data[0] & 0b10000000)
+			  fault = "place holder, see manual";
+
+			else if(message.data[1] & 0b00000001)
+			  fault = "place holder, see manual";
+
+			else
+			  fault = "Unrecoreded Fault: check manual";
+			//data = (message.data[7] << 8 | message.data[6]);
+			//fault_msg.name = "FAULT";
+			//can_msg.define = FAULT;
+			//std::stringstream ss;
+			//ss << data;
+			//fault_msg.msg_data = ss.str();
+			fault_msg.msg_data = fault;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("FAULT name: %s, can_id [%i], data: %i", can_msg.name.c_str(), can_msg.can_id, can_msg.can_data);
 			break;
