@@ -37,9 +37,9 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Subscriber sub1 = n.subscribe("can_msg", 1000, chatterCallback_can_msg);
-  ros::Subscriber sub2 = n.subscribe("fault_msg", 1000, chatterCallback_fault_msg);
-  ros::Subscriber gpio = n.subscribe("gpio_msg", 100, gpio_callback);
+  ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
+  ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
+  ros::Subscriber gpio = n.subscribe("/system/state/gpio", 100, gpio_callback);
 	
   ros::spin();
 

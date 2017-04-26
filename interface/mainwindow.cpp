@@ -175,6 +175,7 @@ void MainWindow::setBMSDE(bool state){
 
 void MainWindow::setRMSVSM(int value){
     rms_vsm_state = value;
+     qCout << "RMS VSM State: " << rms_vsm_state << endl;
     MainWindow::startup();
 }
 

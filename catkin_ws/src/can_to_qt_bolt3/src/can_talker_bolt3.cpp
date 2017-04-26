@@ -193,7 +193,8 @@ int main(int argc, char **argv)
 		case 0xAA:
 		{
 			can_msg.can_id = message.can_id;
-			data = (message.data[1] << 8 | message.data[0]);
+			// Should double check that this is correct, I do not think it is
+			data = (message.data[0] << 8 | message.data[1]);
 			can_msg.name = "VSM_STATE";
 			can_msg.can_data = data;
 			can_msg.define = VSM_STATE;

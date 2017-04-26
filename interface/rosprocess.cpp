@@ -121,9 +121,11 @@ void RosProcess::parseData(QByteArray data)
     case (ID_FEEDBACK):
         break;
     case (VSM_STATE):
+        emit updateRMSVSM(can_data);
+
         break;
     case (INVERTER_STATE):
-        emit updateRMSVSM(can_data);
+        emit updateInverter(can_data);
         break;
     case (FAULT):
         break;
