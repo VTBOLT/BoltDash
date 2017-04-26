@@ -65,7 +65,7 @@ void RosProcess::parseData(QByteArray data)
 {
 
     QString allData = data;
-    // qRCout << "DATA: " << allData;
+    qRCout << "DATA: " << allData << endl;
     QStringList data_points = QString(allData).split('\n');
     QStringList splitData;
 
@@ -77,6 +77,8 @@ void RosProcess::parseData(QByteArray data)
         {
             QString s_id = splitData.at(0);
             QString s_data = splitData.at(1);
+            // qRCout << "id " << s_id << endl;
+            // qRCout << "data " << s_data << endl;
 
             bool * ok = new bool;
             int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
