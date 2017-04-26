@@ -303,7 +303,7 @@ int main(int argc, char **argv)
 		}
 		}
 
-		if (count > 1000){
+		if (count > 10000){
 			exit(0);
 		}
 		else{
