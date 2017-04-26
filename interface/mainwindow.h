@@ -18,14 +18,14 @@
 #include "../shared_messages.h"
 
 struct gpio_values{
-    int BMSDE = false;
-    int ACC = false;
-    int RMS = false;
-    int PRECHARGE = false;
-    int MOTOR = false;
-    int IGNOK = false;
-    int IMD = false;
-    int PRESSURE = false;
+    int BMSDE = 0;
+    int ACC = 0;
+    int RMS = 0;
+    int PRECHARGE = 0;
+    int MOTOR = 0;
+    int IGNOK = 0;
+    int IMD = 0;
+    int PRESSURE = 0;
 };
 
 

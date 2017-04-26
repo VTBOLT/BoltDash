@@ -54,7 +54,13 @@ int main (int argc, char** argv) {
 		IGNOK = digitalRead(IGNOK_PIN);
 		IMD = digitalRead(IMD_PIN);
 		PRESSURE = digitalRead(PRESSURE_PIN);
-		BMSDE = digitalRead(BMSDE_PIN);
+		if(digitalRead(BMSDE_PIN) == 1){
+			BMSDE = 0;
+		}
+
+		if (digitalRead(BMSDE_PIN) == 0){
+			BMSDE = 1;
+		}
 		
 		// Record Dash States
 		// std::cout << IGNOK << IMD  << PRESSURE << BMSDE << std::endl;

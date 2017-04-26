@@ -39,10 +39,10 @@ RosProcess::RosProcess(QString path, QStringList args)
     m_processObj->setArguments(args);
 
     // when data become available on stdout of the process, get the data
-    connect(m_processObj,SIGNAL(readyReadStandardOutput()),this,SLOT(readData()));
+    connect(m_processObj, SIGNAL(readyReadStandardOutput()), this, SLOT(readData()));
 
     // look for info passed on stderr
-    connect(m_processObj,SIGNAL(readyReadStandardError()),this,SLOT(readError()));
+    connect(m_processObj, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
 
     m_processObj->start();
 }
@@ -65,111 +65,118 @@ void RosProcess::parseData(QByteArray data)
 {
 
     QString allData = data;
-    allData = allData.remove('\n');
+    // qRCout << "DATA: " << allData;
+    QStringList data_points = QString(allData).split('\n');
+    QStringList splitData;
 
-    QStringList splitData = QString(allData).split(';');
+    for (int i = 0; i < data_points.size(); i++) {
 
-    //@TODO look into these, do not understand what this is for
-    QString s_id = splitData.at(0);
-    QString s_data = splitData.at(1);
+        splitData = QString(data_points.at(i)).split(';');
+        // sometimes we get an empty line, definitely ignore that...
+        if (splitData.size() > 1)
+        {
+            QString s_id = splitData.at(0);
+            QString s_data = splitData.at(1);
 
-    bool * ok = new bool;
-    int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
-    int can_data = s_data.toInt(ok, 10);
+            bool * ok = new bool;
+            int ID = s_id.toInt(ok, 10); // CAN MESSAGE ID
+            int can_data = s_data.toInt(ok, 10);
 
-    // emit a signal based on the can id
-    switch (ID)
-    {
-    case (TEMP_MOD_A):
-        break;
-    case (TEMP_MOD_B):
-        break;
-    case (TEMP_MOD_C):
-        break;
-    case (TEMP_GATE_DRIVER_BOARD):
-        break;
-    case(TEMP_CONTROL_BOARD):
-        emit updateControllerTemp(can_data);
-        break;
-    case (MOTOR_TEMP):
-        emit updateMotorTemp(can_data);
-        break;
-    case (REGEN_SIGNAL):
-        break;
-    case (MOTOR_ANGLE):
-        break;
-    case (MOTOR_SPEED):
-        // convert to RPM, multiply by 60 seconds and divide by 2pi radians
-        rpm = float(can_data) * (60.0 / 6.28);
-        emit updateRPM(rpm);
-        emit updateRPM(QVariant(rpm));
-        break;
-    case (RESOLVER_ANGLE):
-        break;
-    case (DC_CURRENT):
-        emit updateDcCurrent(can_data);
-        break;
-    case (DC_VOLTAGE):
-        break;
-    case (OUTPUT_VOLTAGE):
-        emit updateOutputVolts(can_data);
-        break;
-    case (PHASE_AB_VOLTAGE):
-        break;
-    case (PHASE_BC_VOLTAGE):
-        break;
-    case (IQ_FEEDBACK):
-        break;
-    case (ID_FEEDBACK):
-        break;
-    case (VSM_STATE):
-        emit updateRMSVSM(can_data);
-//        qRCout << "VSM " << can_data << endl;
-        break;
-    case (INVERTER_STATE):
-        emit updateInverter(can_data);
-        break;
-    case (FAULT):
-        break;
-    case (COMMAND_TORQUE):
-        break;
-    case (TORQUE_FEEDBACK):
-        break;
-    case (SPEED_CMD):
-        break;
-    case (PACK_CURRENT):
-        emit updatePackCurrent(can_data);
-        break;
-    case (PACK_INST_VOLTAGE):
-        emit updatePackVolts(can_data);
-        break;
-    case (PACK_TEMP_HIGH):
-        emit updatePackTempHigh(can_data);
-        break;
-    case (PACK_TEMP_LOW):
-        break;
-    case (PACK_SOC):
-        emit updateSOC(can_data);
-        emit updateSOC(QVariant(can_data));
-        break;
-        
-    // GPIO BELOW HERE
-    case (gpio_IGNOK):
-        emit updateIGNOK(can_data);
-        break;
-    case (gpio_IMD):
-        emit updateIMD(can_data);
-        break;
-    case (gpio_PRESSURE):
-        emit updatePRESSURE(can_data);
-        break;
-    case (gpio_BMSDE):
-        emit updateBMSDE(can_data);
-        break;
-    case (fault_internal_comm):
-        emit updateFAULT(can_data);
-    default:
-        break;
+            // emit a signal based on the can id
+            switch (ID)
+            {
+            case (TEMP_MOD_A):
+                break;
+            case (TEMP_MOD_B):
+                break;
+            case (TEMP_MOD_C):
+                break;
+            case (TEMP_GATE_DRIVER_BOARD):
+                break;
+            case (TEMP_CONTROL_BOARD):
+                emit updateControllerTemp(can_data);
+                break;
+            case (MOTOR_TEMP):
+                emit updateMotorTemp(can_data);
+                break;
+            case (REGEN_SIGNAL):
+                break;
+            case (MOTOR_ANGLE):
+                break;
+            case (MOTOR_SPEED):
+                // convert to RPM, multiply by 60 seconds and divide by 2pi radians
+                rpm = float(can_data) * (60.0 / 6.28);
+                emit updateRPM(rpm);
+                emit updateRPM(QVariant(rpm));
+                break;
+            case (RESOLVER_ANGLE):
+                break;
+            case (DC_CURRENT):
+                emit updateDcCurrent(can_data);
+                break;
+            case (DC_VOLTAGE):
+                break;
+            case (OUTPUT_VOLTAGE):
+                emit updateOutputVolts(can_data);
+                break;
+            case (PHASE_AB_VOLTAGE):
+                break;
+            case (PHASE_BC_VOLTAGE):
+                break;
+            case (IQ_FEEDBACK):
+                break;
+            case (ID_FEEDBACK):
+                break;
+            case (VSM_STATE):
+                emit updateRMSVSM(can_data);
+    //        qRCout << "VSM " << can_data << endl;
+                break;
+            case (INVERTER_STATE):
+                emit updateInverter(can_data);
+                break;
+            case (FAULT):
+                break;
+            case (COMMAND_TORQUE):
+                break;
+            case (TORQUE_FEEDBACK):
+                break;
+            case (SPEED_CMD):
+                break;
+            case (PACK_CURRENT):
+                emit updatePackCurrent(can_data);
+                break;
+            case (PACK_INST_VOLTAGE):
+                emit updatePackVolts(can_data);
+                break;
+            case (PACK_TEMP_HIGH):
+                emit updatePackTempHigh(can_data);
+                break;
+            case (PACK_TEMP_LOW):
+                break;
+            case (PACK_SOC):
+                emit updateSOC(can_data);
+                emit updateSOC(QVariant(can_data));
+                break;
+
+            // GPIO BELOW HERE
+            case (gpio_IGNOK):
+                emit updateIGNOK(can_data);
+                break;
+            case (gpio_IMD):
+                emit updateIMD(can_data);
+                break;
+            case (gpio_PRESSURE):
+                emit updatePRESSURE(can_data);
+                break;
+            case (gpio_BMSDE):
+                emit updateBMSDE(can_data);
+                break;
+            case (fault_internal_comm):
+                emit updateFAULT(can_data);
+            default:
+                break;
+            }
+        }
     }
 }
 
