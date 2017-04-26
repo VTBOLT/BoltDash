@@ -24,8 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    	rosprocess.cpp
+        mainwindow.cpp \ 
+        rosprocess.cpp
 
 HEADERS += mainwindow.h \
         rosprocess.h \

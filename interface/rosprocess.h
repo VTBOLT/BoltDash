@@ -40,7 +40,8 @@ signals:
     void updateIMD(bool state);
     void updatePRESSURE(bool state);
     void updateBMSDE(bool state);
-    void updateFAULT()
+    void updateFAULT(int value);
+    void updateRMSVSM(int value);
 };
 
 #endif // ROSPROCESS_H

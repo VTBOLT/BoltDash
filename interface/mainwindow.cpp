@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//QTextStream qCout(stdout);
+QTextStream qCout(stdout);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -79,7 +79,7 @@ void MainWindow::connectStartupSlots()
     connect(ui->startupToDebug, SIGNAL(clicked(bool)), this, SLOT(toDebugView()));
 
     connect(this, SIGNAL( stateSet()), this, SLOT(startup()));
-    connect(this, SIGNAL( updateRMSState(int)), this, SLOT(setRMSVSM(int)));
+    connect(this, SIGNAL( updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
 }
 
 void MainWindow::setRPM(QVariant rpm)
@@ -180,13 +180,13 @@ void MainWindow::setRMSVSM(int value){
 void MainWindow::setState(int set_state, int fault_value){
     state = set_state;
     if(state == -1){
-        MainWindow::setFAULT(fault_value)
+        MainWindow::setFAULT(fault_value);
     }
     emit stateSet();
 }
 
 void MainWindow::setFAULT(int value){
-    fault = value;
+    fault_code = value;
     MainWindow::startup();
 }
 
@@ -209,12 +209,12 @@ int MainWindow::getState(){
     return state;
 }
 
-void MainWindow::getFAULT(){
+int MainWindow::getFAULT(){
     return fault;
 }
 
 int MainWindow::getRMSVSM(){
-    return rms_on;
+    return rms_vsm_state;
 }
 
 
@@ -223,59 +223,60 @@ void MainWindow::startup(){
     // Easier to establish entire state machine at first test this way
     switch(getState())
     {
-        case (state_option.fault):
+        case (state_option::fault):
             //Show fault screen
             MainWindow::getFAULT();
             //Determine what to do next
             break;
-        case (state_option.off):
+        case (state_option::off):
             // Show BOLT Logo
             MainWindow::showStartupZero();
             // Check CAN BMS State, no fault
             if(fault == 0){
                 // set state bms
-                MainWindow::setState(state_option.bms);
+                MainWindow::setState(state_option::bms);
             }
             break;
-        case (state_option.bms):
+        case (state_option::bms):
             // Show Turn On ACC
             MainWindow::showStartupOne();
             // Check PRESSURE && IMD
-            if(MainWindow::getPRESSURE && MainWindow::getIMD){
+            if(MainWindow::getPRESSURE() && MainWindow::getIMD()){
                 // Show Turn on ACC
                 MainWindow::showStartupTwo();
-                MainWindow::setState(state_option.acc);
+                MainWindow::setState(state_option::acc);
             }
             break;
-        case (state_option.acc):
+        case (state_option::acc):
             // Check IGN && CAN RMS On
-            if(MainWindow::getIGNOK && (MainWindow::getRMSVSM == 0 || MainWindow::getRMSVSM == 1){
+            if(MainWindow::getIGNOK() && (MainWindow::getRMSVSM() == 0 || MainWindow::getRMSVSM() == 1)){
                 // Set State RMS
-                MainWindow::setState(state_option.rms);
-            } else if(MainWindow::getRMSVSM != 0 || MainWindow::getRMSVSM !=1){
-                std::cout << "RMS VSM State: " << MainWindow::getRMSVSM << std::endl;
+                MainWindow::setState(state_option::rms);
+            } else if(MainWindow::getRMSVSM() != 0 || MainWindow::getRMSVSM() !=1){
+                qCout << "RMS VSM State: " << MainWindow::getRMSVSM() << endl;
             }                
             break;
-        case (state_option.rms):
+        case (state_option::rms):
             // check rms vsm message. bytes 0 and 1. for precharge started
-            if(MainWindow::getRMSVSM >= 1 || MainWindow::getRMSVSM <= 2{
+            if(MainWindow::getRMSVSM() >= 1 || MainWindow::getRMSVSM() <= 2){
                 // Show Precharging
                 MainWindow::showStartupThree();
             }            
             break;
-        case (state_option.precharging):
+        case (state_option::precharging):
             // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for complete
-            if(MainWindow::charged()){
+            if(MainWindow::getRMSVSM() == 5){
                 // Show Press Start when complete
                 MainWindow::showStartupFour();
             }
             break;
-        case (state_option.motor):
+        case (state_option::motor):
+            MainWindow::toRaceView();
             // Check CAN RMS VSM State Byte 0 and 1, for when motor ready
-            if(MainWindow::ready()){
+//            if(MainWindow::ready){
                 // Show Select Debug or Race when motor is on
                 // MainWindow::showSelection();
-            }                
+//            }
             break;
     }
 }

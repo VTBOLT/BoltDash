@@ -15,10 +15,25 @@
 #include <QTextStream>
 
 #include "rosprocess.h"
+#include "../shared_messages.h"
+
+struct gpio_values{
+    bool BMSDE;
+    bool ACC;
+    bool RMS;
+    bool PRECHARGE;
+    bool MOTOR;
+    bool IGNOK;
+    bool IMD;
+    bool PRESSURE;
+};
+
+
 
 namespace Ui {
 class MainWindow;
 }
+
 
 class MainWindow : public QMainWindow
 {
@@ -29,6 +44,19 @@ public:
     ~MainWindow();
 
 private:
+    gpio_values gpio;
+
+    enum state_option{
+        fault = -1,
+        off,
+        bms,
+        acc,
+        rms,
+        precharging,
+        motor
+    };
+
+
     Ui::MainWindow *ui;
     RosProcess * ros_process;
 
@@ -49,7 +77,8 @@ private:
     int getFAULT();
 
     int state = 0;
-    int fault = 0;
+    // this was recently renamed, check refactor for rename
+    int fault_code = 0;
 
     // rms_vsm_state
     // 0 VSM Start State
@@ -78,23 +107,7 @@ private:
     // Inverter Enable State
     // 0 Inverter is disabled
     // 1 Inverter is enabled
-    int rms_inverter_enable = -1
-
-
-
-
-    enum state_option(fault = -1, off, bms, acc, rms, precharging, motor);
-    struct gpio{
-        bool BMSDE;
-        bool ACC; 
-        bool RMS;
-        bool PRECHARGE;
-        bool MOTOR;
-        bool IGNOK;
-        bool IMD;
-        bool PRESSURE;
-        
-    };
+    int rms_inverter_enable = -1;
 
 private slots:
     void setRPM(QVariant rpm);
@@ -113,13 +126,12 @@ private slots:
     void setPRESSURE(bool value);
     void setBMSDE(bool value);
     void setFAULT(int value);
-    void setRMSState(int value);
-
+    void setRMSVSM(int value);
 
     void on_exitButton_clicked();
-};
 
 signals:
     void stateSet();
+};
 
 #endif // MAINWINDOW_H

@@ -494,7 +494,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="StartupView">
        <property name="sizePolicy">
@@ -1005,6 +1005,13 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
            <widget class="QPushButton" name="step3">
             <property name="text">
              <string>step3</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="step4">
+            <property name="text">
+             <string>step4</string>
             </property>
            </widget>
           </item>
