@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 			data = (message.data[1] << 8 | message.data[0]);
 			can_msg.name = "TEMP_CONTROL_BOARD";
 			can_msg.can_data = data;
-			////can_msg.define = TEMP_CONTORL_BOARD;
+			can_msg.define = TEMP_CONTORL_BOARD;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			break;
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 			data = (message.data[5] << 8 | message.data[4]);
 			can_msg.name = "MOTOR_TEMP";
 			can_msg.can_data = data;
-			////can_msg.define = MOTOR_TEMP;
+			can_msg.define = MOTOR_TEMP;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 
@@ -115,19 +115,19 @@ int main(int argc, char **argv)
 			data = (message.data[1] << 8 | message.data[0]);
 			can_msg.name = "MOTOR_ANGLE";
 			can_msg.can_data = data;
-			////can_msg.define = MOTOR_ANGLE;
+			can_msg.define = MOTOR_ANGLE;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			data = (message.data[3] << 8 | message.data[2]);
 			can_msg.name = "MOTOR_SPEED";
 			can_msg.can_data = data;
-			////can_msg.define = MOTOR_ANGLE;
+			can_msg.define = MOTOR_SPEED;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			data = (message.data[7] << 8 | message.data[6]);
 			can_msg.name = "RESOLVER_ANGLE";
 			can_msg.can_data = data;
-			////can_msg.define = RESOLVER_ANGLE;
+			can_msg.define = RESOLVER_ANGLE;
 			topic_can_msg.publish(can_msg);
 			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
 			break;

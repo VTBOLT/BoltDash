@@ -65,7 +65,7 @@ void RosProcess::parseData(QByteArray data)
 {
 
     QString allData = data;
-    qRCout << "DATA: " << allData << endl;
+    // qRCout << "DATA: " << allData << endl;
     QStringList data_points = QString(allData).split('\n');
     QStringList splitData;
 
