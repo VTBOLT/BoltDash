@@ -14,13 +14,13 @@
 void chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr& msg)
 {
   //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
-  std::cout << msg->define << ";" << msg->data << std::endl;
+  std::cout << msg->define << ";" << msg->can_data << std::endl;
 }
 
 void chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg)
 {
   //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
-  std::cout << msg->define << ";" << msg->data << std::endl;
+  std::cout << msg->define << ";" << msg->msg_data << std::endl;
 }
 
 void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg)
