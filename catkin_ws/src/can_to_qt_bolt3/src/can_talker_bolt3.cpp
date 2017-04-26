@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	ros::NodeHandle n;
 
 	ros::Publisher topic_can_msg = n.advertise<can_to_qt_bolt3::can_msg>("can_msg", 1000);
-	ros::Publisher topic_fault_msg = n.advertise<can_to_qt_bolt3::can_msg>("fault_msg", 1000);
+	ros::Publisher topic_fault_msg = n.advertise<can_to_qt_bolt3::fault_msg>("fault_msg", 1000);
 
 
 	ros::Rate loop_rate(1000);
@@ -307,6 +307,17 @@ int main(int argc, char **argv)
 			can_msg.can_id = message.can_id;
 			data = (message.data[1]);
 			can_msg.name = "GORDON_TEST";
+			can_msg.can_data = data;
+			////can_msg.define = PACK_SOC;
+			topic_can_msg.publish(can_msg);
+			ROS_INFO("name: %s, can_id [%i], data: %i", can_msg.name, can_msg.can_id, can_msg.can_data);
+			break;
+		}
+		case 0x36:
+		{
+			can_msg.can_id = message.can_id;
+			data = (message.data[1]);
+			can_msg.name = "Cell Voltage";
 			can_msg.can_data = data;
 			////can_msg.define = PACK_SOC;
 			topic_can_msg.publish(can_msg);
