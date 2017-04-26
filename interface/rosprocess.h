@@ -3,6 +3,7 @@
 
 #include <QProcess>
 #include <QVariant>
+#include <QTextStream>
 
 class RosProcess : public QObject
 {

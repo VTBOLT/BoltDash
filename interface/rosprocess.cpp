@@ -3,6 +3,7 @@
 
 #include "../shared_messages.h"
 
+QTextStream qRCout(stdout);
 /*
  * GOAL:::
  *  Instantiate the QProcess pointing at the ROS executable
@@ -122,7 +123,7 @@ void RosProcess::parseData(QByteArray data)
         break;
     case (VSM_STATE):
         emit updateRMSVSM(can_data);
-
+        qRCout << "VSM " << can_data << endl;
         break;
     case (INVERTER_STATE):
         emit updateInverter(can_data);
