@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Bool.h"
 #include "std_msgs/Int16.h"
 
 #include "can_msg.h"
@@ -25,10 +26,10 @@ void chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg)
 
 void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg)
 {
-  std::cout << gpio_IGNOK << ";" << msg->IGNOK <<std::endl;
-  std::cout << gpio_IMD << ";" << msg->IMD <<std::endl;
-  std::cout << gpio_PRESSURE << ";" << msg->PRESSURE <<std::endl;
-  std::cout << gpio_BMSDE << ";" << msg->BMSDE<<std::endl;
+  std::cout << gpio_IGNOK << ";" << (int)msg->IGNOK <<std::endl;
+  std::cout << gpio_IMD << ";" << (int)msg->IMD <<std::endl;
+  std::cout << gpio_PRESSURE << ";" << (int)msg->PRESSURE <<std::endl;
+  std::cout << gpio_BMSDE << ";" << (int)msg->BMSDE <<std::endl;
 }
 
 int main(int argc, char **argv)
