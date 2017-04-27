@@ -106,7 +106,7 @@ void RosProcess::parseData(QByteArray data)
             case (MOTOR_ANGLE):
                 break;
             case (MOTOR_SPEED):
-                rpm = can_data / 100.0;
+                rpm = can_data / 10.0;
                 emit updateRPM(rpm);
                 emit updateRPM(QVariant(rpm));
                 break;
