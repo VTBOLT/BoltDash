@@ -3,7 +3,7 @@ Description=BOLT 3 Software
 
 [Service]
 LimitNICE=39
-ExecStart=/home/dash/startup.sh
+ExecStart=/home/dash/dash/os/startup.sh
 User=torc
 
 [Install]
