@@ -87,6 +87,7 @@ private:
     // 4 vsm wait state
     // 5 vsm ready state
     // 6 motor running state
+    // 7 blink fault code state
     // 14 shutdown in process - in key switch mode 1, user has turned the key switch to off position
     // 15 recycle power state - user must recycle power when the unit is in this state (Believe that means restart)
     int rms_vsm_state = -1;

@@ -354,12 +354,12 @@ int main(int argc, char **argv)
 		}
 		}
 
-		if (count > 10000){
-			exit(0);
-		}
-		else{
-			count++;
-		}
+		// if (count > 10000){
+		// 	exit(0);
+		// }
+		// else{
+		// 	count++;
+		// }
 
 		ros::spinOnce();
 		loop_rate.sleep();

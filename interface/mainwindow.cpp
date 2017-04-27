@@ -151,44 +151,44 @@ void MainWindow::showStartupFour()
 void MainWindow::setIGNOK(int state){
     if(state == 0 || state == 1){
         gpio.IGNOK = state;
-        qCout << "set ignok: " << gpio.IGNOK << endl;
+        // qCout << "set ignok: " << gpio.IGNOK << endl;
         emit stateSet();
     } else{
-        qCout << "fault ignok: " << state << endl;
+        // qCout << "fault ignok: " << state << endl;
     }
 }
 void MainWindow::setIMD(int state){
     if(state == 0 || state == 1){
         gpio.IMD = state;
-        qCout << "set imd: " << gpio.IMD << endl;
+        // qCout << "set imd: " << gpio.IMD << endl;
         emit stateSet();    
     } else{
-        qCout << "fault imd: " << state << endl;
+        // qCout << "fault imd: " << state << endl;
     }
     
 }
 void MainWindow::setPRESSURE(int state){
     if(state == 0 || state == 1){
         gpio.PRESSURE = state;
-        qCout << "set pressure: " << gpio.PRESSURE << endl;
+        // qCout << "set pressure: " << gpio.PRESSURE << endl;
         emit stateSet();
     } else{
-        qCout << "fault pressure: " << state << endl;
+        // qCout << "fault pressure: " << state << endl;
     }
 }
 void MainWindow::setBMSDE(int state){
     if(state == 0 || state == 1){
         gpio.BMSDE = state;
-        qCout << "set bmsde: " << gpio.BMSDE << endl;
+        // qCout << "set bmsde: " << gpio.BMSDE << endl;
         emit stateSet();
     } else{
-        qCout << "fault bmsde: " << state << endl;
+        // qCout << "fault bmsde: " << state << endl;
     }
 }
 
 void MainWindow::setRMSVSM(int value){
         rms_vsm_state = value;
-        qCout << "set RMS VSM State: " << rms_vsm_state << endl;
+        // qCout << "set RMS VSM State: " << rms_vsm_state << endl;
         emit stateSet();
 }
 
@@ -199,7 +199,7 @@ void MainWindow::setInverter(int value){
 
 void MainWindow::setState(int set_state, int fault_value){
     state = set_state;
-    qCout << "Set State: " << state << endl;
+    // qCout << "Set State: " << state << endl;
 
     // if(state == -1){
     //     MainWindow::setFAULT(fault_value);
@@ -233,8 +233,7 @@ int MainWindow::getBMSDE(){
 }
 
 int MainWindow::getState(){
-    qCout << "State is " << state << endl;
-    qCout << "RMSVSM is " << MainWindow::getRMSVSM() << endl;
+    // qCout << "State is " << state << endl;
     return state;
 }
 
@@ -250,6 +249,9 @@ int MainWindow::getRMSVSM(){
 void MainWindow::startup(){
     // Possibly need to change this from a switch into a bunch of signals and slots
     // Easier to establish entire state machine at first test this way
+
+    qCout << "IGNOK: " << gpio.IGNOK << " IMD: " << gpio.IMD << " PRESSURE: " << gpio.PRESSURE << " BMSDE: " << gpio.BMSDE << endl;
+        qCout << "VSM: " << rms_vsm_state << " Inverter: " << rms_inverter_state << " State: " << state << endl;
     switch(getState())
     {
         case (state_option::fault):
@@ -282,7 +284,7 @@ void MainWindow::startup(){
                 // Set State RMS
                 MainWindow::setState(state_option::rms);
             } else if(MainWindow::getRMSVSM() != 0 || MainWindow::getRMSVSM() !=1){
-                qCout << "RMS VSM State: " << MainWindow::getRMSVSM() << endl;
+                // qCout << "RMS VSM State: " << MainWindow::getRMSVSM() << endl;
             }                
             break;
         case (state_option::rms):
