@@ -19,10 +19,6 @@
 
 struct gpio_values{
     int BMSDE = 0;
-    int ACC = 0;
-    int RMS = 0;
-    int PRECHARGE = 0;
-    int MOTOR = 0;
     int IGNOK = 0;
     int IMD = 0;
     int PRESSURE = 0;
@@ -44,16 +40,17 @@ public:
     ~MainWindow();
 
 private:
-    gpio_values gpio;
+    gpio_values gpio_value;
 
     enum state_option{
         fault = -1,
-        off,
-        bms,
-        acc,
-        rms,
-        precharging,
-        motor
+        off, // Default State before checking for faults
+        aux, // If not faults exist, bms should be powered
+        acc, // Pressure == 1, IMD == 1, 
+        ign, // RMS == 0
+        precharge, // precharging
+        start, // Waiting for start
+        throttle, // Throttle is active
     };
 
 
@@ -76,7 +73,7 @@ private:
     int getFAULT();
 
     int state = 0;
-    // this was recently renamed, check refactor for rename
+    
     int fault_code = 0;
 
     // rms_vsm_state
@@ -128,12 +125,12 @@ private slots:
     void setFAULT(int value);
     void setRMSVSM(int value);
     void setInverter(int value);
-    void startup();
 
     void on_exitButton_clicked();
 
 signals:
     void stateSet();
+    void updateState();
 };
 
 #endif // MAINWINDOW_H
