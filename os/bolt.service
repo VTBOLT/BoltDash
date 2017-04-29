@@ -1,10 +1,13 @@
 [Unit]
 Description=BOLT 3 Software
+After=network.target
 
 [Service]
-LimitNICE=39
 ExecStart=/home/dash/dash/os/startup.sh
-User=torc
-
-[Install]
-WantedBy=multi-user.target
+WorkingDirectory=/home/dash/dash/os
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=BOLTSoftware
+User=dash
+Group=dash
+Restart=always

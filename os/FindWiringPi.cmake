@@ -1,4 +1,5 @@
 #/usr/share/cmake-3.5/Modules/FindWiringPi.cmake
+#sudo cp /home/dash/dash/os/FindWiringPi.cmake /usr/share/cmake-3.5/Modules/FindWiringPi.cmake
 
 find_library(WIRINGPI_LIBRARIES NAMES wiringPi)
 find_path(WIRINGPI_INCLUDE_DIRS NAMES wiringPi.h)
