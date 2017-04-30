@@ -4,7 +4,7 @@
 
 QTextStream qCout(stdout);
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QOpenGLWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connectRaceSlots();
     // connect startup slots
     connectStartupSlots();
+    emit updateState();
 }
 
 MainWindow::~MainWindow()
@@ -119,13 +120,13 @@ void MainWindow::toStartupScreen()
 
 void MainWindow::showStartupZero()
 {
-
-    ui->startupFrame->setStyleSheet("QWidget {border-image:url(:/images/startup_0.png)0 0 0 stretch stretch; background-repeat: none;}" );
+    qCout << "Display BOLT Logo" << endl;
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_0.png)0 0 0 0 stretch stretch; background-repeat: none" );
 }
 
 void MainWindow::showStartupOne()
 {
-    ui->startupFrame->setStyleSheet("QWidget{ border-image:url(:/images/startup_1.png) 0 0 0 0 stretch stretch; background-repeat: none;}");
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_1.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupTwo()
@@ -274,6 +275,11 @@ int MainWindow::getBMSDE(){
 }
 
 int MainWindow::getState(){
+
+    //OFF
+    if(!gpio_value.IMD && !gpio_value.IGNOK && !gpio_value.BMSDE && !gpio_value.PRESSURE){
+        MainWindow::setState(state_option::off);
+    }
 
     // AUX
     if(gpio_value.IMD && !gpio_value.IGNOK && gpio_value.BMSDE && !gpio_value.PRESSURE){

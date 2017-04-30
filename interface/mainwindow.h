@@ -9,7 +9,7 @@
 #define VOLTAGE 3
 
 #include <QMainWindow>
-#include <QWidget>
+#include <QOpenGLWidget>
 #include <QUrl>
 #include <QQuickItem>
 #include <QTextStream>
@@ -36,7 +36,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QOpenGLWidget *parent = 0);
     ~MainWindow();
 
 private:
@@ -63,7 +63,6 @@ private:
     void connectRaceSlots();
     void connectNavSlots();
     void connectStartupSlots();
-    int getState();
     void setState(int value, int fault_state=0);
     int getIGNOK();
     int getIMD();
@@ -125,6 +124,7 @@ private slots:
     void setFAULT(int value);
     void setRMSVSM(int value);
     void setInverter(int value);
+    int getState();
 
     void on_exitButton_clicked();
 
