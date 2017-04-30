@@ -200,52 +200,54 @@ void MainWindow::setState(int set_state, int fault_value){
 
     if(state != set_state){
        qCout << "State Changed To: " << state << endl; 
+
+       switch(state)
+           {
+               case (state_option::fault):
+                   //Show fault screen
+                   MainWindow::getFAULT();
+                   //Determine what to do next
+                   break;
+               case (state_option::off):
+                   qCout << "Battery Connected" << endl;
+                   // Show BOLT Logo Briefly
+                   MainWindow::showStartupZero();
+                   break;
+               case (state_option::aux):
+                   // Show Turn On ACC
+                   MainWindow::showStartupOne();
+                   break;
+               case (state_option::acc):
+                   // Show Turn on Ign
+                   MainWindow::showStartupTwo();
+                   break;
+               case (state_option::ign):
+                   // RMS is powered, waiting for precharge
+                   MainWindow::showStartupThree();
+                   break;
+               case (state_option::precharge):
+                   // Precharging
+                   MainWindow::showStartupThree();
+                   break;
+               case (state_option::start):
+                   // Precharge complete, ready for power
+                   // Show Press Start Button
+                   MainWindow::showStartupFour();
+                   break;
+               case(state_option::throttle):
+                   // Throttle is active, ask user what to do
+                   MainWindow::toRaceView();
+                   break;
+               default:
+                   break;
+           }
     }
     if(fault != fault_value){
         qCout << "Fault Changed to: " << fault_value << endl;
     }
     state = set_state;
 
-switch(state)
-    {
-        case (state_option::fault):
-            //Show fault screen
-            MainWindow::getFAULT();
-            //Determine what to do next
-            break;
-        case (state_option::off):
-            qCout << "Battery Connected" << endl;
-            // Show BOLT Logo Briefly
-            MainWindow::showStartupZero();
-            break;
-        case (state_option::aux):
-            // Show Turn On ACC
-            MainWindow::showStartupOne();
-            break;
-        case (state_option::acc):
-            // Show Turn on Ign
-            MainWindow::showStartupTwo();
-            break;
-        case (state_option::ign):
-            // RMS is powered, waiting for precharge
-            MainWindow::showStartupThree();
-            break;
-        case (state_option::precharge):
-            // Precharging
-            MainWindow::showStartupThree();
-            break;
-        case (state_option::start):
-            // Precharge complete, ready for power
-            // Show Press Start Button
-            MainWindow::showStartupFour();
-            break;
-        case(state_option::throttle):
-            // Throttle is active, ask user what to do
-            MainWindow::toRaceView();
-            break;
-        default:
-            break;
-    }
+
     emit stateSet();
 }
 
