@@ -71,7 +71,7 @@ private:
     int getRMSVSM();
     int getFAULT();
 
-    int state = 0;
+    int state = -2;
     
     int fault_code = 0;
 
