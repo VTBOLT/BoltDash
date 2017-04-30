@@ -126,22 +126,26 @@ void MainWindow::showStartupZero()
 
 void MainWindow::showStartupOne()
 {
+    qCout << "Display Acc" << endl;
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_1.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupTwo()
 {
+    qCout << "Display Ign" << endl;
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_2.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupThree()
 {
+    qCout << "Display Precharge" << endl;
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
 
 }
 
 void MainWindow::showStartupFour()
 {
+    qCout << "Display Start" << endl;
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_4.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
@@ -199,6 +203,7 @@ void MainWindow::setInverter(int value){
 void MainWindow::setState(int set_state, int fault_value){
 
     if(state != set_state){
+       state = set_state;
        qCout << "State Changed To: " << state << endl; 
 
        switch(state)
@@ -215,37 +220,44 @@ void MainWindow::setState(int set_state, int fault_value){
                    break;
                case (state_option::aux):
                    // Show Turn On ACC
+                   qCout << "AUX" << endl;
                    MainWindow::showStartupOne();
                    break;
                case (state_option::acc):
                    // Show Turn on Ign
+                   qCout << "ACC" << endl;
                    MainWindow::showStartupTwo();
                    break;
                case (state_option::ign):
                    // RMS is powered, waiting for precharge
+                   qCout << "IGN" << endl;
                    MainWindow::showStartupThree();
                    break;
                case (state_option::precharge):
                    // Precharging
+                   qCout << "Precharge" << endl;
                    MainWindow::showStartupThree();
                    break;
                case (state_option::start):
                    // Precharge complete, ready for power
                    // Show Press Start Button
+                   qCout << "Start" << endl;
                    MainWindow::showStartupFour();
                    break;
                case(state_option::throttle):
                    // Throttle is active, ask user what to do
+                   qCout << "Throttle" << endl;
                    MainWindow::toRaceView();
                    break;
                default:
                    break;
            }
     }
-    if(fault != fault_value){
+
+    if(fault_code != fault_value){
+        fault_code = fault_value;
         qCout << "Fault Changed to: " << fault_value << endl;
     }
-    state = set_state;
 
 
     emit stateSet();
@@ -284,7 +296,7 @@ int MainWindow::getState(){
     }
 
     // AUX
-    if(gpio_value.IMD && !gpio_value.IGNOK && gpio_value.BMSDE && !gpio_value.PRESSURE){
+    if(!gpio_value.IMD && !gpio_value.IGNOK && gpio_value.BMSDE && !gpio_value.PRESSURE){
         MainWindow::setState(state_option::aux);
     }
 
