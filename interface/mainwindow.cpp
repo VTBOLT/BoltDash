@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connectNavSlots();
     // connect signals from can to race view
     connectRaceSlots();
-    // connect strtup slots
+    // connect startup slots
     connectStartupSlots();
 }
 
