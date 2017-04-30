@@ -31,19 +31,19 @@
      opacity: 100;
 }
 
-QWidget
+QOpenGLWidget
 {
     color: #000000;
     background-color: rgb(0, 0, 0);
 }
 
-QWidget:item:hover
+QOpenGLWidget:item:hover
 {
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #ca0619);
     color: #000000;
 }
 
-QWidget:item:selected
+QOpenGLWidget:item:selected
 {
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
 }
@@ -90,7 +90,7 @@ QMenu::item:selected
     color: #000000;
 }
 
-QWidget:disabled
+QOpenGLWidget:disabled
 {
     color: #000000;
     background-color: #000000;
@@ -101,7 +101,7 @@ QAbstractItemView
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4d4d4d, stop: 0.1 #646464, stop: 1 #5d5d5d);
 }
 
-QWidget:focus
+QOpenGLWidget:focus
 {
     /*border: 2px solid QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);*/
 }
@@ -482,7 +482,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     border: 1px solid #444;
 }</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <widget class="QOpenGLWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
      <widget class="QStackedWidget" name="views">
@@ -495,7 +495,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="StartupView">
+      <widget class="QOpenGLWidget" name="StartupView">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -518,7 +518,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="RaceView">
+      <widget class="QOpenGLWidget" name="RaceView">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -547,7 +547,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="DebugView">
+      <widget class="QOpenGLWidget" name="DebugView">
        <property name="styleSheet">
         <string notr="true">QLabel {font : bold 24px; color: white}
 QLCDNumber {color: white}
@@ -736,7 +736,7 @@ QPushButton:pressed
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="VoltageView">
+      <widget class="QOpenGLWidget" name="VoltageView">
        <property name="styleSheet">
         <string notr="true">QLabel {font : bold 24px; color: white}
 QLCDNumber {color: white}
