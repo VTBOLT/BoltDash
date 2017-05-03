@@ -58,7 +58,7 @@ void InterfaceCan::runCan() {
 
   while (1)
     {
-      message = canrecieve(2, argv2);
+      message = canreceive(2, argv2);
       if (message.len > 0)
 	{
 	  //std::cout << message.can_id << std::endl;

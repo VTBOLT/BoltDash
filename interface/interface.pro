@@ -24,20 +24,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    	rosprocess.cpp
+        mainwindow.cpp \ 
+        rosprocess.cpp
 
-HEADERS  += mainwindow.h \
-    rosprocess.h \
-    ../shared_messages.h
+HEADERS += mainwindow.h \
+        rosprocess.h \
+        ../shared_messages.h
 
-FORMS    += mainwindow.ui
+FORMS   += mainwindow.ui
 
-DISTFILES += \
-    Race_view.qml
+DISTFILES += Race_view.qml
 
-RESOURCES += \
-    ../images/images.qrc \
-    qml.qrc
+RESOURCES += ../images/images.qrc \
+             qml.qrc
 
 CONFIG += qtquickcompiler

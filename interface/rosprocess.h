@@ -3,6 +3,7 @@
 
 #include <QProcess>
 #include <QVariant>
+#include <QTextStream>
 
 class RosProcess : public QObject
 {
@@ -37,6 +38,13 @@ signals:
     void updateControllerTemp(double temp);
     void updateRmsCurrent(double rms);
     void updateFieldWeakening(double angle);
+    void updateIGNOK(int state);
+    void updateIMD(int state);
+    void updatePRESSURE(int state);
+    void updateBMSDE(int state);
+    void updateFAULT(int value);
+    void updateRMSVSM(int value);
+    void updateInverter(int value);
 };
 
 #endif // ROSPROCESS_H

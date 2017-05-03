@@ -19,7 +19,7 @@
 #include "lib.h"
 #include <iostream>
 
-struct canfd_frame canrecieve(int argc, char **argv);
+struct canfd_frame canreceive(int argc, char **argv);
 
 bool cansend(int can_id, int num_of_bytes, int message);
 

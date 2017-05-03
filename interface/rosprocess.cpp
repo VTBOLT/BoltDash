@@ -3,6 +3,7 @@
 
 #include "../shared_messages.h"
 
+QTextStream qRCout(stdout);
 /*
  * GOAL:::
  *  Instantiate the QProcess pointing at the ROS executable
@@ -38,10 +39,10 @@ RosProcess::RosProcess(QString path, QStringList args)
     m_processObj->setArguments(args);
 
     // when data become available on stdout of the process, get the data
-    connect(m_processObj,SIGNAL(readyReadStandardOutput()),this,SLOT(readData()));
+    connect(m_processObj, SIGNAL(readyReadStandardOutput()), this, SLOT(readData()));
 
     // look for info passed on stderr
-    connect(m_processObj,SIGNAL(readyReadStandardError()),this,SLOT(readError()));
+    connect(m_processObj, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
 
     m_processObj->start();
 }
