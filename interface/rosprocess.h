@@ -16,6 +16,7 @@ private:
     QProcess * m_processObj;
 
     double rpm;
+    int max_rinehart_temp = 0;
 
 public slots:
     void readData();

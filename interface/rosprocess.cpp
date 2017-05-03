@@ -78,16 +78,16 @@ void RosProcess::parseData(QByteArray data)
     // emit a signal based on the can id
     switch (ID)
     {
-    case (TEMP_MOD_A):
-        break;
-    case (TEMP_MOD_B):
-        break;
-    case (TEMP_MOD_C):
-        break;
-    case (TEMP_GATE_DRIVER_BOARD):
-        break;
+    case (TEMP_MOD_A):  // we take the same action on all of these
+    case (TEMP_MOD_B):  // temp messages... so let the case all through,
+    case (TEMP_MOD_C):  // only leaving one section of code that runs for each
+    case (TEMP_GATE_DRIVER_BOARD): // case of temp
     case(TEMP_CONTROL_BOARD):
-        emit updateControllerTemp(can_data);
+        if (can_data > max_rinehart_temp)
+        {
+            max_rinehart_temp = can_data;
+            emit updateControllerTemp(max_rinehart_temp);
+        }
         break;
     case (MOTOR_TEMP):
         emit updateMotorTemp(can_data);
