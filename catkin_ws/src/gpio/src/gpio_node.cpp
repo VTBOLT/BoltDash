@@ -28,17 +28,17 @@ int main (int argc, char** argv) {
 
 	can_to_qt_bolt3::gpio_msg msg_gpio;
 
-	ros::Publisher system_state = nh.advertise<std_msgs::String>("system/state/all", MESSAGE_BUFFER_SIZE);
-	ros::Publisher state_gpio = nh.advertise<can_to_qt_bolt3::gpio_msg>("system/state/gpio", MESSAGE_BUFFER_SIZE);
+	ros::Publisher system_state = nh.advertise<std_msgs::String>("gpio/readable", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_gpio = nh.advertise<can_to_qt_bolt3::gpio_msg>("gpio/all", MESSAGE_BUFFER_SIZE);
 
-	ros::Publisher state_IGNOK = nh.advertise<std_msgs::Int8>("system/state/IGNOK", MESSAGE_BUFFER_SIZE);
-	ros::Publisher state_IMD = nh.advertise<std_msgs::Int8>("system/state/IMD", MESSAGE_BUFFER_SIZE);
-	ros::Publisher state_PRESSURE = nh.advertise<std_msgs::Int8>("system/state/PRESSURE", MESSAGE_BUFFER_SIZE);
-	ros::Publisher state_BMSDE = nh.advertise<std_msgs::Int8>("system/state/BMSDE", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_IGNOK = nh.advertise<std_msgs::Int8>("gpio/IGNOK", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_IMD = nh.advertise<std_msgs::Int8>("gpio/IMD", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_PRESSURE = nh.advertise<std_msgs::Int8>("gpio/PRESSURE", MESSAGE_BUFFER_SIZE);
+	ros::Publisher state_BMSDE = nh.advertise<std_msgs::Int8>("gpio/BMSDE", MESSAGE_BUFFER_SIZE);
 
 	// ros::Subscriber write_sub = nh.subscribe("write", 1000, write_callback);
 
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(5);
 	// ROS_INFO_STREAM("Reading System State");
 	while (ros::ok()) {
 
@@ -73,6 +73,7 @@ int main (int argc, char** argv) {
 		msg_PRESSURE.data = PRESSURE;
 		msg_BMSDE.data = BMSDE;
 
+		msg_gpio.header.stamp = ros::Time::now();
 		msg_gpio.IGNOK = IGNOK;
 		msg_gpio.IMD = IMD;
 		msg_gpio.PRESSURE = PRESSURE;
