@@ -34,13 +34,13 @@ void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "can_listner_bolt3");
+  ros::init(argc, argv, "can_listener_bolt3");
 
   ros::NodeHandle n;
 
   ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
   ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
-  ros::Subscriber gpio = n.subscribe("/system/state/gpio", 100, gpio_callback);
+  ros::Subscriber gpio = n.subscribe("/gpio/all", 100, gpio_callback);
 	
   ros::spin();
 
