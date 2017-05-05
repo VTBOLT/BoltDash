@@ -14,9 +14,9 @@ MainWindow::MainWindow(QOpenGLWidget *parent) :
     loadQML();
 
     // instantiate the can thread
-    QString path = "rosrun";
+    QString path = "source ~/.bashrc && rosrun";
     QStringList args;
-    args << "can_to_qt_bolt3" << "can_listener_bolt3";
+    args <<"can_to_qt_bolt3" << "can_listener_bolt3";
     ros_process = new RosProcess(path,args);
 
     // connect can signals to debug view
@@ -121,24 +121,28 @@ void MainWindow::toStartupScreen()
 void MainWindow::showStartupZero()
 {
     qCout << "Display BOLT Logo" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_0.png)0 0 0 0 stretch stretch; background-repeat: none" );
 }
 
 void MainWindow::showStartupOne()
 {
     qCout << "Display Acc" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_1.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupTwo()
 {
     qCout << "Display Ign" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_2.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupThree()
 {
     qCout << "Display Precharge" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
 
 }
@@ -146,6 +150,7 @@ void MainWindow::showStartupThree()
 void MainWindow::showStartupFour()
 {
     qCout << "Display Start" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_4.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
@@ -311,17 +316,17 @@ int MainWindow::getState(){
     }
 
     //Precharge
-    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_inverter_state == 0 || rms_inverter_state == 1 || rms_inverter_state == 2 || rms_inverter_state == 3)){
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == 0 || rms_vsm_state == 1 || rms_vsm_state == 2 || rms_vsm_state == 3)){
         MainWindow::setState(state_option::precharge);
     }
 
     //Start
-    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_inverter_state == 4 || rms_inverter_state == 5)){
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == 4 || rms_vsm_state == 5)){
         MainWindow::setState(state_option::start);
     }
 
     //Throttle
-    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && rms_inverter_state == 6){
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && rms_vsm_state == 6){
         MainWindow::setState(state_option::throttle);
     }
 
