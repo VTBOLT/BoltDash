@@ -14,7 +14,7 @@ MainWindow::MainWindow(QOpenGLWidget *parent) :
     loadQML();
 
     // instantiate the can thread
-    QString path = "source ~/.bashrc && rosrun";
+    QString path = "rosrun";
     QStringList args;
     args <<"can_to_qt_bolt3" << "can_listener_bolt3";
     ros_process = new RosProcess(path,args);
