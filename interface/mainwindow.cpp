@@ -311,7 +311,7 @@ int MainWindow::getState(){
     }
 
     //IGN
-    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE){
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && rms_vsm_state == -1){
         MainWindow::setState(state_option::ign);
     }
 
