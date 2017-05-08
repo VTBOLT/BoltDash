@@ -330,7 +330,7 @@ int MainWindow::getState(){
         MainWindow::setState(state_option::throttle);
     }
 
-    // qCout << "State is " << state << endl;
+     qCout << "State: " << state << " rms_vsm: " << rms_vsm_state << endl;
     return state;
 }
 
