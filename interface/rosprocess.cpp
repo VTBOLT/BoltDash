@@ -146,6 +146,23 @@ void RosProcess::parseData(QByteArray data)
         emit updateSOC(can_data);
         emit updateSOC(QVariant(can_data));
         break;
+   // GPIO BELOW HERE
+    case (gpio_IGNOK):
+        emit updateIGNOK(can_data);
+        break;
+    case (gpio_IMD):
+        emit updateIMD(can_data);
+        break;
+    case (gpio_PRESSURE):
+        emit updatePRESSURE(can_data);
+        break;
+    case (gpio_BMSDE):
+        emit updateBMSDE(can_data);
+        break;
+    case (fault_internal_comm):
+        emit updateFAULT(can_data);
+
+
     default:
         break;
     }
