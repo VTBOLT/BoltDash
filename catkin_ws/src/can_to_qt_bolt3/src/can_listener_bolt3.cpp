@@ -48,14 +48,16 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "can_listener_bolt3");
   ros::NodeHandle n;
+
   ros::Publisher listener = n.advertise<std_msgs::String>("listen", 100);
   ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
   ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
   ros::Subscriber gpio = n.subscribe("/gpio/all", 100, gpio_callback);
+
+  ros::MultiThreadedSpinner spinner(); // Use number of threads as number of cores
   
-
-	
-  ros::spin();
-
+  while(ros::ok()){
+    spinner.spin(); // spin() will not return until the node has been shutdown
+  }
   return 0;
 }
