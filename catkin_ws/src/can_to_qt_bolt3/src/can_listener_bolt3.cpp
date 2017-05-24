@@ -11,11 +11,7 @@
 
 #include "shared_messages.h"
 
-
-
 std_msgs::String listen_message;
-
-
 
 void chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr& msg)
 {
@@ -48,16 +44,17 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "can_listener_bolt3");
   ros::NodeHandle n;
+  // n.setCallbackQueue(&my_callback_queue);
 
   ros::Publisher listener = n.advertise<std_msgs::String>("listen", 100);
   ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
   ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
   ros::Subscriber gpio = n.subscribe("/gpio/all", 100, gpio_callback);
 
-  ros::MultiThreadedSpinner spinner(); // Use number of threads as number of cores
+  // ros::MultiThreadedSpinner spinner(); // Use number of threads as number of cores
   
   while(ros::ok()){
-    spinner.spin(); // spin() will not return until the node has been shutdown
+    ros::spin(); // spin() will not return until the node has been shutdown
   }
   return 0;
 }

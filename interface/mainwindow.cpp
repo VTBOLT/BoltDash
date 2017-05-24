@@ -1,6 +1,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <unistd.h>
 
 QTextStream qCout(stdout);
 
@@ -19,6 +20,13 @@ MainWindow::MainWindow(QOpenGLWidget *parent) :
     args <<"can_to_qt_bolt3" << "can_listener_bolt3";
     ros_process = new RosProcess(path,args);
 
+//    screen -dmS can bash -c 'source /home/dash/dash/catkin_ws/devel/setup.bash; rosrun can_to_qt_bolt3 can_talker_bolt3; exec bash;'
+//    QString path = "screen";
+//    QStringList args;
+//    args <<"-dmS" << "listen" << "bash" << "-c"<< "\'exec bash\'";
+//    ros_process = new RosProcess(path,args);
+
+
     // connect can signals to debug view
     connectDebugSlots();
     // connect 'clicked' signals to button actions
@@ -28,6 +36,9 @@ MainWindow::MainWindow(QOpenGLWidget *parent) :
     // connect startup slots
     connectStartupSlots();
     emit updateState();
+    sleep(1);
+    toRaceView();
+    showStartupZero();
 }
 
 MainWindow::~MainWindow()
@@ -196,7 +207,7 @@ void MainWindow::setBMSDE(int state){
 
 void MainWindow::setRMSVSM(int value){
         rms_vsm_state = value;
-        // qCout << "set RMS VSM State: " << rms_vsm_state << endl;
+         qCout << "set RMS VSM State: " << rms_vsm_state <<  " window: " << ui->views->currentIndex() << endl;
         emit updateState();
 }
 
@@ -252,7 +263,7 @@ void MainWindow::setState(int set_state, int fault_value){
                case(state_option::throttle):
                    // Throttle is active, ask user what to do
                    qCout << "Throttle" << endl;
-                   MainWindow::toRaceView();
+                   toRaceView();
                    break;
                default:
                    break;
@@ -263,8 +274,6 @@ void MainWindow::setState(int set_state, int fault_value){
         fault_code = fault_value;
         qCout << "Fault Changed to: " << fault_value << endl;
     }
-
-
     emit stateSet();
 }
 
@@ -311,7 +320,7 @@ int MainWindow::getState(){
     }
 
     //IGN
-    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && rms_vsm_state == -1){
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == -1 || rms_vsm_state == 14)){
         MainWindow::setState(state_option::ign);
     }
 
@@ -330,7 +339,12 @@ int MainWindow::getState(){
         MainWindow::setState(state_option::throttle);
     }
 
-     qCout << "State: " << state << " rms_vsm: " << rms_vsm_state << endl;
+//     qCout << "State: " << state << " rms_vsm: " << rms_vsm_state << endl;
+
+    // This qCout allows the states to not freeze, this is a bug
+    // TODO: Fix this bug
+    qCout << "";
+
     return state;
 }
 
