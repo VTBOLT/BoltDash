@@ -1,10 +1,11 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <unistd.h>
 
 QTextStream qCout(stdout);
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QOpenGLWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -16,8 +17,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // instantiate the can thread
     QString path = "rosrun";
     QStringList args;
-    args << "can_to_qt_bolt3" << "can_listener_bolt3";
+    args <<"can_to_qt_bolt3" << "can_listener_bolt3";
     ros_process = new RosProcess(path,args);
+
+//    screen -dmS can bash -c 'source /home/dash/dash/catkin_ws/devel/setup.bash; rosrun can_to_qt_bolt3 can_talker_bolt3; exec bash;'
+//    QString path = "screen";
+//    QStringList args;
+//    args <<"-dmS" << "listen" << "bash" << "-c"<< "\'exec bash\'";
+//    ros_process = new RosProcess(path,args);
+
 
     // connect can signals to debug view
     connectDebugSlots();
@@ -25,10 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connectNavSlots();
     // connect signals from can to race view
     connectRaceSlots();
-    // connect strtup slots
+    // connect startup slots
     connectStartupSlots();
-
-    startup();
+    emit updateState();
+    sleep(1);
+    toRaceView();
+    showStartupZero();
 }
 
 MainWindow::~MainWindow()
@@ -66,13 +76,13 @@ void MainWindow::connectRaceSlots()
 
 void MainWindow::connectStartupSlots()
 {
-    connect(this, SIGNAL( stateSet()), this, SLOT(startup()));
+    connect(this, SIGNAL( updateState()), this, SLOT(getState()));
     connect(ros_process, SIGNAL(updateIGNOK(int)), this, SLOT(setIGNOK(int)));
     connect(ros_process, SIGNAL(updateIMD(int)), this, SLOT(setIMD(int)));
     connect(ros_process, SIGNAL(updatePRESSURE(int)), this, SLOT(setPRESSURE(int)));
     connect(ros_process, SIGNAL(updateBMSDE(int)), this, SLOT(setBMSDE(int)));
-    connect(ros_process, SIGNAL( updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
-    connect(ros_process, SIGNAL( updateInverter(int)), this, SLOT(setInverter(int)));
+    connect(ros_process, SIGNAL(updateRMSVSM(int)), this, SLOT(setRMSVSM(int)));
+    connect(ros_process, SIGNAL(updateInverter(int)), this, SLOT(setInverter(int)));
 }
 
 void MainWindow::setRPM(QVariant rpm)
@@ -121,28 +131,37 @@ void MainWindow::toStartupScreen()
 
 void MainWindow::showStartupZero()
 {
-
-    ui->startupFrame->setStyleSheet("QWidget {border-image:url(:/images/startup_0.png)0 0 0 stretch stretch; background-repeat: none;}" );
+    qCout << "Display BOLT Logo" << endl;
+    MainWindow::toStartupScreen();
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_0.png)0 0 0 0 stretch stretch; background-repeat: none" );
 }
 
 void MainWindow::showStartupOne()
 {
-    ui->startupFrame->setStyleSheet("QWidget{ border-image:url(:/images/startup_1.png) 0 0 0 0 stretch stretch; background-repeat: none;}");
+    qCout << "Display Acc" << endl;
+    MainWindow::toStartupScreen();
+    ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_1.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupTwo()
 {
+    qCout << "Display Ign" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_2.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
 void MainWindow::showStartupThree()
 {
+    qCout << "Display Precharge" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_3.png)0 0 0 0 stretch stretch; background-repeat: none");
 
 }
 
 void MainWindow::showStartupFour()
 {
+    qCout << "Display Start" << endl;
+    MainWindow::toStartupScreen();
     ui->startupFrame->setStyleSheet("border-image:url(:/images/startup_4.png)0 0 0 0 stretch stretch; background-repeat: none");
 }
 
@@ -150,18 +169,18 @@ void MainWindow::showStartupFour()
 
 void MainWindow::setIGNOK(int state){
     if(state == 0 || state == 1){
-        gpio.IGNOK = state;
-        // qCout << "set ignok: " << gpio.IGNOK << endl;
-        emit stateSet();
+        gpio_value.IGNOK = state;
+        // qCout << "set ignok: " << gpio_value.IGNOK << endl;
+        emit updateState();
     } else{
         // qCout << "fault ignok: " << state << endl;
     }
 }
 void MainWindow::setIMD(int state){
     if(state == 0 || state == 1){
-        gpio.IMD = state;
-        // qCout << "set imd: " << gpio.IMD << endl;
-        emit stateSet();    
+        gpio_value.IMD = state;
+        // qCout << "set imd: " << gpio_value.IMD << endl;
+        emit updateState();    
     } else{
         // qCout << "fault imd: " << state << endl;
     }
@@ -169,18 +188,18 @@ void MainWindow::setIMD(int state){
 }
 void MainWindow::setPRESSURE(int state){
     if(state == 0 || state == 1){
-        gpio.PRESSURE = state;
-        // qCout << "set pressure: " << gpio.PRESSURE << endl;
-        emit stateSet();
+        gpio_value.PRESSURE = state;
+        // qCout << "set pressure: " << gpio_value.PRESSURE << endl;
+        emit updateState();
     } else{
         // qCout << "fault pressure: " << state << endl;
     }
 }
 void MainWindow::setBMSDE(int state){
     if(state == 0 || state == 1){
-        gpio.BMSDE = state;
-        // qCout << "set bmsde: " << gpio.BMSDE << endl;
-        emit stateSet();
+        gpio_value.BMSDE = state;
+        // qCout << "set bmsde: " << gpio_value.BMSDE << endl;
+        emit updateState();
     } else{
         // qCout << "fault bmsde: " << state << endl;
     }
@@ -188,52 +207,144 @@ void MainWindow::setBMSDE(int state){
 
 void MainWindow::setRMSVSM(int value){
         rms_vsm_state = value;
-        // qCout << "set RMS VSM State: " << rms_vsm_state << endl;
-        emit stateSet();
+         qCout << "set RMS VSM State: " << rms_vsm_state <<  " window: " << ui->views->currentIndex() << endl;
+        emit updateState();
 }
 
 void MainWindow::setInverter(int value){
     rms_inverter_state = value;
-    emit stateSet();
+    emit updateState();
 }
 
 void MainWindow::setState(int set_state, int fault_value){
-    state = set_state;
-    // qCout << "Set State: " << state << endl;
 
-    // if(state == -1){
-    //     MainWindow::setFAULT(fault_value);
-    // }
+    if(state != set_state){
+       state = set_state;
+       qCout << "State Changed To: " << state << endl; 
+
+       switch(state)
+           {
+               case (state_option::fault):
+                   //Show fault screen
+                   MainWindow::getFAULT();
+                   //Determine what to do next
+                   break;
+               case (state_option::off):
+                   qCout << "Battery Connected" << endl;
+                   // Show BOLT Logo Briefly
+                   MainWindow::showStartupZero();
+                   break;
+               case (state_option::aux):
+                   // Show Turn On ACC
+                   qCout << "AUX" << endl;
+                   MainWindow::showStartupOne();
+                   break;
+               case (state_option::acc):
+                   // Show Turn on Ign
+                   qCout << "ACC" << endl;
+                   MainWindow::showStartupTwo();
+                   break;
+               case (state_option::ign):
+                   // RMS is powered, waiting for precharge
+                   qCout << "IGN" << endl;
+                   MainWindow::showStartupThree();
+                   break;
+               case (state_option::precharge):
+                   // Precharging
+                   qCout << "Precharge" << endl;
+                   MainWindow::showStartupThree();
+                   break;
+               case (state_option::start):
+                   // Precharge complete, ready for power
+                   // Show Press Start Button
+                   qCout << "Start" << endl;
+                   MainWindow::showStartupFour();
+                   break;
+               case(state_option::throttle):
+                   // Throttle is active, ask user what to do
+                   qCout << "Throttle" << endl;
+                   toRaceView();
+                   break;
+               default:
+                   break;
+           }
+    }
+
+    if(fault_code != fault_value){
+        fault_code = fault_value;
+        qCout << "Fault Changed to: " << fault_value << endl;
+    }
     emit stateSet();
 }
 
 void MainWindow::setFAULT(int value){
     qCout << "FAULT SET " << value << endl;
     fault_code = value;
-    emit stateSet();
+    emit updateState();
 }
 
 // Get Methods
 
 int MainWindow::getIGNOK(){
-    // qCout << "ignok: " << gpio.IGNOK << endl;
-    return gpio.IGNOK;
+    // qCout << "ignok: " << gpio_value.IGNOK << endl;
+    return gpio_value.IGNOK;
 }
 int MainWindow::getIMD(){
-    // qCout << "imd: " << gpio.IMD << endl;
-    return gpio.IMD;
+    // qCout << "imd: " << gpio_value.IMD << endl;
+    return gpio_value.IMD;
 }
 int MainWindow::getPRESSURE(){
-    // qCout << "pressure: " << gpio.PRESSURE << endl;
-    return gpio.PRESSURE;
+    // qCout << "pressure: " << gpio_value.PRESSURE << endl;
+    return gpio_value.PRESSURE;
 }
 int MainWindow::getBMSDE(){
-    // qCout << "bmsde: " << gpio.BMSDE << endl;
-    return gpio.BMSDE;
+    // qCout << "bmsde: " << gpio_value.BMSDE << endl;
+    return gpio_value.BMSDE;
 }
 
 int MainWindow::getState(){
-    // qCout << "State is " << state << endl;
+
+    //OFF
+    if(!gpio_value.IMD && !gpio_value.IGNOK && !gpio_value.BMSDE && !gpio_value.PRESSURE){
+        MainWindow::setState(state_option::off);
+    }
+
+    // AUX
+    if(!gpio_value.IMD && !gpio_value.IGNOK && gpio_value.BMSDE && !gpio_value.PRESSURE){
+        MainWindow::setState(state_option::aux);
+    }
+
+    //ACC
+    if(gpio_value.IMD && !gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE){
+        MainWindow::setState(state_option::acc);
+    }
+
+    //IGN
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == -1 || rms_vsm_state == 14)){
+        MainWindow::setState(state_option::ign);
+    }
+
+    //Precharge
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == 0 || rms_vsm_state == 1 || rms_vsm_state == 2 || rms_vsm_state == 3)){
+        MainWindow::setState(state_option::precharge);
+    }
+
+    //Start
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && (rms_vsm_state == 4 || rms_vsm_state == 5)){
+        MainWindow::setState(state_option::start);
+    }
+
+    //Throttle
+    if(gpio_value.IMD && gpio_value.IGNOK && gpio_value.BMSDE && gpio_value.PRESSURE && rms_vsm_state == 6){
+        MainWindow::setState(state_option::throttle);
+    }
+
+//     qCout << "State: " << state << " rms_vsm: " << rms_vsm_state << endl;
+
+    // This qCout allows the states to not freeze, this is a bug
+    // TODO: Fix this bug
+    qCout << "";
+
     return state;
 }
 
@@ -243,83 +354,6 @@ int MainWindow::getFAULT(){
 
 int MainWindow::getRMSVSM(){
     return rms_vsm_state;
-}
-
-
-void MainWindow::startup(){
-    // Possibly need to change this from a switch into a bunch of signals and slots
-    // Easier to establish entire state machine at first test this way
-
-    qCout << "IGNOK: " << gpio.IGNOK << " IMD: " << gpio.IMD << " PRESSURE: " << gpio.PRESSURE << " BMSDE: " << gpio.BMSDE << endl;
-        qCout << "VSM: " << rms_vsm_state << " Inverter: " << rms_inverter_state << " State: " << state << endl;
-    switch(getState())
-    {
-        case (state_option::fault):
-            //Show fault screen
-            MainWindow::getFAULT();
-            //Determine what to do next
-            break;
-        case (state_option::off):
-            // Show BOLT Logo
-            MainWindow::showStartupZero();
-            // Check CAN BMS State, no fault
-            if(fault_code == 0){
-                // set state bms
-                MainWindow::setState(state_option::bms);
-            }
-            break;
-        case (state_option::bms):
-            // Show Turn On ACC
-            MainWindow::showStartupOne();
-            // Check PRESSURE && IMD
-            if(MainWindow::getPRESSURE() == 1 && MainWindow::getIMD() == 1){
-                // Show Turn on ACC
-                MainWindow::showStartupTwo();
-                MainWindow::setState(state_option::acc);
-            }
-            break;
-        case (state_option::acc):
-            // Check IGN && CAN RMS On
-            if(MainWindow::getIGNOK() == 1 && MainWindow::getRMSVSM() > 1){
-                // Set State RMS
-                MainWindow::setState(state_option::rms);
-            } else if(MainWindow::getRMSVSM() != 0 || MainWindow::getRMSVSM() !=1){
-                // qCout << "RMS VSM State: " << MainWindow::getRMSVSM() << endl;
-            }                
-            break;
-        case (state_option::rms):
-            // check rms vsm message. bytes 0 and 1. for precharge started
-            if(MainWindow::getRMSVSM() >= 2){
-                // Show Precharging
-                MainWindow::showStartupThree();
-                MainWindow::setState(state_option::precharging);
-            }            
-            break;
-        case (state_option::precharging):
-            // Check CAN RMS VSM State Byte 0 and 1 of CAN Message for complete
-            if(MainWindow::getRMSVSM() == 4){
-                qCout << "PRECHARGE COMPLETE" << endl;
-
-                // Show Press Start when complete
-                MainWindow::showStartupFour();
-                MainWindow::setState(state_option::motor);
-            }
-            break;
-        case (state_option::motor):
-            if(MainWindow::getRMSVSM()==6){
-                MainWindow::toRaceView();
-                disconnect(this, SIGNAL( stateSet()), this, SLOT(startup()));
-            }
-            
-            // Check CAN RMS VSM State Byte 0 and 1, for when motor ready
-//            if(MainWindow::ready){
-                // Show Select Debug or Race when motor is on
-                // MainWindow::showSelection();
-//            }
-            break;
-        default:
-            break;
-    }
 }
 
 void MainWindow::on_exitButton_clicked()
