@@ -1,0 +1,6 @@
+<launch>
+  <group ns="bolt">
+    <node name="dash_gui" type="dash_gui.py" pkg="dash_gui" output="screen">
+    </node>
+  </group>
+</launch>
