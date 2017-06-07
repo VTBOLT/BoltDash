@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>Race_view.qml</file>
-    </qresource>
-</RCC>
