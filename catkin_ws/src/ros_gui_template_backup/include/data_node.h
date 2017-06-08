@@ -27,9 +27,9 @@ public:
 
 private:
     void run();
-    void chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg);
-    void chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg);
-    void gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg);
+    static void chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg);
+    static void chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg);
+    static void gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg);
 
 	void parseData(QByteArray data); // TODO
     void parseError();

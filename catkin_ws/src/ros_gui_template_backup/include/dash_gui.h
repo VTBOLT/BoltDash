@@ -11,6 +11,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <rqt_gui_cpp/plugin.h>
 #include <ui_dash_gui.h>
+
 #include <QWidget>
 #include <QStringList>
 #include <QOpenGLWidget>
@@ -18,6 +19,7 @@
 #include <QQuickItem>
 #include <QQuickWidget>
 #include <QTextStream>
+
 #include "data_node.h"
 
 

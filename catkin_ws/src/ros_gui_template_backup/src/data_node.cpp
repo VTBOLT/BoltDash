@@ -12,9 +12,9 @@ DataNode::DataNode()
 
 	ros::Publisher listener = n.advertise<std_msgs::String>("listen", 100);
   // TODO :: getting compile error here -- non static member function
-	// ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
-	// ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
-	// ros::Subscriber gpio = n.subscribe("/gpio/all", 100, gpio_callback);
+	ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, chatterCallback_can_msg);
+	ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, chatterCallback_fault_msg);
+	ros::Subscriber gpio = n.subscribe("/gpio/all", 100, gpio_callback);
 
 	// ros::MultiThreadedSpinner spinner(); // Use number of threads as number of cores
 	 
