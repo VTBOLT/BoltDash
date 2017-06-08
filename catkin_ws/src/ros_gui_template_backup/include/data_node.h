@@ -19,23 +19,24 @@
 #include "../../../devel/include/dash_gui/fault_msg.h"
 #include "../../../devel/include/dash_gui/gpio_msg.h"
 
+
 class DataNode : public QThread
 {
     Q_OBJECT
 public:
-	DataNode();
+    DataNode();
 
 private:
-    void run();
-    static void chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg);
-    static void chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg);
-    static void gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg);
-
-	void parseData(QByteArray data); // TODO
-    void parseError();
-
     double rpm;
     int max_rinehart_temp = 0;
+    
+    void run();
+    void chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg);
+    void chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg);
+    void gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg);
+
+	void parseData(const dash_gui::can_msg::ConstPtr& msg); // TODO
+    void parseError();
 
 Q_SIGNALS:
 	void updateRPM(double rpm);
