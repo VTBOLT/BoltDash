@@ -79,6 +79,7 @@ private:
     Ui::DashGuiWidget ui_;
     QWidget *widget_;
     DataNode * datanode;
+    void testOut(const std_msgs::String::ConstPtr &msg);
 
     gpio_values gpio_value;
 

@@ -15,9 +15,9 @@
 #include "std_msgs/Int16.h"
 
 // TODO : Fix cmakelists so this works how it's supposed to
-#include "../../../devel/include/dash_gui/can_msg.h"
-#include "../../../devel/include/dash_gui/fault_msg.h"
-#include "../../../devel/include/dash_gui/gpio_msg.h"
+#include "can_msg.h"
+#include "fault_msg.h"
+#include "gpio_msg.h"
 
 
 class DataNode : public QThread
@@ -27,15 +27,19 @@ public:
     DataNode();
 
 private:
+    ros::NodeHandle n;
+    ros::Subscriber sub1;
+    ros::Subscriber sub2;
+    ros::Subscriber gpio;
     double rpm;
     int max_rinehart_temp = 0;
     
     void run();
-    void chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg);
-    void chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg);
-    void gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg);
+    void chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr& msg);
+    void chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg);
+    void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg);
 
-	void parseData(const dash_gui::can_msg::ConstPtr& msg); // TODO
+	void parseData(const can_to_qt_bolt3::can_msg::ConstPtr& msg); // TODO
     void parseError();
 
 Q_SIGNALS:

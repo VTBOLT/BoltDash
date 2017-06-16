@@ -17,8 +17,10 @@
   <build_depend>rqt_gui</build_depend>
   <build_depend>rqt_gui_cpp</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>genmsg</build_depend>
-  <build_depend>message_generation</build_depend>
+  <build_depend>can_to_qt_bolt3</build_depend>
+  <build_depend>can_msg</build_depend>
+  <build_depend>gpio_msg</build_depend>
+  <build_depend>fault_msg</build_depend>
 
 
 
@@ -31,8 +33,11 @@
   <run_depend>rqt_gui</run_depend>
   <run_depend>rqt_gui_cpp</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>genmsg</run_depend>
-  <run_depend>message_runtime</run_depend>
+  <run_depend>can_to_qt_bolt3</run_depend>
+  <run_depend>can_msg</run_depend>
+  <run_depend>gpio_msg</run_depend>
+  <run_depend>fault_msg</run_depend>
+
 
 
 

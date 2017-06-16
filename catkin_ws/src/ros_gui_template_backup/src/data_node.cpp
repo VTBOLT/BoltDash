@@ -1,23 +1,25 @@
 // previously rosprocess.cpp
 
 #include "data_node.h"
-#include "../../../../shared_messages.h"
+#include "shared_messages.h"
 
 QTextStream qRCout(stdout);
 
 DataNode::DataNode()
 {
+    qRCout << "calling data_node" << endl;
     int argc = 0;
-    char * argv = 0;
+    char ** argv = 0;
 
-  	ros::init(argc, &argv, "dash_gui");
-  	ros::NodeHandle n;
+  	ros::init(argc, argv, "dash_gui");
+  	
 
-  	ros::Publisher listener = n.advertise<std_msgs::String>("listen", 100);
+  	
+    qRCout << "Publish" << endl;
     // TODO :: getting compile error here -- non static member function
-  	ros::Subscriber sub1 = n.subscribe("/can_msg", 1000, &DataNode::chatterCallback_can_msg, this);
-  	ros::Subscriber sub2 = n.subscribe("/fault_msg", 1000, &DataNode::chatterCallback_fault_msg, this);
-  	ros::Subscriber gpio = n.subscribe("/gpio/all", 100, &DataNode::gpio_callback, this);
+  	sub1 = n.subscribe("/can_msg", 1000, &DataNode::chatterCallback_can_msg, this);
+    sub2 = n.subscribe("/fault_msg", 1000, &DataNode::chatterCallback_fault_msg, this);
+  	gpio = n.subscribe("/gpio/all", 100, &DataNode::gpio_callback, this);
 
   	// ros::MultiThreadedSpinner spinner(); // Use number of threads as number of cores
 	 
@@ -25,15 +27,20 @@ DataNode::DataNode()
 }
 
 void DataNode::run()
-{ 
+{
+    qRCout << ">>> Run" << endl; 
     while(ros::ok())
     {
+      qRCout << "OK" << endl;
+      //ros::Publisher listener = n.advertise<std_msgs::String>("listen", 100);
+      //ros::Subscriber gpio = n.subscribe("/gpio/all", 100, &DataNode::gpio_callback, this);
       ros::spin(); // spin() will not return until the node has been shutdown
     }
+    qRCout << "No more OK" << endl;
     return;
 }
 
-void DataNode::chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg)
+void DataNode::chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr& msg)
 {
     //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
     // std::cout << msg->define << ";" << msg->msg->can_data << std::endl;
@@ -117,7 +124,7 @@ void DataNode::chatterCallback_can_msg(const dash_gui::can_msg::ConstPtr& msg)
     }
 }
 
-void DataNode::chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& msg)
+void DataNode::chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg)
 {
   //ROS_INFO("motor [can_id]: [%i] rpm: %i RMS_currentL %i DC_voltage: %i drive6stat: %i", msg->can_id, msg->rpm, msg->RMS_current, msg->DC_voltage, msg->drive6stat);
   // std::cout << msg->define << ";" << msg->can_data << std::endl;
@@ -125,22 +132,23 @@ void DataNode::chatterCallback_fault_msg(const dash_gui::fault_msg::ConstPtr& ms
   // listener.publish(listen_message);
 }
 
-void DataNode::gpio_callback(const dash_gui::gpio_msg::ConstPtr& msg)
+void DataNode::gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg)
 {
   // std::cout << gpio_IGNOK << ";" << (int)msg->IGNOK <<std::endl;
   // std::cout << gpio_IMD << ";" << (int)msg->IMD <<std::endl;
   // std::cout << gpio_PRESSURE << ";" << (int)msg->PRESSURE <<std::endl;
   // std::cout << gpio_BMSDE << ";" << (int)msg->BMSDE <<std::endl;
-
+  ROS_INFO_STREAM((int)msg->IGNOK << (int)msg->IMD << (int)msg->PRESSURE << (int)msg->BMSDE);
   // listen_message.data = (int)msg->IGNOK + (int)msg->IMD + (int)msg->PRESSURE + (int)msg->BMSDE + '\n';
   // listener.publish(listen_message);
+
 }
 
 
 
 // Old fxns from rosprocess
 
-void DataNode::parseData(const dash_gui::can_msg::ConstPtr& msg)
+void DataNode::parseData(const can_to_qt_bolt3::can_msg::ConstPtr& msg)
 {
 	return;
 }

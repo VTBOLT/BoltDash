@@ -5,7 +5,7 @@
 // Author: Adam Plowcha
 //
 
-
+#include <ros/ros.h>
 #include <dash_gui.h>
 
 QTextStream qCout(stdout);
@@ -27,6 +27,13 @@ DashGui::~DashGui()
 
 void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
 {
+    int argc = 0;
+    char ** argv = 0;
+    ros::init(argc, argv, "bolt_gui");
+    ros::NodeHandle n;
+    ROS_INFO_STREAM("Create");
+    ros::Subscriber sub_test = n.subscribe("/gpio/readable", 100, &DashGui::testOut, this);
+
     /* Setup the widget */
     widget_ = new QWidget();
     ui_.setupUi(widget_);
@@ -47,6 +54,10 @@ void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
 
     // TODO : replace with startup stuff
     toRaceView();
+}
+
+void DashGui::testOut(const std_msgs::String::ConstPtr &msg){
+  ROS_INFO_STREAM("Test: " << msg->data);
 }
 
 void DashGui::loadQML()

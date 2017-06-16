@@ -1,5 +1,5 @@
 # I had to run this before it would work...
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/sam/Qt/5.8/gcc_64/lib
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mcghee/Qt/5.8/gcc_64/lib
 
 cmake_minimum_required(VERSION 2.8.3)
 project(dash_gui)
@@ -20,21 +20,23 @@ find_package(OpenCV REQUIRED)
 
 
 ## Declare ROS messages and services
-add_message_files(
-  DIRECTORY
-  msg
-  FILES
-  can_msg.msg
-  fault_msg.msg
-  gpio_msg.msg
-)
+#add_message_files(
+#  DIRECTORY
+#  msg
+#  FILES
+#  can_msg.msg
+#  fault_msg.msg
+#  gpio_msg.msg
+#)
+
 ## Generate added messages and services
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-  dash_gui
-)
-file(GLOB hdr "msg/*.h" can/*.h)
+#generate_messages(
+#  DEPENDENCIES
+#  std_msgs
+#  dash_gui
+#)
+
+#file(GLOB hdr "msg/*.h" can/*.h)
 
 if(${USE_QT5})
   # Autogenerate the MOC files
@@ -76,7 +78,7 @@ set(dash_gui_INCLUDE_DIRECTORIES
 catkin_package(
   INCLUDE_DIRS include ${dash_gui_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs message_runtime
+  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs
 )
 
 include_directories(include)
@@ -130,14 +132,18 @@ else()
     ${OpenCV_LIBRARIES})
 endif()
 
-add_dependencies(dash_gui dash_gui_generate_messages_cpp)
-add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS} dash_gui_generate_messages_cpp include)
+#add_dependencies(dash_gui)
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS} include)
 
 find_package(class_loader)
 class_loader_hide_library_symbols(${PROJECT_NAME}) 
 
 find_package(catkin REQUIRED COMPONENTS dash_gui)
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(include 
+  ${catkin_INCLUDE_DIRS}
+  ${CATKIN_DEVEL_PREFIX}/include/can_to_qt_bolt3/
+  ${CATKIN_DEVEL_PREFIX}/../../
+)
 
 install(FILES plugin.xml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
