@@ -28,6 +28,7 @@ public:
 
 private:
     ros::NodeHandle n;
+    ros::Publisher listener;
     ros::Subscriber sub1;
     ros::Subscriber sub2;
     ros::Subscriber gpio;
@@ -38,9 +39,6 @@ private:
     void chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr& msg);
     void chatterCallback_fault_msg(const can_to_qt_bolt3::fault_msg::ConstPtr& msg);
     void gpio_callback(const can_to_qt_bolt3::gpio_msg::ConstPtr& msg);
-
-	void parseData(const can_to_qt_bolt3::can_msg::ConstPtr& msg); // TODO
-    void parseError();
 
 Q_SIGNALS:
 	void updateRPM(double rpm);
