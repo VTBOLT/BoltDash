@@ -33,7 +33,11 @@ file(GLOB hdr "msg/*.h" can/*.h)
 catkin_package()
 
 ## Build talker and listener
-include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ ~/dash/catkin_ws/devel/include/can_to_qt_bolt3/ ~/dash/)
+include_directories(include ${catkin_INCLUDE_DIRS} can/ msg/ 
+  ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION}/
+  ${CATKIN_DEVEL_PREFIX}/../../
+)
+
 add_executable(can_talker_bolt3 src/can_talker_bolt3.cpp ${shared_hdr} ${hdr})
 target_link_libraries(can_talker_bolt3 ${catkin_LIBRARIES})
 add_dependencies(can_talker_bolt3
