@@ -10,13 +10,12 @@ else()
   set(USE_QT5 false)
 endif()
 
-find_package(catkin REQUIRED COMPONENTS roscpp rqt_gui rqt_gui_cpp image_transport 
-  cv_bridge 
+find_package(catkin REQUIRED COMPONENTS roscpp rqt_gui rqt_gui_cpp
   std_msgs
   genmsg 
   message_generation
 )
-find_package(OpenCV REQUIRED)
+
 
 
 ## Declare ROS messages and services
