@@ -1,6 +1,17 @@
 <launch>
-  <group ns="bolt">
-    <node name="dash_gui" type="dash_gui.py" pkg="dash_gui" output="screen">
-    </node>
-  </group>
+ 
+	<arg name="testing" default="false" />
+
+	 <group ns="bolt">
+	   <node name="dash_gui" type="dash_gui.py" pkg="dash_gui" output="screen"></node>
+	 </group>
+
+	 <group unless="$(arg testing)">
+	     <node name="can_talker_bolt3" type="can_talker_bolt3" pkg="can_to_qt_bolt3"></node>
+	 </group>
+
+	 <group unless="$(arg testing)">
+	     <node name="gpio_node" type="gpio_node" pkg="gpio"></node>
+	 </group>
+
 </launch>

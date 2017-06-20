@@ -77,8 +77,9 @@ private Q_SLOTS:
 
 private:
     Ui::DashGuiWidget ui_;
-    QWidget *widget_;
+    QOpenGLWidget *widget_;
     DataNode * datanode;
+    QObject * rootObject;
 
     gpio_values gpio_value;
 

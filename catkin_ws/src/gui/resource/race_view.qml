@@ -25,6 +25,7 @@ Item {
         height: 600
         fillMode: Image.PreserveAspectFit
         antialiasing: true
+        asynchronous: true
         source: "qrc:///gauge_images/dash_background_with_meter.png"
     }
 
@@ -72,6 +73,7 @@ Item {
             height: 600
             fillMode: Image.PreserveAspectFit
             antialiasing: true
+            asynchronous: true
             source: "qrc:///gauge_images/battery_sized_to_fit_screen.png"
 
         }
@@ -85,6 +87,7 @@ Item {
             z: 2
             width: 515 // max = 515
             height: 75
+            asynchronous: true
             antialiasing: true
         }
 }

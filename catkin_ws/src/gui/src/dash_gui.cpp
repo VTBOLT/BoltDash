@@ -27,7 +27,7 @@ DashGui::~DashGui()
 void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
 {
     /* Setup the widget */
-    widget_ = new QWidget();
+    widget_ = new QOpenGLWidget();
     ui_.setupUi(widget_);
     context.addWidget(widget_);
 
@@ -51,6 +51,7 @@ void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
 void DashGui::loadQML()
 {
     ui_.qmlRace->setSource(QUrl("qrc:///qml/race_view.qml"));
+    rootObject = ui_.qmlRace->rootObject();
 }
 
 void DashGui::connectDebugSlots()
@@ -91,22 +92,18 @@ void DashGui::connectStartupSlots()
 
 void DashGui::setRPM(QVariant rpm)
 {
-    QObject * rootObject = ui_.qmlRace->rootObject();
     float angle = rpm.toFloat() * (180.0/8000.0);
     rootObject->setProperty("myRot", QVariant(angle));
 }
 
 void DashGui::setBatteryPercent(QVariant value)
 {
-    QObject * rootObject = ui_.qmlRace->rootObject();
-    // convert value to a percentage of the rectangle's width...
     rootObject->setProperty("green_bar", QVariant(value));
 }
 
 void DashGui::connectNavSlots()
 {
-    QObject * qmlObject = ui_.qmlRace->rootObject();
-    connect(qmlObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
+    connect(rootObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
 
     connect(ui_.toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
     connect(ui_.toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
