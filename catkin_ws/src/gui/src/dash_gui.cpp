@@ -74,7 +74,7 @@ void DashGui::connectDebugSlots()
 void DashGui::connectRaceSlots()
 {
     connect(datanode, SIGNAL(updateRPM(QVariant)), this, SLOT(setRPM(QVariant)));
-    connect(datanode, SIGNAL(updateSOC(QVariant)), this, SLOT(setBatteryPercent(QVariant)));
+    connect(datanode, SIGNAL(updateSOC(double)), this, SLOT(setBatteryPercent(double)));
 
 }
 
@@ -96,9 +96,10 @@ void DashGui::setRPM(QVariant rpm)
     rootObject->setProperty("myRot", QVariant(angle));
 }
 
-void DashGui::setBatteryPercent(QVariant value)
+void DashGui::setBatteryPercent(double value)
 {
-    rootObject->setProperty("green_bar", QVariant(value));
+    double width = 512 * ( value/100.0 );
+    rootObject->setProperty("green_bar", QVariant(width));
 }
 
 void DashGui::connectNavSlots()

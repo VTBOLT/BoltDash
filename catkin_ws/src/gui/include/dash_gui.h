@@ -54,11 +54,11 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void setRPM(QVariant rpm);
+    void setBatteryPercent(double value);
     void toDebugView();
     void toRaceView();
     void toVoltageView();
     void toStartupScreen();
-    void setBatteryPercent(QVariant value);
     void showStartupZero();
     void showStartupOne();
     void showStartupTwo();

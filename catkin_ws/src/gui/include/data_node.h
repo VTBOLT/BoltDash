@@ -44,7 +44,6 @@ Q_SIGNALS:
 	void updateRPM(double rpm);
     void updateRPM(const QVariant & rpm);
     void updateSOC(double volt);
-    void updateSOC(const QVariant & volt);
     void updateMotorTemp(double temp);
     void updateDcCurrent(double current);
     void updateOutputVolts(double volts);

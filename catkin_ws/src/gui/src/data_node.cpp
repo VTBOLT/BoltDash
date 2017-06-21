@@ -107,7 +107,6 @@ void DataNode::chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr&
           break;
       case (PACK_SOC):
           emit updateSOC(msg->can_data);
-          emit updateSOC(QVariant(msg->can_data));
           break;
     }
 }
