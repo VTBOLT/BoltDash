@@ -26,7 +26,19 @@
 #define PACK_INST_VOLTAGE         26
 #define PACK_TEMP_HIGH            27
 #define PACK_TEMP_LOW             28
-#define PACK_SOC                  29
+#define PACK_TEMP_HIGH_ID         29
+#define PACK_TEMP_LOW_ID          30
+#define PACK_SOC                  31
+#define PACK_CCL                  32
+#define PACK_DCL                  33
+#define BMS_TEMP                  34 
+#define CELL_VOLT_HIGH_ID         35
+#define CELL_VOLT_HIGH            36
+#define CELL_VOLT_LOW_ID          37
+#define CELL_VOLT_LOW             38
+#define REGEN_DISABLE             39
+#define DC_BUS_CURRENT            40
+#define DC_BUS_VOLTAGE            41
 
 
 //Non CAN Messages

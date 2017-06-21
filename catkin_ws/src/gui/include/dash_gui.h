@@ -79,7 +79,7 @@ private:
     Ui::DashGuiWidget ui_;
     QOpenGLWidget *widget_;
     DataNode * datanode;
-    QObject * rootObject;
+    QObject * rootObject;   // allows us to access items in QML
 
     gpio_values gpio_value;
 
