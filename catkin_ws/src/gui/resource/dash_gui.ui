@@ -483,6 +483,14 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
 }</string>
   </property>
   <widget class="QOpenGLWidget" name="centralWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1060</width>
+     <height>636</height>
+    </rect>
+   </property>
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
      <widget class="QStackedWidget" name="views">
@@ -493,7 +501,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QOpenGLWidget" name="StartupView">
        <property name="sizePolicy">
@@ -518,11 +526,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </item>
        </layout>
       </widget>
-      <!-- <widget class="QOpenGLWidget" name="RaceView">
-      	
-      </widget>
-    -->
-      
       <widget class="QOpenGLWidget" name="RaceView">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -552,7 +555,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </item>
        </layout>
       </widget>
-  	
       <widget class="QOpenGLWidget" name="DebugView">
        <property name="styleSheet">
         <string notr="true">QLabel {font : bold 24px; color: white}
@@ -770,7 +772,7 @@ QPushButton:pressed
         <item row="6" column="0">
          <widget class="QLabel" name="labPackC">
           <property name="text">
-           <string>Pack C Voltage</string>
+           <string>Current Discharge Limit</string>
           </property>
          </widget>
         </item>
@@ -787,14 +789,14 @@ QPushButton:pressed
         <item row="5" column="0">
          <widget class="QLabel" name="labPackB">
           <property name="text">
-           <string>Pack B Voltage</string>
+           <string>Low Voltage Cell ID</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="labPackA">
           <property name="text">
-           <string>Pack A Voltage</string>
+           <string>High Voltage Cell ID</string>
           </property>
          </widget>
         </item>
@@ -804,7 +806,7 @@ QPushButton:pressed
         <item row="8" column="0">
          <widget class="QLabel" name="labPackD">
           <property name="text">
-           <string>Pack D Voltage</string>
+           <string>Pack Voltage</string>
           </property>
          </widget>
         </item>

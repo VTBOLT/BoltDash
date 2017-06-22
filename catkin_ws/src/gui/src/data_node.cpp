@@ -39,94 +39,109 @@ void DataNode::chatterCallback_can_msg(const can_to_qt_bolt3::can_msg::ConstPtr&
 {
     switch (msg->define)
     {
-        case (TEMP_MOD_A):  // we take the same action on all of these
-        case (TEMP_MOD_B):  // temp messages... so let the case all through,
-        case (TEMP_MOD_C):  // only leaving one section of code that runs for each
-        case (TEMP_GATE_DRIVER_BOARD): // case of temp
-        case(TEMP_CONTROL_BOARD):
+        case TEMP_MOD_A:  // we take the same action on all of these
+        case TEMP_MOD_B:  // temp messages... so let the case all through,
+        case TEMP_MOD_C:  // only leaving one section of code that runs for each
+        case TEMP_GATE_DRIVER_BOARD: // case of temp
+        case TEMP_CONTROL_BOARD:
             if (msg->can_data > max_rinehart_temp)
             {
                 max_rinehart_temp = msg->can_data;
                 emit updateControllerTemp(max_rinehart_temp);
             }
             break;
-        case (MOTOR_TEMP):
+        case MOTOR_TEMP:
             emit updateMotorTemp(msg->can_data);
             break;
-        case (REGEN_SIGNAL):
+        case REGEN_SIGNAL:
             break;
-        case (MOTOR_ANGLE):
+        case MOTOR_ANGLE:
             break;
-        case (MOTOR_SPEED):
+        case MOTOR_SPEED:
             emit updateRPM(msg->can_data);
             emit updateRPM(QVariant(msg->can_data));
             break;
-        case (RESOLVER_ANGLE):
+        case RESOLVER_ANGLE:
             break;
-        case (DC_CURRENT):
-            emit updateDcCurrent(msg->can_data);
+        case DC_CURRENT:
             break;
-        case (DC_VOLTAGE):
+        case DC_VOLTAGE:
             break;
-        case (OUTPUT_VOLTAGE):
+        case OUTPUT_VOLTAGE:
             emit updateOutputVolts(msg->can_data);
             break;
-        case (PHASE_AB_VOLTAGE):
+        case PHASE_AB_VOLTAGE:
             break;
-        case (PHASE_BC_VOLTAGE):
+        case PHASE_BC_VOLTAGE:
             break;
-        case (IQ_FEEDBACK):
+        case IQ_FEEDBACK:
             break;
-        case (ID_FEEDBACK):
+        case ID_FEEDBACK:
             break;
-        case (VSM_STATE):
+        case VSM_STATE:
            emit updateRMSVSM(msg->can_data);
          // qRCout << "VSM " << msg->can_data << endl;
            break;
-        case (INVERTER_STATE):
+        case INVERTER_STATE:
            emit updateInverter(msg->can_data);
            break;
-        case (FAULT):
+        case FAULT:
             break;
-        case (COMMAND_TORQUE):
+        case COMMAND_TORQUE:
             break;
-        case (TORQUE_FEEDBACK):
+        case TORQUE_FEEDBACK:
             break;
-        case (SPEED_CMD):
+        case SPEED_CMD:
             break;
-        case (PACK_CURRENT):
+        case PACK_CURRENT:
             emit updatePackCurrent(msg->can_data);
             break;
-        case (PACK_INST_VOLTAGE):
+        case PACK_INST_VOLTAGE:
             emit updatePackVolts(msg->can_data);
             break;
-        case (PACK_TEMP_HIGH):
+        case PACK_TEMP_HIGH:
             emit updatePackTempHigh(msg->can_data);
             break;
-        case (PACK_TEMP_LOW):
+        case PACK_TEMP_HIGH_ID:
             break;
-        case (PACK_SOC):
+        case PACK_TEMP_LOW:
+            break;
+        case PACK_TEMP_LOW_ID:
+            break;
+        case PACK_SOC:
             emit updateSOC(msg->can_data);
             break;
         case PACK_CCL:
           break;
         case PACK_DCL:
+            emit updatePackDCL(msg->can_data);
             break;
         case BMS_TEMP:
             break;
         case CELL_VOLT_HIGH_ID:
+            emit updateCellVoltHighID(msg->can_data);
             break;  
         case CELL_VOLT_HIGH:
+            emit updateCellVoltHigh(msg->can_data);
+            cell_high = msg->can_data;
+            emit updateDelta( cell_high-cell_low );
             break;
         case CELL_VOLT_LOW_ID:
+            emit updateCellVoltLowID(msg->can_data);
             break;
         case CELL_VOLT_LOW:
+            emit updateCellVoltLow(msg->can_data);
+            cell_low = msg->can_data;
+            emit updateDelta( cell_high-cell_low );
             break;
         case REGEN_DISABLE:
             break;
         case DC_BUS_CURRENT:
+            emit updateDcCurrent(msg->can_data);
             break;
         case DC_BUS_VOLTAGE:
+            break;
+        default:
             break;
     }
 }

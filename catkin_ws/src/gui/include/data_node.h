@@ -32,7 +32,7 @@ private:
     ros::Subscriber sub1;
     ros::Subscriber sub2;
     ros::Subscriber gpio;
-    double rpm;
+    int cell_high = 0, cell_low = 0;
     int max_rinehart_temp = 0;
     
     void run();
@@ -61,10 +61,11 @@ Q_SIGNALS:
     void updateFAULT(int value);
     void updateRMSVSM(int value);
     void updateInverter(int value);
-
-private Q_SLOTS:
- 	void readData();
-    void readError();
+    void updateCellVoltHigh(int value);
+    void updateCellVoltLow(int value);
+    void updateCellVoltHighID(int value);
+    void updateCellVoltLowID(int value);
+    void updatePackDCL(int value);
 };
 
 #endif //DATA_NODE_H

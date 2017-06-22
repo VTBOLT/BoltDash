@@ -90,6 +90,17 @@ void DashGui::connectStartupSlots()
 
 }
 
+void DashGui::connectVoltageSlots()
+{
+  connect(datanode, SIGNAL( updateCellVoltageHigh(double)), ui_.lcdHighVoltage, SLOT(display(double)));
+  connect(datanode, SIGNAL( updateCellVoltageLow(double)), ui_.lcdLowVoltage, SLOT(display(double)));
+  connect(datanode, SIGNAL( updateDelta(double)), ui_.lcdDelta, SLOT(display(double)));
+  connect(datanode, SIGNAL( updateCellVoltageHighID(double)), ui_.lcdPackA, SLOT(display(double)));
+  connect(datanode, SIGNAL( updateCellVoltageLowID(double)), ui_.lcdPackB, SLOT(display(double)));
+  connect(datanode, SIGNAL( updatePackDCL(double)), ui_.lcdPackC, SLOT(display(double)));
+  connect(datanode, SIGNAL( updatePackVolts(double)), ui_.lcdPackD, SLOT(display(double)));
+}
+
 void DashGui::setRPM(QVariant rpm)
 {
     float angle = rpm.toFloat() * (180.0/8000.0);

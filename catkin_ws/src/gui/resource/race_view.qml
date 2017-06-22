@@ -8,7 +8,6 @@ Item {
     property alias needle: needle
     property alias myRot: myRot.angle
     property alias green_bar: green_bar.width
-    //property alias qmlToDebug: qmlToDebug
 
     RowLayout {
         antialiasing: true
@@ -29,12 +28,6 @@ Item {
         source: "qrc:///gauge_images/dash_background_with_meter.png"
     }
 
-        /*Button {
-            id: qmlToDebug
-            text: "To Debug Screen"
-            onClicked: item.toDebugSignal()
-        }*/
-
     Image {
         id: needle
         x: 248
@@ -44,7 +37,6 @@ Item {
         fillMode: Image.PreserveAspectFit
         antialiasing: true
         z: 1
-        //source: "qrc:///gauge_images/needle_w_green_dot.png"
         source: "qrc:///gauge_images/Dash_Needle.svg"
 
         transform: Rotation{
@@ -60,7 +52,6 @@ Item {
             width: needle.width
             height: needle.height
             onClicked: item.toDebugSignal()
-            //onClicked: console.log("Mouse Area Clicked!")
         }
       }
 
@@ -87,7 +78,6 @@ Item {
             z: 2
             width: 515 // max = 515
             height: 75
-            asynchronous: true
             antialiasing: true
         }
 }

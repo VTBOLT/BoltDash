@@ -49,6 +49,7 @@ public:
     virtual void initPlugin(qt_gui_cpp::PluginContext &context);
 
 Q_SIGNALS:
+    void updateDelta(int delta);
     void stateSet();
     void updateState();
 
@@ -99,6 +100,7 @@ private:
     void connectRaceSlots();
     void connectNavSlots();
     void connectStartupSlots();
+    void connectVoltageSlots();
     void setState(int value, int fault_state=0);
     int getIGNOK();
     int getIMD();
