@@ -12,6 +12,7 @@
 #include <rqt_gui_cpp/plugin.h>
 #include <ui_dash_gui.h>
 
+#include <QMainWindow>
 #include <QWidget>
 #include <QStringList>
 #include <QOpenGLWidget>
@@ -78,7 +79,8 @@ private Q_SLOTS:
 
 private:
     Ui::DashGuiWidget ui_;
-    QOpenGLWidget *widget_;
+    QMainWindow *window;
+    QWidget *widget_;
     DataNode * datanode;
     QObject * rootObject;   // allows us to access items in QML
 

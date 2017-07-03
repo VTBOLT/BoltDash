@@ -27,9 +27,11 @@ DashGui::~DashGui()
 void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
 {
     /* Setup the widget */
-    widget_ = new QOpenGLWidget();
+    window = new QMainWindow();
+    widget_ = new QWidget();
+
     ui_.setupUi(widget_);
-    context.addWidget(widget_);
+    //context.addWidget(widget_);
 
     // instantiates a ros node to read data
     datanode = new DataNode();
@@ -45,7 +47,10 @@ void DashGui::initPlugin(qt_gui_cpp::PluginContext &context)
     datanode->start();
 
     // TODO : replace with startup stuff
-    toRaceView();
+    //toRaceView();
+    
+    window->setCentralWidget(widget_);
+    window->showFullScreen();
 }
 
 void DashGui::loadQML()

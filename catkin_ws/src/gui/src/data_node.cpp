@@ -25,13 +25,11 @@ DataNode::DataNode()
 
 void DataNode::run()
 {
-    qRCout << ">>> Run" << endl; 
     while(ros::ok())
     {
-      qRCout << "OK" << endl;
       ros::spin(); // spin() will not return until the node has been shutdown
     }
-    qRCout << "No more OK" << endl;
+    qRCout << "ROS Has Encountered An Error" << endl;
     return;
 }
 
