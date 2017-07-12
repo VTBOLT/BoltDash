@@ -501,7 +501,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QOpenGLWidget" name="StartupView">
        <property name="sizePolicy">
@@ -526,34 +526,77 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </item>
        </layout>
       </widget>
-      <widget class="QOpenGLWidget" name="RaceView">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QWidget" name="newRaceView">
+       <property name="styleSheet">
+        <string notr="true">QLabel {font : bold 24px; color: white}
+QLCDNumber {color: white}
+
+QPushButton
+{
+    color: rgb(255, 255, 255);
+    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #565656, stop: 0.1 #525252, stop: 0.5 #4e4e4e, stop: 0.9 #4a4a4a, stop: 1 #464646);
+    border-width: 1px;
+    border-color: #1e1e1e;
+    border-style: solid;
+    border-radius: 6;
+	font-size: 18px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+QPushButton:pressed
+{
+    background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #2d2d2d, stop: 0.1 #2b2b2b, stop: 0.5 #292929, stop: 0.9 #282828, stop: 1 #252525);
+}</string>
        </property>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QQuickWidget" name="qmlRace">
-          <property name="minimumSize">
-           <size>
-            <width>1024</width>
-            <height>600</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>1024</width>
-            <height>600</height>
-           </size>
-          </property>
-          <property name="resizeMode">
-           <enum>QQuickWidget::SizeRootObjectToView</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1041</width>
+          <height>621</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+          <widget class="QLCDNumber" name="rpm">
+           <property name="minimumSize">
+            <size>
+             <width>1000</width>
+             <height>500</height>
+            </size>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QProgressBar" name="soc">
+           <property name="styleSheet">
+            <string notr="true">background-color: gray;
+height: 50px;
+color: white;
+
+
+</string>
+           </property>
+           <property name="value">
+            <number>24</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="toDeubug">
+           <property name="text">
+            <string>To Debug</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QOpenGLWidget" name="DebugView">
        <property name="styleSheet">
@@ -631,6 +674,9 @@ QPushButton:pressed
             </property>
            </widget>
           </item>
+          <item row="7" column="2">
+           <widget class="QLCDNumber" name="lcdPackTempHigh"/>
+          </item>
           <item row="4" column="0">
            <widget class="QLabel" name="labMotorTemp">
             <property name="text">
@@ -640,9 +686,6 @@ QPushButton:pressed
           </item>
           <item row="3" column="2">
            <widget class="QLCDNumber" name="lcdPackVoltage"/>
-          </item>
-          <item row="7" column="2">
-           <widget class="QLCDNumber" name="lcdPackTempHigh"/>
           </item>
           <item row="8" column="2">
            <widget class="QLabel" name="labRmsCurrent">
@@ -672,12 +715,18 @@ QPushButton:pressed
             </property>
            </widget>
           </item>
+          <item row="9" column="1">
+           <widget class="QLCDNumber" name="lcdSOC"/>
+          </item>
           <item row="8" column="1">
            <widget class="QLabel" name="labSOC">
             <property name="text">
              <string>State of Charge</string>
             </property>
            </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QLCDNumber" name="lcdRmsCurrent"/>
           </item>
           <item row="1" column="2">
            <widget class="QLabel" name="labPackCurrent">
@@ -686,11 +735,8 @@ QPushButton:pressed
             </property>
            </widget>
           </item>
-          <item row="9" column="1">
-           <widget class="QLCDNumber" name="lcdSOC"/>
-          </item>
-          <item row="9" column="2">
-           <widget class="QLCDNumber" name="lcdRmsCurrent"/>
+          <item row="9" column="0">
+           <widget class="QLCDNumber" name="lcdFieldWeakening"/>
           </item>
           <item row="8" column="0">
            <widget class="QLabel" name="labFieldWeakening">
@@ -698,9 +744,6 @@ QPushButton:pressed
              <string>Field Weakening Angle</string>
             </property>
            </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QLCDNumber" name="lcdFieldWeakening"/>
           </item>
          </layout>
         </item>
@@ -871,13 +914,6 @@ QPushButton:pressed
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>QQuickWidget</class>
-   <extends>QWidget</extends>
-   <header>QtQuickWidgets/QQuickWidget</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

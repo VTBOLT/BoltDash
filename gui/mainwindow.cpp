@@ -8,12 +8,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    loadQML();
+//    loadQML();
 
     can_node = new CanNode();
-    can_node->start();
+//    can_node->start();
     gpio_node = new GpioNode();
-    gpio_node->start();
+//    gpio_node->start();
 
     connectStartupSlots();
     connectRaceSlots();
@@ -23,17 +23,23 @@ MainWindow::MainWindow(QWidget *parent) :
     // TODO : replace with startup stuff
     //toStartupScreen();
     toDebugView();
+    //toRaceView();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete ui;   connect(rootObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
+
+    connect(ui->toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
+    connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
+    connect(ui->toVoltageButton,SIGNAL(clicked(bool)),this,SLOT(toVoltageView()));
+    connect(ui->exitButton,SIGNAL(clicked(bool)),this,SLOT(on_exitButton_clicked()));
 }
 
 void MainWindow::loadQML()
 {
-    ui->qmlRace->setSource(QUrl("qrc:///qml/race_view.qml"));
-    rootObject = ui->qmlRace->rootObject();
+//    ui->qmlRace->setSource(QUrl("qrc:///qml/race_view.qml"));
+//    rootObject = ui->qmlRace->rootObject();
 }
 
 void MainWindow::connectDebugSlots()
@@ -54,8 +60,10 @@ void MainWindow::connectDebugSlots()
 
 void MainWindow::connectRaceSlots()
 {
-    connect(can_node, SIGNAL(updateRPM(QVariant)), this, SLOT(setRPM(QVariant)));
-    connect(can_node, SIGNAL(updateSOC(double)), this, SLOT(setBatteryPercent(double)));
+//    connect(can_node, SIGNAL(updateRPM(QVariant)), this, SLOT(setRPM(QVariant)));
+//    connect(can_node, SIGNAL(updateSOC(double)), this, SLOT(setBatteryPercent(double)));
+    connect(can_node, SIGNAL(updateRPM(double)), ui->rpm, SLOT(display(double)));
+    connect(can_node, SIGNAL(updateSOC(int)), ui->soc, SLOT(setValue(int)));
 }
 
 void MainWindow::connectStartupSlots()
@@ -82,20 +90,21 @@ void MainWindow::connectVoltageSlots()
 
 void MainWindow::setRPM(QVariant rpm)
 {
-    float angle = rpm.toFloat() * (180.0/8000.0);
-    rootObject->setProperty("myRot", QVariant(angle));
+//    float angle = rpm.toFloat() * (180.0/8000.0);
+//    rootObject->setProperty("myRot", QVariant(angle));
 }
 
 void MainWindow::setBatteryPercent(double value)
 {
-    double width = 512 * ( value/100.0 );
-    rootObject->setProperty("green_bar", QVariant(width));
+//    double width = 512 * ( value/100.0 );
+//    rootObject->setProperty("green_bar", QVariant(width));
 }
 
 void MainWindow::connectNavSlots()
 {
-    connect(rootObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
+//    connect(rootObject, SIGNAL(toDebugSignal()), this, SLOT(toDebugView()));
 
+    connect(ui->toDeubug,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
     connect(ui->toRaceButton,SIGNAL(clicked(bool)),this,SLOT(toRaceView()));
     connect(ui->toDebugButton,SIGNAL(clicked(bool)),this,SLOT(toDebugView()));
     connect(ui->toVoltageButton,SIGNAL(clicked(bool)),this,SLOT(toVoltageView()));

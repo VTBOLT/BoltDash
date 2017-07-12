@@ -139,6 +139,7 @@ void CanNode::run()
             emit updatePackDCL((message.data[3] | message.data[2] << 8));
             // PACK SOC
             emit updateSOC((message.data[5] | message.data[4] << 8));
+            emit updateSOC(int((message.data[5] | message.data[4] << 8)));
             // PACK CURRENT
             emit updatePackCurrent((message.data[7] | message.data[6] << 8));
             break;

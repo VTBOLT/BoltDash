@@ -21,6 +21,7 @@ signals:
     void updateRPM(double rpm);
     void updateRPM(const QVariant & rpm);
     void updateSOC(double volt);
+    void updateSOC(int volt);
     void updateMotorTemp(double temp);
     void updateDcCurrent(double current);
     void updateOutputVolts(double volts);
