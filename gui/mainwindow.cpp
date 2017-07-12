@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->soc->setValue(100);
 //    loadQML();
+    toRaceView();
 
     can_node = new CanNode();
     can_node->start();
@@ -23,8 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // TODO : replace with startup stuff
     //toStartupScreen();
-    toDebugView();
-    //toRaceView();
+    //toDebugView();
 }
 
 MainWindow::~MainWindow()
