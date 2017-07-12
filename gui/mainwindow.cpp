@@ -10,19 +10,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     loadQML();
 
+    // this is a bug fix... i dont know why we have to load this first
+    toRaceView();
+
     can_node = new CanNode();
-    can_node->start();
     gpio_node = new GpioNode();
-    gpio_node->start();
 
     connectStartupSlots();
     connectRaceSlots();
     connectNavSlots();
     connectDebugSlots();
 
-    // TODO : replace with startup stuff
     //toStartupScreen();
-    toDebugView();
+    //toDebugView();
+
+    can_node->start();
+    gpio_node->start();
 }
 
 MainWindow::~MainWindow()
