@@ -560,12 +560,15 @@ QPushButton:pressed
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="bottomMargin">
+          <number>20</number>
+         </property>
          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
           <widget class="QLCDNumber" name="rpm">
            <property name="minimumSize">
             <size>
              <width>1000</width>
-             <height>500</height>
+             <height>400</height>
             </size>
            </property>
            <property name="layoutDirection">
@@ -575,6 +578,12 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QProgressBar" name="soc">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>75</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: gray;
 height: 50px;
@@ -590,6 +599,12 @@ color: white;
          </item>
          <item>
           <widget class="QPushButton" name="toDeubug">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
            <property name="text">
             <string>To Debug</string>
            </property>
