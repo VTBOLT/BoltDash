@@ -11,9 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    loadQML();
 
     can_node = new CanNode();
-//    can_node->start();
+    can_node->start();
     gpio_node = new GpioNode();
-//    gpio_node->start();
+    gpio_node->start();
 
     connectStartupSlots();
     connectRaceSlots();
